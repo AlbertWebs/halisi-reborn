@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    /* Typography */
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+    
+    /* Color Tokens - Halisi Africa */
+    --color-forest-green: #1a4d3a;
+    --color-sand-beige: #e8dcc4;
+    --color-off-white: #faf9f6;
+    --color-earth-brown: #6b4e3d;
+    --color-accent-gold: #d4af37;
+    
+    /* Semantic Colors */
+    --color-primary: var(--color-forest-green);
+    --color-secondary: var(--color-sand-beige);
+    --color-background: var(--color-off-white);
+    --color-text: var(--color-earth-brown);
+    --color-accent: var(--color-accent-gold);
+}

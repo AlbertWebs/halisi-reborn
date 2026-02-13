@@ -22,21 +22,41 @@
     
     <!-- Canonical URL -->
     <link rel="canonical" href="{{ url()->current() }}">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url('/favicon.ico') }}">
+    
+    <!-- Open Graph Image -->
+    @hasSection('og_image')
+        <meta property="og:image" content="@yield('og_image')">
+        <meta property="twitter:image" content="@yield('og_image')">
+    @else
+        <meta property="og:image" content="{{ url('/og-image.jpg') }}">
+        <meta property="twitter:image" content="{{ url('/og-image.jpg') }}">
+    @endif
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700|playfair-display:400,500,600,700" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600,700|playfair-display:400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
+    <!-- Structured Data - Organization -->
+    <x-structured-data type="organization" />
+    
+    @stack('structured_data')
 </head>
 <body class="bg-[var(--color-off-white)] text-[var(--color-earth-brown)] font-sans antialiased">
+    <!-- Skip to Main Content -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+    
     <div class="min-h-screen flex flex-col">
         <!-- Navigation -->
         <x-navigation />
 
         <!-- Main Content -->
-        <main class="flex-grow">
+        <main id="main-content" class="flex-grow" role="main">
             @yield('content')
         </main>
 

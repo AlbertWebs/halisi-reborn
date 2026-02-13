@@ -78,8 +78,13 @@
 
             <!-- Mobile Menu Button -->
             <div class="md:hidden">
-                <button type="button" class="text-[var(--color-forest-green)]" id="mobile-menu-button">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button type="button" 
+                        class="text-[var(--color-forest-green)] focus:outline-none focus:ring-2 focus:ring-[var(--color-forest-green)] focus:ring-offset-2 rounded p-2" 
+                        id="mobile-menu-button"
+                        aria-label="Toggle mobile menu"
+                        aria-expanded="false"
+                        aria-controls="mobile-menu">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
@@ -88,7 +93,7 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div class="md:hidden hidden" id="mobile-menu">
+    <div class="md:hidden hidden" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
         <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-[var(--color-sand-beige)]">
             <a href="{{ route('home') }}" class="block px-3 py-2 text-base font-medium">Home</a>
             <a href="{{ route('about') }}" class="block px-3 py-2 text-base font-medium">About Halisi</a>
@@ -105,6 +110,10 @@
 <script>
     document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
         const menu = document.getElementById('mobile-menu');
+        const button = document.getElementById('mobile-menu-button');
+        const isHidden = menu.classList.contains('hidden');
+        
         menu.classList.toggle('hidden');
+        button.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
     });
 </script>

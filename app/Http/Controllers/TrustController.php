@@ -9,14 +9,31 @@ class TrustController extends Controller
 {
     public function index()
     {
-        $posts = TrustPost::where('is_published', true)
+        $featuredPost = TrustPost::where('is_published', true)
             ->orderBy('published_at', 'desc')
-            ->get();
-        return view('trust.index', compact('posts'));
+            ->first();
+            
+        $posts = TrustPost::where('is_published', true)
+            ->when($featuredPost, function($query) use ($featuredPost) {
+                $query->where('id', '!=', $featuredPost->id);
+            })
+            ->orderBy('published_at', 'desc')
+            ->paginate(9);
+            
+        return view('trust.index', compact('posts', 'featuredPost'));
     }
 
     public function show(TrustPost $post)
     {
-        return view('trust.show', compact('post'));
+        $relatedPosts = TrustPost::where('is_published', true)
+            ->where('id', '!=', $post->id)
+            ->where(function($query) use ($post) {
+                $query->where('category', $post->category)
+                    ->orWhere('category', 'like', '%' . $post->category . '%');
+            })
+            ->limit(3)
+            ->get();
+            
+        return view('trust.show', compact('post', 'relatedPosts'));
     }
 }

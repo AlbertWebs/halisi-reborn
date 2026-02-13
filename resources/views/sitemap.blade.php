@@ -17,6 +17,26 @@
         <priority>0.9</priority>
     </url>
     <url>
+        <loc>{{ route('journeys.signature-safaris') }}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{{ route('journeys.bespoke-private') }}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{{ route('journeys.conservation-community') }}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>{{ route('journeys.luxury-retreats') }}</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>{{ route('countries.index') }}</loc>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>

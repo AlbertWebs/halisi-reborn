@@ -1,6 +1,8 @@
 @props(['type' => 'organization', 'data' => []])
 
+
 @if($type === 'organization')
+@verbatim
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -22,7 +24,9 @@
     }
 }
 </script>
+@endverbatim
 @endif
+
 
 @if($type === 'article')
 @php

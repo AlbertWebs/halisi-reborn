@@ -10,6 +10,17 @@ use App\Http\Controllers\TrustController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\JourneyController as AdminJourneyController;
+use App\Http\Controllers\Admin\CountryController as AdminCountryController;
+use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\HomepageController;
+use App\Http\Controllers\Admin\ImpactController as AdminImpactController;
+use App\Http\Controllers\Admin\TrustController as AdminTrustController;
+use App\Http\Controllers\Admin\FooterController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Middleware\AdminMiddleware;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -52,3 +63,28 @@ Route::get('/contact', [ContactController::class, 'index'])->name('contact.index
 
 // SEO
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
+// Admin Routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Login routes (public)
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
+    
+    // Protected admin routes
+    Route::middleware([AdminMiddleware::class])->group(function () {
+        Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+        
+        // Content Management
+        Route::resource('homepage', HomepageController::class);
+        Route::resource('pages', AdminPageController::class);
+        Route::resource('journeys', AdminJourneyController::class);
+        Route::resource('countries', AdminCountryController::class);
+        Route::resource('impact', AdminImpactController::class);
+        Route::resource('trust', AdminTrustController::class);
+        Route::get('footer', [FooterController::class, 'index'])->name('footer.index');
+        Route::post('footer', [FooterController::class, 'update'])->name('footer.update');
+        Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
+        Route::put('settings', [SettingsController::class, 'update'])->name('settings.update');
+    });
+});

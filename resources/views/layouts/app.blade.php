@@ -42,21 +42,31 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
+    @if(request()->routeIs('home'))
+    <style>
+        html, body {
+            overflow-x: hidden !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+    </style>
+    @endif
+    
     <!-- Structured Data - Organization -->
     <x-structured-data type="organization" />
     
     @stack('structured_data')
 </head>
-<body class="bg-[var(--color-off-white)] text-[var(--color-earth-brown)] font-sans antialiased">
+<body class="bg-[var(--color-off-white)] text-[var(--color-earth-brown)] font-sans antialiased {{ request()->routeIs('home') ? 'homepage-body' : '' }}">
     <!-- Skip to Main Content -->
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
     
-    <div class="min-h-screen flex flex-col">
+    <div class="min-h-screen flex flex-col {{ request()->routeIs('home') ? 'homepage-main-wrapper' : '' }}">
         <!-- Navigation -->
         <x-navigation />
 
         <!-- Main Content -->
-        <main id="main-content" class="flex-grow" role="main">
+        <main id="main-content" class="flex-grow {{ request()->routeIs('home') ? 'overflow-x-hidden homepage-main-content' : '' }}" role="main" style="{{ request()->routeIs('home') ? 'padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important;' : '' }}" >
             @yield('content')
         </main>
 

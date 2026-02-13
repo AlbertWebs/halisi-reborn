@@ -1,6 +1,6 @@
 @props(['title', 'description', 'icon' => null])
 
-<div class="bg-white rounded-lg shadow-md p-6 lg:p-8 hover:shadow-lg transition-all duration-300">
+<div {{ $attributes->merge(['class' => 'bg-white rounded-lg shadow-md p-6 lg:p-8 hover:shadow-lg transition-all duration-300']) }}>
     @if($icon)
         <div class="mb-6 flex items-center justify-center w-16 h-16 bg-[var(--color-sand-beige)] rounded-full">
             {!! $icon !!}

@@ -49,7 +49,7 @@
         </div>
     </section>
 
-    <x-section-divider />
+    
 
     <!-- Trade & Collaborations -->
     <section class="section-padding bg-[var(--color-off-white)]">
@@ -134,7 +134,7 @@
         </div>
     </section>
 
-    <x-section-divider />
+    
 
     <!-- Conservation & Community Partners -->
     <section class="section-padding bg-white">
@@ -188,7 +188,7 @@
         </div>
     </section>
 
-    <x-section-divider />
+    
 
     <!-- Media & Speaking -->
     <section class="section-padding bg-[var(--color-off-white)]">
@@ -232,7 +232,7 @@
         </div>
     </section>
 
-    <x-section-divider />
+    
 
     <!-- Final CTA -->
     <section class="section-padding bg-[var(--color-forest-green)] text-white">

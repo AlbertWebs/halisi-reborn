@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             CountriesSeeder::class,
             JourneysSeeder::class,
             HomepageSeeder::class,
+            SiteSettingsSeeder::class,
             PagesSeeder::class,
             ImpactSeeder::class,
             BlogSeeder::class,

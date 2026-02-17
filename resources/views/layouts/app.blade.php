@@ -57,16 +57,16 @@
     
     @stack('structured_data')
 </head>
-<body class="bg-[var(--color-off-white)] text-[var(--color-earth-brown)] font-sans antialiased {{ request()->routeIs('home') ? 'homepage-body' : '' }}">
+<body class="site-frontend bg-[var(--color-off-white)] text-[var(--color-earth-brown)] font-sans antialiased {{ request()->routeIs('home') ? 'homepage-body' : '' }} {{ request()->routeIs('countries.show') ? 'country-page-body' : '' }}">
     <!-- Skip to Main Content -->
     <a href="#main-content" class="skip-to-main">Skip to main content</a>
     
-    <div class="min-h-screen flex flex-col {{ request()->routeIs('home') ? 'homepage-main-wrapper' : '' }}">
+    <div class="min-h-screen flex flex-col {{ request()->routeIs('home') ? 'homepage-main-wrapper' : '' }} {{ request()->routeIs('countries.show') ? 'country-page-main-wrapper' : '' }}">
         <!-- Navigation -->
         <x-navigation />
 
         <!-- Main Content -->
-        <main id="main-content" class="flex-grow {{ request()->routeIs('home') ? 'overflow-x-hidden homepage-main-content' : '' }}" role="main" style="{{ request()->routeIs('home') ? 'padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important;' : '' }}" >
+        <main id="main-content" class="flex-grow {{ request()->routeIs('home') ? 'overflow-x-hidden homepage-main-content' : '' }} {{ request()->routeIs('countries.show') ? 'overflow-x-hidden country-page-main-content' : '' }}" role="main" style="{{ request()->routeIs('home') ? 'padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important;' : '' }} {{ request()->routeIs('countries.show') ? 'padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important;' : '' }}" >
             @yield('content')
         </main>
 

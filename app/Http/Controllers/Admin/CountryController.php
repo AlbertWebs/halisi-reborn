@@ -29,11 +29,22 @@ class CountryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:countries,slug',
             'hero_image' => 'nullable|image|max:2048',
+            'hero_video' => 'nullable|string|max:500',
+            'hero_subtitle' => 'nullable|string',
+            'narrative_image' => 'nullable|image|max:2048',
             'country_narrative' => 'required|string',
             'signature_experiences' => 'nullable|string',
+            'signature_experiences_title' => 'nullable|string|max:255',
             'conservation_focus' => 'nullable|string',
+            'conservation_title' => 'nullable|string|max:255',
+            'conservation_visual_text' => 'nullable|string',
+            'featured_journeys_title' => 'nullable|string|max:255',
+            'featured_journeys_button_text' => 'nullable|string|max:255',
             'cta_label' => 'nullable|string|max:255',
             'cta_link' => 'nullable|string|max:255',
+            'cta_title' => 'nullable|string|max:255',
+            'cta_description' => 'nullable|string',
+            'cta_button_text' => 'nullable|string|max:255',
             'is_published' => 'boolean',
             'sort_order' => 'nullable|integer',
             'journeys' => 'nullable|array',
@@ -45,6 +56,10 @@ class CountryController extends Controller
 
         if ($request->hasFile('hero_image')) {
             $validated['hero_image'] = $request->file('hero_image')->store('countries', 'public');
+        }
+
+        if ($request->hasFile('narrative_image')) {
+            $validated['narrative_image'] = $request->file('narrative_image')->store('countries', 'public');
         }
 
         $validated['is_published'] = $request->has('is_published');
@@ -72,11 +87,22 @@ class CountryController extends Controller
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:countries,slug,' . $country->id,
             'hero_image' => 'nullable|image|max:2048',
+            'hero_video' => 'nullable|string|max:500',
+            'hero_subtitle' => 'nullable|string',
+            'narrative_image' => 'nullable|image|max:2048',
             'country_narrative' => 'required|string',
             'signature_experiences' => 'nullable|string',
+            'signature_experiences_title' => 'nullable|string|max:255',
             'conservation_focus' => 'nullable|string',
+            'conservation_title' => 'nullable|string|max:255',
+            'conservation_visual_text' => 'nullable|string',
+            'featured_journeys_title' => 'nullable|string|max:255',
+            'featured_journeys_button_text' => 'nullable|string|max:255',
             'cta_label' => 'nullable|string|max:255',
             'cta_link' => 'nullable|string|max:255',
+            'cta_title' => 'nullable|string|max:255',
+            'cta_description' => 'nullable|string',
+            'cta_button_text' => 'nullable|string|max:255',
             'is_published' => 'boolean',
             'sort_order' => 'nullable|integer',
             'journeys' => 'nullable|array',
@@ -87,6 +113,13 @@ class CountryController extends Controller
                 Storage::disk('public')->delete($country->hero_image);
             }
             $validated['hero_image'] = $request->file('hero_image')->store('countries', 'public');
+        }
+
+        if ($request->hasFile('narrative_image')) {
+            if ($country->narrative_image) {
+                Storage::disk('public')->delete($country->narrative_image);
+            }
+            $validated['narrative_image'] = $request->file('narrative_image')->store('countries', 'public');
         }
 
         $validated['is_published'] = $request->has('is_published');
@@ -106,6 +139,9 @@ class CountryController extends Controller
     {
         if ($country->hero_image) {
             Storage::disk('public')->delete($country->hero_image);
+        }
+        if ($country->narrative_image) {
+            Storage::disk('public')->delete($country->narrative_image);
         }
         $country->journeys()->detach();
         $country->delete();

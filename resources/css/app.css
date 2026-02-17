@@ -135,6 +135,29 @@ body {
     outline-offset: 2px;
 }
 
+/* Global title treatment for frontend pages */
+.site-frontend main h1,
+.site-frontend main h2,
+.site-frontend main h3 {
+    position: relative;
+    display: inline-block;
+    width: fit-content;
+    padding-bottom: 0.42rem;
+}
+
+.site-frontend main h1::after,
+.site-frontend main h2::after,
+.site-frontend main h3::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0.22rem;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.95), rgba(232, 220, 196, 0.95));
+}
+
 /* Screen Reader Only */
 .sr-only {
     position: absolute;
@@ -464,6 +487,264 @@ section.hero-section-wrapper .hero-video-container iframe {
     }
     
     .hero-video-container iframe {
+        width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+/* Country Page Hero Section - Edge-to-Edge Styles */
+/* Override all possible constraints on country pages */
+body.country-page-body,
+html.country-page-body {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
+.country-page-main-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+.country-page-main-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
+
+/* Country Hero Section - Force Edge-to-Edge */
+section.country-hero-section-wrapper,
+.country-hero-section-wrapper {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Country Video Container - Force Edge-to-Edge */
+.country-hero-video-container,
+div.country-hero-video-container,
+section.country-hero-section-wrapper .country-hero-video-container,
+.country-hero-section-wrapper > .country-hero-video-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    height: 100% !important;
+    min-height: 80vh !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    overflow: hidden !important;
+    box-sizing: border-box !important;
+    transform: translateX(0) !important;
+}
+
+/* Country Video Iframe - Force Edge-to-Edge */
+.country-hero-video-container iframe,
+div.country-hero-video-container iframe,
+.country-hero-video-container > iframe {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    height: 100% !important;
+    min-height: 100% !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border: none !important;
+    display: block !important;
+    box-sizing: border-box !important;
+    transform: translateX(0) !important;
+    object-fit: cover !important;
+}
+
+/* Override any parent container constraints for country pages */
+main#main-content.country-page-main-content,
+main.country-page-main-content,
+body.country-page-body main,
+.country-page-main-wrapper main {
+    margin: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* Override any Tailwind or framework constraints for country hero */
+.country-hero-section-wrapper * {
+    box-sizing: border-box !important;
+}
+
+/* ULTRA AGGRESSIVE EDGE-TO-EDGE for Country Pages - Break out of ALL containers */
+body.country-page-body .country-page-main-content > section.country-hero-section-wrapper {
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+/* Force country video container to be exactly viewport width - edge to edge */
+body.country-page-body .country-hero-video-container,
+.country-hero-video-container {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Force country iframe to be exactly viewport width - edge to edge on all screen sizes */
+body.country-page-body .country-hero-video-container iframe,
+.country-hero-video-container iframe {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    min-width: 100vw !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    transform: translateX(0) !important;
+    object-position: center center !important;
+}
+
+/* Additional fix for edge-to-edge on all devices - country pages */
+section.country-hero-section-wrapper .country-hero-video-container iframe {
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+/* Ensure country hero section breaks out on all screen sizes - responsive */
+@media screen and (max-width: 640px) {
+    body.country-page-body .country-page-main-content > section.country-hero-section-wrapper,
+    section.country-hero-section-wrapper {
+        width: 100vw !important;
+        left: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        right: 50% !important;
+    }
+    
+    .country-hero-video-container,
+    body.country-page-body .country-hero-video-container {
+        width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .country-hero-video-container iframe {
+        width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+    body.country-page-body .country-page-main-content > section.country-hero-section-wrapper,
+    section.country-hero-section-wrapper {
+        width: 100vw !important;
+        left: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        right: 50% !important;
+    }
+    
+    .country-hero-video-container,
+    body.country-page-body .country-hero-video-container {
+        width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .country-hero-video-container iframe {
+        width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    body.country-page-body .country-page-main-content > section.country-hero-section-wrapper,
+    section.country-hero-section-wrapper {
+        width: 100vw !important;
+        left: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        right: 50% !important;
+    }
+    
+    .country-hero-video-container,
+    body.country-page-body .country-hero-video-container {
+        width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    
+    .country-hero-video-container iframe {
         width: 100vw !important;
         left: 0 !important;
         right: 0 !important;

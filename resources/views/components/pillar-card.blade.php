@@ -1,4 +1,4 @@
-@props(['title', 'description', 'icon' => null])
+@props(['title', 'description' => null, 'icon' => null])
 
 <div {{ $attributes->merge(['class' => 'bg-white rounded-lg shadow-md p-6 lg:p-8 hover:shadow-lg transition-all duration-300']) }}>
     @if($icon)
@@ -7,7 +7,9 @@
         </div>
     @endif
     <h3 class="text-xl lg:text-2xl font-serif font-semibold text-[var(--color-forest-green)] mb-4">{{ $title }}</h3>
-    <p class="text-[var(--color-earth-brown)] leading-relaxed mb-4">{{ $description }}</p>
+    @if(filled($description))
+        <p class="text-[var(--color-earth-brown)] leading-relaxed mb-4">{{ $description }}</p>
+    @endif
     @isset($button)
         <div class="mt-6">
             {{ $button }}

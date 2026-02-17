@@ -64,6 +64,7 @@ class CountryController extends Controller
     private function showCountry(string $slug)
     {
         $country = Country::where('slug', $slug)->where('is_published', true)->first();
+        $journeys = collect();
         
         // If country doesn't exist in DB, create a temporary object with default data
         if (!$country) {
@@ -109,8 +110,15 @@ class CountryController extends Controller
                 'country_narrative' => $data['narrative'],
                 'is_published' => true,
             ]);
+        } else {
+            $journeys = \App\Models\Journey::where('is_published', true)
+                ->whereHas('countries', function ($query) use ($country) {
+                    $query->where('countries.id', $country->id);
+                })
+                ->orderBy('sort_order')
+                ->get();
         }
         
-        return view('countries.show', compact('country'));
+        return view('countries.show', compact('country', 'journeys'));
     }
 }

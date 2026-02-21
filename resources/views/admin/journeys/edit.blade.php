@@ -53,7 +53,7 @@
                         <img src="{{ asset('storage/' . $journey->hero_image) }}" alt="Current hero image" class="w-64 h-32 object-cover rounded-lg">
                     </div>
                 @endif
-                <input type="file" id="hero_image" name="hero_image" accept="image/*"
+                <input type="file" id="hero_image" name="hero_image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
                 <p class="text-xs text-gray-500 mt-1">Leave empty to keep current image</p>
             </div>

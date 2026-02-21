@@ -31,7 +31,7 @@ class PageController extends Controller
             'body_content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
-            'hero_image' => 'nullable|image|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'is_published' => 'boolean',
         ]);
 
@@ -65,7 +65,7 @@ class PageController extends Controller
             'body_content' => 'nullable|string',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
-            'hero_image' => 'nullable|image|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'is_published' => 'boolean',
         ]);
 

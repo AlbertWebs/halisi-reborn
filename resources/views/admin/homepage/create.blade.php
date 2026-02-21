@@ -56,7 +56,7 @@
             <!-- Image -->
             <div>
                 <label for="image" class="block text-sm font-medium text-gray-700 mb-2">Image</label>
-                <input type="file" id="image" name="image" accept="image/*"
+                <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
                 <p class="text-xs text-gray-500 mt-1">Recommended: 1920x1080px, max 2MB</p>
             </div>

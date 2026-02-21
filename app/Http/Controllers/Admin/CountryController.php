@@ -28,16 +28,30 @@ class CountryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:countries,slug',
-            'hero_image' => 'nullable|image|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'hero_video' => 'nullable|string|max:500',
             'hero_subtitle' => 'nullable|string',
-            'narrative_image' => 'nullable|image|max:2048',
+            'narrative_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'country_narrative' => 'required|string',
             'signature_experiences' => 'nullable|string',
             'signature_experiences_title' => 'nullable|string|max:255',
+            'signature_card_1_label' => 'nullable|string|max:255',
+            'signature_card_1_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_1_video' => 'nullable|string|max:500',
+            'signature_card_2_label' => 'nullable|string|max:255',
+            'signature_card_2_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_2_video' => 'nullable|string|max:500',
+            'signature_card_3_label' => 'nullable|string|max:255',
+            'signature_card_3_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_3_video' => 'nullable|string|max:500',
+            'signature_card_4_label' => 'nullable|string|max:255',
+            'signature_card_4_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_4_video' => 'nullable|string|max:500',
             'conservation_focus' => 'nullable|string',
             'conservation_title' => 'nullable|string|max:255',
             'conservation_visual_text' => 'nullable|string',
+            'conservation_button_text' => 'nullable|string|max:255',
+            'conservation_button_link' => 'nullable|string|max:500',
             'featured_journeys_title' => 'nullable|string|max:255',
             'featured_journeys_button_text' => 'nullable|string|max:255',
             'cta_label' => 'nullable|string|max:255',
@@ -60,6 +74,12 @@ class CountryController extends Controller
 
         if ($request->hasFile('narrative_image')) {
             $validated['narrative_image'] = $request->file('narrative_image')->store('countries', 'public');
+        }
+
+        foreach (['1', '2', '3', '4'] as $i) {
+            if ($request->hasFile("signature_card_{$i}_image")) {
+                $validated["signature_card_{$i}_image"] = $request->file("signature_card_{$i}_image")->store('countries', 'public');
+            }
         }
 
         $validated['is_published'] = $request->has('is_published');
@@ -86,16 +106,30 @@ class CountryController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:countries,slug,' . $country->id,
-            'hero_image' => 'nullable|image|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'hero_video' => 'nullable|string|max:500',
             'hero_subtitle' => 'nullable|string',
-            'narrative_image' => 'nullable|image|max:2048',
+            'narrative_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'country_narrative' => 'required|string',
             'signature_experiences' => 'nullable|string',
             'signature_experiences_title' => 'nullable|string|max:255',
+            'signature_card_1_label' => 'nullable|string|max:255',
+            'signature_card_1_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_1_video' => 'nullable|string|max:500',
+            'signature_card_2_label' => 'nullable|string|max:255',
+            'signature_card_2_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_2_video' => 'nullable|string|max:500',
+            'signature_card_3_label' => 'nullable|string|max:255',
+            'signature_card_3_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_3_video' => 'nullable|string|max:500',
+            'signature_card_4_label' => 'nullable|string|max:255',
+            'signature_card_4_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'signature_card_4_video' => 'nullable|string|max:500',
             'conservation_focus' => 'nullable|string',
             'conservation_title' => 'nullable|string|max:255',
             'conservation_visual_text' => 'nullable|string',
+            'conservation_button_text' => 'nullable|string|max:255',
+            'conservation_button_link' => 'nullable|string|max:500',
             'featured_journeys_title' => 'nullable|string|max:255',
             'featured_journeys_button_text' => 'nullable|string|max:255',
             'cta_label' => 'nullable|string|max:255',
@@ -122,6 +156,16 @@ class CountryController extends Controller
             $validated['narrative_image'] = $request->file('narrative_image')->store('countries', 'public');
         }
 
+        foreach (['1', '2', '3', '4'] as $i) {
+            $key = "signature_card_{$i}_image";
+            if ($request->hasFile($key)) {
+                if ($country->$key) {
+                    Storage::disk('public')->delete($country->$key);
+                }
+                $validated[$key] = $request->file($key)->store('countries', 'public');
+            }
+        }
+
         $validated['is_published'] = $request->has('is_published');
 
         $country->update($validated);
@@ -142,6 +186,12 @@ class CountryController extends Controller
         }
         if ($country->narrative_image) {
             Storage::disk('public')->delete($country->narrative_image);
+        }
+        foreach (['1', '2', '3', '4'] as $i) {
+            $key = "signature_card_{$i}_image";
+            if ($country->$key) {
+                Storage::disk('public')->delete($country->$key);
+            }
         }
         $country->journeys()->detach();
         $country->delete();

@@ -60,10 +60,15 @@
                     <div class="mb-3">
                         <img src="{{ asset('storage/' . $homepage->image) }}" alt="Current image" class="w-64 h-32 object-cover rounded-lg">
                     </div>
+                    <label class="flex items-center mt-2">
+                        <input type="checkbox" name="remove_image" value="1" {{ old('remove_image') ? 'checked' : '' }}
+                               class="rounded border-gray-300 text-red-600 focus:ring-red-500">
+                        <span class="ml-2 text-sm text-gray-700">Remove current image (use default icon on homepage)</span>
+                    </label>
                 @endif
-                <input type="file" id="image" name="image" accept="image/*"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
-                <p class="text-xs text-gray-500 mt-1">Leave empty to keep current image</p>
+                <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
+                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] mt-2">
+                <p class="text-xs text-gray-500 mt-1">Leave empty to keep current image. Or check "Remove current image" above to clear it.</p>
             </div>
 
             <!-- CTA -->

@@ -18,26 +18,32 @@
 @section('content')
     <!-- Hero Section -->
     <section class="country-hero-section-wrapper relative min-h-[80vh] flex items-end bg-[var(--color-forest-green)] text-white overflow-hidden">
-        @if($country->hero_video)
+        @php
+            // Extract Vimeo video ID from URL (support vimeo.com/123, vimeo.com/video/123, player.vimeo.com/video/123, or plain ID)
+            $heroVideoId = null;
+            if (filled($country->hero_video)) {
+                if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $country->hero_video, $m)) {
+                    $heroVideoId = $m[1];
+                } elseif (preg_match('/\/(\d+)(?:\?|$)/', $country->hero_video, $m)) {
+                    $heroVideoId = $m[1];
+                } elseif (preg_match('/^\d+$/', trim($country->hero_video))) {
+                    $heroVideoId = trim($country->hero_video);
+                }
+            }
+        @endphp
+        @if($heroVideoId)
             <!-- Video Background -->
             <div class="country-hero-video-container absolute inset-0 z-0">
-                @php
-                    // Extract Vimeo video ID from URL
-                    $videoId = null;
-                    if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $country->hero_video, $matches)) {
-                        $videoId = $matches[1];
-                    } elseif (preg_match('/\/(\d+)/', $country->hero_video, $matches)) {
-                        $videoId = $matches[1];
-                    }
-                @endphp
-                @if($videoId)
+                <div class="absolute inset-0 overflow-hidden">
                     <iframe 
-                        src="https://player.vimeo.com/video/{{ $videoId }}?background=1&autoplay=1&loop=1&muted=1&controls=0&playsinline=1&byline=0&title=0"
+                        src="https://player.vimeo.com/video/{{ $heroVideoId }}?background=1&autoplay=1&loop=1&muted=1&controls=0&playsinline=1&byline=0&title=0"
                         frameborder="0"
                         allow="autoplay; fullscreen; picture-in-picture"
-                        class="absolute inset-0 w-full h-full object-cover"
+                        allowfullscreen
+                        class="country-hero-vimeo-iframe"
+                        style="position: absolute !important; top: 50% !important; left: 50% !important; width: 177.78vh !important; min-width: 100% !important; height: 100% !important; min-height: 56.25vw !important; transform: translate(-50%, -50%) !important; border: 0 !important; pointer-events: none !important;"
                     ></iframe>
-                @endif
+                </div>
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent z-10"></div>
             </div>
         @elseif($country->hero_image)
@@ -78,7 +84,7 @@
                     <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl">
                         <img src="{{ asset('storage/' . $country->narrative_image) }}" alt="{{ $country->name }}" class="w-full h-full object-cover">
                     </div>
-                @elseif($country->hero_image && !$country->hero_video)
+                @elseif($country->hero_image && !$heroVideoId)
                     <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl">
                         <img src="{{ asset('storage/' . $country->hero_image) }}" alt="{{ $country->name }}" class="w-full h-full object-cover">
                     </div>
@@ -115,30 +121,64 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
-                    <div class="relative h-48 rounded-lg overflow-hidden shadow-md">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-forest-green)] to-[var(--color-earth-brown)] opacity-80"></div>
-                        <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4">
-                            <p class="font-semibold">Wildlife Encounters</p>
+                    @php
+                        $cardLabels = [
+                            1 => $country->signature_card_1_label ?: 'Wildlife Encounters',
+                            2 => $country->signature_card_2_label ?: 'Cultural Immersion',
+                            3 => $country->signature_card_3_label ?: 'Adventure Activities',
+                            4 => $country->signature_card_4_label ?: 'Luxury Lodging',
+                        ];
+                        $cardGradients = [
+                            1 => 'from-[var(--color-forest-green)] to-[var(--color-earth-brown)]',
+                            2 => 'from-[var(--color-earth-brown)] to-[var(--color-accent-gold)]',
+                            3 => 'from-[var(--color-accent-gold)] to-[var(--color-forest-green)]',
+                            4 => 'from-[var(--color-forest-green)] to-[var(--color-accent-gold)]',
+                        ];
+                        $parseVimeoId = function ($url) {
+                            if (!filled($url)) return null;
+                            if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $url, $m)) return $m[1];
+                            if (preg_match('/\/(\d+)(?:\?|$)/', $url, $m)) return $m[1];
+                            if (preg_match('/^\d+$/', trim($url))) return trim($url);
+                            return null;
+                        };
+                    @endphp
+                    @foreach([1, 2, 3, 4] as $i)
+                        @php
+                            $videoUrl = $country->{"signature_card_{$i}_video"};
+                            $imagePath = $country->{"signature_card_{$i}_image"};
+                            $vimeoId = $parseVimeoId($videoUrl);
+                        @endphp
+                        <div class="relative h-48 rounded-lg overflow-hidden shadow-md signature-card">
+                            @if($vimeoId)
+                                {{-- Fallback image (or gradient) shown until video is ready --}}
+                                @if($imagePath)
+                                    <img src="{{ asset('storage/' . $imagePath) }}" alt="" class="signature-card-fallback absolute inset-0 w-full h-full object-cover z-0" aria-hidden="true">
+                                @else
+                                    <div class="absolute inset-0 bg-gradient-to-br {{ $cardGradients[$i] }} opacity-90 z-0" aria-hidden="true"></div>
+                                @endif
+                                <div class="absolute inset-0 z-[5] signature-card-video-wrap">
+                                    <iframe
+                                        src="https://player.vimeo.com/video/{{ $vimeoId }}?background=1&autoplay=1&loop=1&muted=1&controls=0&playsinline=1&byline=0&title=0"
+                                        frameborder="0"
+                                        allow="autoplay; fullscreen; picture-in-picture"
+                                        allowfullscreen
+                                        class="absolute top-0 left-1/2 h-full w-[177.78%] min-w-full -translate-x-1/2 pointer-events-none signature-card-iframe"
+                                    ></iframe>
+                                </div>
+                                <div class="signature-card-preloader absolute inset-0 z-[25] flex items-center justify-center bg-black/50 transition-opacity duration-300" aria-live="polite" aria-label="Loading video">
+                                    <div class="signature-card-preloader-spinner w-10 h-10 border-2 border-white/35 border-t-white rounded-full animate-spin" aria-hidden="true"></div>
+                                </div>
+                            @elseif($imagePath)
+                                <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $cardLabels[$i] }}" class="absolute inset-0 w-full h-full object-cover z-0">
+                            @else
+                                <div class="absolute inset-0 bg-gradient-to-br {{ $cardGradients[$i] }} opacity-80 z-0"></div>
+                            @endif
+                            <div class="absolute inset-0 bg-black/40 z-10"></div>
+                            <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4 z-20">
+                                <p class="font-semibold">{{ $cardLabels[$i] }}</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="relative h-48 rounded-lg overflow-hidden shadow-md">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-earth-brown)] to-[var(--color-accent-gold)] opacity-80"></div>
-                        <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4">
-                            <p class="font-semibold">Cultural Immersion</p>
-                        </div>
-                    </div>
-                    <div class="relative h-48 rounded-lg overflow-hidden shadow-md">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-accent-gold)] to-[var(--color-forest-green)] opacity-80"></div>
-                        <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4">
-                            <p class="font-semibold">Adventure Activities</p>
-                        </div>
-                    </div>
-                    <div class="relative h-48 rounded-lg overflow-hidden shadow-md">
-                        <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-forest-green)] to-[var(--color-accent-gold)] opacity-80"></div>
-                        <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4">
-                            <p class="font-semibold">Luxury Lodging</p>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -181,8 +221,8 @@
                     </div>
                     
                     <div class="mt-8">
-                        <x-button-secondary href="{{ route('impact.responsible-travel') }}">
-                            Learn About Our Impact Approach
+                        <x-button-secondary href="{{ $country->conservation_button_link ?: route('impact.responsible-travel') }}">
+                            {{ $country->conservation_button_text ?: 'Learn About Our Impact Approach' }}
                         </x-button-secondary>
                     </div>
                 </div>
@@ -235,4 +275,18 @@
             </a>
         </div>
     </section>
+
+    <script>
+        document.querySelectorAll('.signature-card').forEach(function (card) {
+            var iframe = card.querySelector('.signature-card-iframe');
+            var preloader = card.querySelector('.signature-card-preloader');
+            if (!iframe || !preloader) return;
+            function hidePreloader() {
+                preloader.classList.add('opacity-0', 'pointer-events-none');
+                setTimeout(function () { preloader.classList.add('invisible'); }, 350);
+            }
+            iframe.addEventListener('load', hidePreloader, { once: true });
+            window.setTimeout(hidePreloader, 6000);
+        });
+    </script>
 @endsection

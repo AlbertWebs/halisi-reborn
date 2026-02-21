@@ -42,15 +42,6 @@
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     
-    @if(request()->routeIs('home'))
-    <style>
-        html, body {
-            overflow-x: hidden !important;
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-    </style>
-    @endif
     
     <!-- Structured Data - Organization -->
     <x-structured-data type="organization" />
@@ -66,12 +57,15 @@
         <x-navigation />
 
         <!-- Main Content -->
-        <main id="main-content" class="flex-grow {{ request()->routeIs('home') ? 'overflow-x-hidden homepage-main-content' : '' }} {{ request()->routeIs('countries.show') ? 'overflow-x-hidden country-page-main-content' : '' }}" role="main" style="{{ request()->routeIs('home') ? 'padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important;' : '' }} {{ request()->routeIs('countries.show') ? 'padding: 0 !important; margin: 0 !important; width: 100% !important; max-width: 100% !important;' : '' }}" >
+        <main id="main-content" class="flex-grow md:pb-0 pb-20 {{ request()->routeIs('home') ? 'overflow-x-hidden homepage-main-content' : '' }} {{ request()->routeIs('countries.show') ? 'overflow-x-hidden country-page-main-content' : '' }}" role="main" >
             @yield('content')
         </main>
 
         <!-- Footer -->
         <x-footer />
     </div>
+
+    <!-- Mobile Bottom Nav (outside wrapper so overflow/transform on homepage don't affect fixed positioning) -->
+    <x-mobile-bottom-nav />
 </body>
 </html>

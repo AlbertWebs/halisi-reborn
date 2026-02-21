@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
 use App\Models\HomepageSection;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,10 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $exploreCountries = Country::where('is_published', true)
+            ->orderBy('sort_order')
+            ->orderBy('name')
+            ->get();
         $heroSection = HomepageSection::where('section_key', 'hero')
             ->where('is_active', true)
             ->first();
@@ -56,7 +61,8 @@ class HomeController extends Controller
             'experienceSections',
             'pillarSections',
             'responsibleTravelSection',
-            'womenRestorationSection'
+            'womenRestorationSection',
+            'exploreCountries'
         ));
     }
 }

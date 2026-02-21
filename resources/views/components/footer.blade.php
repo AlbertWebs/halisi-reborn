@@ -4,7 +4,7 @@
 @endphp
 
 <footer class="bg-gradient-to-b from-[var(--color-forest-green)] to-[#133629] text-white mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-20 md:py-14">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
             <!-- Brand & Newsletter -->
             <div class="lg:col-span-2">
@@ -13,7 +13,7 @@
                         <img
                             src="{{ asset('storage/' . $footerLogo) }}"
                             alt="{{ $companyName }}"
-                            class="h-16 md:h-20 w-auto object-contain"
+                            class="h-12 md:h-20 w-auto object-contain"
                         >
                     </a>
                 @else

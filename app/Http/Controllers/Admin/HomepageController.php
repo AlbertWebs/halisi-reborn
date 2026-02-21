@@ -27,7 +27,7 @@ class HomepageController extends Controller
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:500',
             'content' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'cta_label' => 'nullable|string|max:255',
             'cta_link' => 'nullable|string|max:255',
             'sort_order' => 'nullable|integer',
@@ -58,14 +58,17 @@ class HomepageController extends Controller
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:500',
             'content' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'cta_label' => 'nullable|string|max:255',
             'cta_link' => 'nullable|string|max:255',
             'sort_order' => 'nullable|integer',
             'is_active' => 'boolean',
         ]);
 
-        if ($request->hasFile('image')) {
+        if ($request->has('remove_image') && $homepage->image) {
+            Storage::disk('public')->delete($homepage->image);
+            $validated['image'] = null;
+        } elseif ($request->hasFile('image')) {
             if ($homepage->image) {
                 Storage::disk('public')->delete($homepage->image);
             }

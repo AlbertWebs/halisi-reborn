@@ -30,7 +30,7 @@ class TrustController extends Controller
             'slug' => 'nullable|string|max:255|unique:trust_posts,slug',
             'excerpt' => 'nullable|string|max:500',
             'content' => 'required|string',
-            'featured_image' => 'nullable|image|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'category' => 'required|string|max:255',
             'published_at' => 'nullable|date',
         ]);
@@ -65,7 +65,7 @@ class TrustController extends Controller
             'slug' => 'nullable|string|max:255|unique:trust_posts,slug,' . $trust->id,
             'excerpt' => 'nullable|string|max:500',
             'content' => 'required|string',
-            'featured_image' => 'nullable|image|max:2048',
+            'featured_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'category' => 'required|string|max:255',
             'published_at' => 'nullable|date',
         ]);

@@ -56,9 +56,9 @@
                                 <img src="{{ asset('storage/' . $country->hero_image) }}" alt="Current hero image" class="w-64 h-32 object-cover rounded-lg">
                             </div>
                         @endif
-                        <input type="file" id="hero_image" name="hero_image" accept="image/*"
+                        <input type="file" id="hero_image" name="hero_image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
-                        <p class="text-xs text-gray-500 mt-1">Leave empty to keep current image. Used if no video is set.</p>
+                        <p class="text-xs text-gray-500 mt-1">Leave empty to keep current image. Used on the country page if no video is set, and as the card image on the homepage <strong>Explore Africa</strong> section.</p>
                     </div>
 
                     <div>
@@ -88,7 +88,7 @@
                                 <img src="{{ asset('storage/' . $country->narrative_image) }}" alt="Current narrative image" class="w-64 h-32 object-cover rounded-lg">
                             </div>
                         @endif
-                        <input type="file" id="narrative_image" name="narrative_image" accept="image/*"
+                        <input type="file" id="narrative_image" name="narrative_image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
                         <p class="text-xs text-gray-500 mt-1">Leave empty to keep current image. Used in narrative section.</p>
                     </div>
@@ -112,32 +112,86 @@
                         <textarea id="signature_experiences" name="signature_experiences" rows="4"
                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">{{ old('signature_experiences', $country->signature_experiences) }}</textarea>
                     </div>
+
+                    <p class="text-sm text-gray-500 mb-4">Each card can have a video (Vimeo URL) or image as background. Video takes priority over image. Leave both empty for gradient placeholder.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        @foreach([1, 2, 3, 4] as $i)
+                            @php
+                                $defaultLabels = ['Wildlife Encounters', 'Cultural Immersion', 'Adventure Activities', 'Luxury Lodging'];
+                            @endphp
+                            <div class="border border-gray-200 rounded-lg p-4 space-y-3">
+                                <h4 class="font-medium text-gray-800">Card {{ $i }}</h4>
+                                <div>
+                                    <label for="signature_card_{{ $i }}_label" class="block text-sm font-medium text-gray-700 mb-1">Label</label>
+                                    <input type="text" id="signature_card_{{ $i }}_label" name="signature_card_{{ $i }}_label" value="{{ old("signature_card_{$i}_label", $country->{"signature_card_{$i}_label"}) }}"
+                                           placeholder="{{ $defaultLabels[$i - 1] }}"
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                                </div>
+                                <div>
+                                    <label for="signature_card_{{ $i }}_video" class="block text-sm font-medium text-gray-700 mb-1">Video (Vimeo URL)</label>
+                                    <input type="text" id="signature_card_{{ $i }}_video" name="signature_card_{{ $i }}_video" value="{{ old("signature_card_{$i}_video", $country->{"signature_card_{$i}_video"}) }}"
+                                           placeholder="https://vimeo.com/123456789"
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                                </div>
+                                <div>
+                                    <label for="signature_card_{{ $i }}_image" class="block text-sm font-medium text-gray-700 mb-1">Image (fallback)</label>
+                                    @if($country->{"signature_card_{$i}_image"})
+                                        <div class="mb-2">
+                                            <img src="{{ asset('storage/' . $country->{"signature_card_{$i}_image"}) }}" alt="Card {{ $i }}" class="w-32 h-20 object-cover rounded">
+                                        </div>
+                                    @endif
+                                    <input type="file" id="signature_card_{{ $i }}_image" name="signature_card_{{ $i }}_image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
+                                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
 
-            <!-- Conservation Section -->
+            <!-- Conservation & Community Focus (country page section) -->
             <div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Conservation & Community Section</h3>
+                <h3 class="text-lg font-semibold text-gray-900 mb-1">Conservation & Community Focus</h3>
+                <p class="text-sm text-gray-500 mb-4">This section appears on the country page (e.g. /countries/kenya). Fill in the content below to show it.</p>
                 <div class="space-y-4">
                     <div>
                         <label for="conservation_title" class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
                         <input type="text" id="conservation_title" name="conservation_title" value="{{ old('conservation_title', $country->conservation_title) }}"
                                placeholder="Conservation & Community Focus"
                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
-                        <p class="text-xs text-gray-500 mt-1">Leave empty for default title.</p>
+                        <p class="text-xs text-gray-500 mt-1">Leave empty for default: "Conservation & Community Focus".</p>
                     </div>
 
                     <div>
-                        <label for="conservation_focus" class="block text-sm font-medium text-gray-700 mb-2">Conservation Content</label>
-                        <textarea id="conservation_focus" name="conservation_focus" rows="4"
+                        <label for="conservation_focus" class="block text-sm font-medium text-gray-700 mb-2">Main content (body text)</label>
+                        <textarea id="conservation_focus" name="conservation_focus" rows="6"
+                                  placeholder="Describe conservation and community initiatives for this country..."
                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">{{ old('conservation_focus', $country->conservation_focus) }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">HTML allowed. Leave empty to hide this entire section on the country page.</p>
                     </div>
 
                     <div>
-                        <label for="conservation_visual_text" class="block text-sm font-medium text-gray-700 mb-2">Visual Element Text</label>
+                        <label for="conservation_visual_text" class="block text-sm font-medium text-gray-700 mb-2">Left panel text (visual block)</label>
                         <textarea id="conservation_visual_text" name="conservation_visual_text" rows="3"
-                                  placeholder="Text shown in the visual element on the left"
+                                  placeholder="Text shown in the coloured panel on the left (e.g. Our Commitment...)"
                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">{{ old('conservation_visual_text', $country->conservation_visual_text) }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">HTML allowed. Leave empty for default commitment text.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="conservation_button_text" class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>
+                            <input type="text" id="conservation_button_text" name="conservation_button_text" value="{{ old('conservation_button_text', $country->conservation_button_text) }}"
+                                   placeholder="Learn About Our Impact Approach"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                        </div>
+                        <div>
+                            <label for="conservation_button_link" class="block text-sm font-medium text-gray-700 mb-2">Button Link</label>
+                            <input type="text" id="conservation_button_link" name="conservation_button_link" value="{{ old('conservation_button_link', $country->conservation_button_link) }}"
+                                   placeholder="{{ route('impact.responsible-travel') }}"
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                            <p class="text-xs text-gray-500 mt-1">Leave empty for default impact page.</p>
+                        </div>
                     </div>
                 </div>
             </div>

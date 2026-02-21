@@ -29,7 +29,7 @@ class JourneyController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:journeys,slug',
-            'hero_image' => 'nullable|image|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'narrative_intro' => 'required|string',
             'experience_highlights' => 'nullable|string',
             'regenerative_impact' => 'nullable|string',
@@ -73,7 +73,7 @@ class JourneyController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:journeys,slug,' . $journey->id,
-            'hero_image' => 'nullable|image|max:2048',
+            'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'narrative_intro' => 'required|string',
             'experience_highlights' => 'nullable|string',
             'regenerative_impact' => 'nullable|string',

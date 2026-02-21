@@ -140,7 +140,7 @@
                                     <input type="hidden" id="logo_main_remove" name="logo_main_remove" value="0">
                                 </div>
                             @endif
-                            <input type="file" id="logo_main" name="logo_main" accept="image/*"
+                            <input type="file" id="logo_main" name="logo_main" accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml,image/*"
                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[var(--color-forest-green)] file:text-white hover:file:bg-opacity-90 cursor-pointer">
                         </div>
                     </div>
@@ -166,7 +166,7 @@
                                     <input type="hidden" id="logo_footer_remove" name="logo_footer_remove" value="0">
                                 </div>
                             @endif
-                            <input type="file" id="logo_footer" name="logo_footer" accept="image/*"
+                            <input type="file" id="logo_footer" name="logo_footer" accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml,image/*"
                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[var(--color-forest-green)] file:text-white hover:file:bg-opacity-90 cursor-pointer">
                         </div>
                     </div>
@@ -192,7 +192,7 @@
                                     <input type="hidden" id="logo_icon_remove" name="logo_icon_remove" value="0">
                                 </div>
                             @endif
-                            <input type="file" id="logo_icon" name="logo_icon" accept="image/*"
+                            <input type="file" id="logo_icon" name="logo_icon" accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml,image/*"
                                    class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-[var(--color-forest-green)] file:text-white hover:file:bg-opacity-90 cursor-pointer">
                         </div>
                     </div>

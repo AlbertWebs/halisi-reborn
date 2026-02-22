@@ -41,8 +41,9 @@
 
                     <div>
                         <label for="subtitle" class="block text-sm font-medium text-gray-700 mb-2">Subtitle</label>
-                        <input type="text" id="subtitle" name="subtitle" value="{{ old('subtitle', $homepage->subtitle) }}"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                        <textarea id="subtitle" name="subtitle" rows="3"
+                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">{{ old('subtitle', $homepage->subtitle) }}</textarea>
+                        <p class="text-xs text-gray-500 mt-1">Use line breaks for multi-line hero callout text.</p>
                     </div>
 
                     <div>

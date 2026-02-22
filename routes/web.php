@@ -9,6 +9,7 @@ use App\Http\Controllers\ImpactController;
 use App\Http\Controllers\TrustController;
 use App\Http\Controllers\WorkController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -60,6 +61,8 @@ Route::get('/work-with-us', [WorkController::class, 'index'])->name('work.index'
 
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::post('/subscribe', [NewsletterController::class, 'subscribe'])->name('newsletter.subscribe');
 
 // SEO
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');

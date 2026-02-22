@@ -2,10 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /**
      * Seed the application's database.
      */
@@ -13,15 +17,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             AdminUserSeeder::class,
-            SiteSettingsSeeder::class,
-            FooterSettingsSeeder::class,
-            HomepageSeeder::class,
-            PagesSeeder::class,
-            ImpactStatsSeeder::class,
             CountriesSeeder::class,
             JourneysSeeder::class,
-            CountryJourneySeeder::class,
-            TrustPostsSeeder::class,
+            HomepageSeeder::class,
+            HeroCalloutSectionSeeder::class,
+            SiteSettingsSeeder::class,
+            PagesSeeder::class,
+            ImpactSeeder::class,
+            BlogSeeder::class,
         ]);
     }
 }

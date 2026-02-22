@@ -128,12 +128,12 @@
             <!-- Mobile Menu Button -->
             <div class="md:hidden">
                 <button type="button" 
-                        class="{{ $isTransparentNav ? 'text-white' : 'text-black' }} focus:outline-none focus:ring-2 focus:ring-[var(--color-nav-active)] focus:ring-offset-2 rounded p-2" 
+                        class="{{ $isTransparentNav ? 'text-white' : 'text-black' }} focus:outline-none focus:ring-2 focus:ring-[var(--color-nav-active)] focus:ring-offset-2 rounded p-1.5" 
                         id="mobile-menu-button"
                         aria-label="Toggle mobile menu"
                         aria-expanded="false"
                         aria-controls="mobile-menu">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
                 </button>
@@ -143,14 +143,14 @@
 
     <!-- Mobile Menu -->
     <div class="md:hidden hidden" id="mobile-menu" role="navigation" aria-label="Mobile navigation">
-        <div class="px-2 pt-2 pb-3 space-y-1 {{ $isTransparentNav ? 'bg-black/80 backdrop-blur-sm' : 'bg-white border-t border-[var(--color-sand-beige)]' }}">
-            <a href="{{ route('about') }}" class="block px-3 py-2 text-base font-medium {{ $activeAbout ? 'text-[var(--color-nav-active)] border-l-4 border-[var(--color-nav-active)] pl-4 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">About Halisi</a>
-            <a href="{{ route('journeys.index') }}" class="block px-3 py-2 text-base font-medium {{ $activeJourneys ? 'text-[var(--color-nav-active)] border-l-4 border-[var(--color-nav-active)] pl-4 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Journeys</a>
-            <a href="{{ route('countries.index') }}" class="block px-3 py-2 text-base font-medium {{ $activeCountries ? 'text-[var(--color-nav-active)] border-l-4 border-[var(--color-nav-active)] pl-4 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Explore Africa</a>
-            <a href="{{ route('impact.responsible-travel') }}" class="block px-3 py-2 text-base font-medium {{ $activeImpact ? 'text-[var(--color-nav-active)] border-l-4 border-[var(--color-nav-active)] pl-4 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Impact</a>
-            <a href="{{ route('trust.index') }}" class="block px-3 py-2 text-base font-medium {{ $activeTrust ? 'text-[var(--color-nav-active)] border-l-4 border-[var(--color-nav-active)] pl-4 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Halisi Trust</a>
-            <a href="{{ route('work.index') }}" class="block px-3 py-2 text-base font-medium {{ $activeWork ? 'text-[var(--color-nav-active)] border-l-4 border-[var(--color-nav-active)] pl-4 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Work With Us</a>
-            <a href="{{ route('contact.index') }}" class="block px-3 py-2 text-base font-semibold rounded-sm border {{ $activeContact ? 'bg-[var(--color-nav-active)] border-[var(--color-nav-active)] text-white' : ($isTransparentNav ? 'bg-[var(--color-accent-gold)] border-[var(--color-accent-gold)] text-[var(--color-forest-green)] hover:bg-[var(--color-sand-beige)] hover:border-[var(--color-sand-beige)]' : 'bg-transparent border-[var(--color-nav-active)] text-[var(--color-nav-active)]') }}">Contact</a>
+        <div class="px-1 pt-1 pb-1.5 space-y-0 {{ $isTransparentNav ? 'bg-black/80 backdrop-blur-sm' : 'bg-white border-t border-[var(--color-sand-beige)]' }}">
+            <a href="{{ route('about') }}" class="block px-2 py-1 text-xs font-medium {{ $activeAbout ? 'text-[var(--color-nav-active)] border-l-2 border-[var(--color-nav-active)] pl-2.5 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">About Halisi</a>
+            <a href="{{ route('journeys.index') }}" class="block px-2 py-1 text-xs font-medium {{ $activeJourneys ? 'text-[var(--color-nav-active)] border-l-2 border-[var(--color-nav-active)] pl-2.5 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Journeys</a>
+            <a href="{{ route('countries.index') }}" class="block px-2 py-1 text-xs font-medium {{ $activeCountries ? 'text-[var(--color-nav-active)] border-l-2 border-[var(--color-nav-active)] pl-2.5 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Explore Africa</a>
+            <a href="{{ route('impact.responsible-travel') }}" class="block px-2 py-1 text-xs font-medium {{ $activeImpact ? 'text-[var(--color-nav-active)] border-l-2 border-[var(--color-nav-active)] pl-2.5 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Impact</a>
+            <a href="{{ route('trust.index') }}" class="block px-2 py-1 text-xs font-medium {{ $activeTrust ? 'text-[var(--color-nav-active)] border-l-2 border-[var(--color-nav-active)] pl-2.5 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Halisi Trust</a>
+            <a href="{{ route('work.index') }}" class="block px-2 py-1 text-xs font-medium {{ $activeWork ? 'text-[var(--color-nav-active)] border-l-2 border-[var(--color-nav-active)] pl-2.5 font-semibold' : ($isTransparentNav ? 'text-white' : 'text-black') }}">Work With Us</a>
+            <a href="{{ route('contact.index') }}" class="block px-2 py-1 text-xs font-semibold rounded-sm border {{ $activeContact ? 'bg-[var(--color-nav-active)] border-[var(--color-nav-active)] text-white' : ($isTransparentNav ? 'bg-[var(--color-accent-gold)] border-[var(--color-accent-gold)] text-[var(--color-forest-green)] hover:bg-[var(--color-sand-beige)] hover:border-[var(--color-sand-beige)]' : 'bg-transparent border-[var(--color-nav-active)] text-[var(--color-nav-active)]') }}">Contact</a>
         </div>
     </div>
 </nav>
@@ -165,3 +165,5 @@
         button.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
     });
 </script>
+
+

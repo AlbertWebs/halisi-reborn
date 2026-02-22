@@ -16,21 +16,22 @@
 @endpush
 
 @section('content')
-    <!-- Hero Section -->
-    <section class="country-hero-section-wrapper relative min-h-[80vh] flex items-end bg-[var(--color-forest-green)] text-white overflow-hidden">
-        @php
-            // Extract Vimeo video ID from URL (support vimeo.com/123, vimeo.com/video/123, player.vimeo.com/video/123, or plain ID)
-            $heroVideoId = null;
-            if (filled($country->hero_video)) {
-                if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $country->hero_video, $m)) {
-                    $heroVideoId = $m[1];
-                } elseif (preg_match('/\/(\d+)(?:\?|$)/', $country->hero_video, $m)) {
-                    $heroVideoId = $m[1];
-                } elseif (preg_match('/^\d+$/', trim($country->hero_video))) {
-                    $heroVideoId = trim($country->hero_video);
-                }
+    @php
+        // Extract Vimeo video ID from URL (support vimeo.com/123, vimeo.com/video/123, player.vimeo.com/video/123, or plain ID)
+        $heroVideoId = null;
+        if (filled($country->hero_video)) {
+            if (preg_match('/vimeo\.com\/(?:video\/)?(\d+)/', $country->hero_video, $m)) {
+                $heroVideoId = $m[1];
+            } elseif (preg_match('/\/(\d+)(?:\?|$)/', $country->hero_video, $m)) {
+                $heroVideoId = $m[1];
+            } elseif (preg_match('/^\d+$/', trim($country->hero_video))) {
+                $heroVideoId = trim($country->hero_video);
             }
-        @endphp
+        }
+    @endphp
+
+    <!-- Hero Section -->
+    <section class="country-hero-section-wrapper {{ $heroVideoId ? 'country-hero-video-mode' : '' }} relative min-h-[80vh] flex items-end bg-[var(--color-forest-green)] text-white overflow-hidden">
         @if($heroVideoId)
             <!-- Video Background -->
             <div class="country-hero-video-container absolute inset-0 z-0">
@@ -59,7 +60,7 @@
             </div>
         @endif
         
-        <div class="relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        <div class="country-hero-content relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <div class="max-w-4xl">
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-balance">
                     {{ $country->name }}
@@ -289,4 +290,56 @@
             window.setTimeout(hidePreloader, 6000);
         });
     </script>
+
+    <style>
+        @media (max-width: 767px) {
+            /* On mobile country pages with hero video, match section height to video frame */
+            .country-hero-video-mode {
+                min-height: 56.25vw !important; /* 16:9 */
+                height: 56.25vw !important;
+            }
+
+            .country-hero-video-mode .country-hero-content {
+                padding-bottom: 1.25rem !important;
+            }
+
+            /* Keep mobile typography proportional across the country page */
+            .country-hero-section-wrapper h1 {
+                font-size: 1.8rem !important;
+                line-height: 1.15 !important;
+                margin-bottom: 0.65rem !important;
+            }
+
+            .country-hero-section-wrapper .prose p,
+            .country-hero-section-wrapper p {
+                font-size: 0.95rem !important;
+                line-height: 1.35 !important;
+            }
+
+            .country-hero-content {
+                padding-bottom: 0.9rem !important;
+            }
+
+            .country-hero-content .max-w-4xl {
+                max-width: 92% !important;
+            }
+
+            section.section-padding h2 {
+                font-size: 1.6rem !important;
+                line-height: 1.2 !important;
+            }
+
+            section.section-padding h3 {
+                font-size: 1.1rem !important;
+                line-height: 1.25 !important;
+            }
+
+            section.section-padding .prose,
+            section.section-padding p,
+            section.section-padding li {
+                font-size: 0.95rem !important;
+                line-height: 1.6 !important;
+            }
+        }
+    </style>
 @endsection

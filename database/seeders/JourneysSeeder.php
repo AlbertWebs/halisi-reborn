@@ -2,67 +2,85 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Journey;
-use App\Models\Country;
-use Illuminate\Support\Str;
+use Illuminate\Database\Seeder;
 
 class JourneysSeeder extends Seeder
 {
     public function run(): void
     {
-        $kenya = Country::where('slug', 'kenya')->first();
-        $tanzania = Country::where('slug', 'tanzania')->first();
-        $uganda = Country::where('slug', 'uganda')->first();
-
         $journeys = [
             [
-                'title' => 'Great Migration Safari',
-                'slug' => 'great-migration-safari',
-                'narrative_intro' => 'Experience the world\'s greatest wildlife spectacle as millions of wildebeest and zebra migrate across the Serengeti and Maasai Mara. This journey combines luxury accommodation with front-row seats to nature\'s most dramatic show.',
-                'experience_highlights' => '<ul><li>Witness river crossings in the Mara</li><li>Hot air balloon safari over the plains</li><li>Private game drives with expert guides</li><li>Luxury tented camps in prime locations</li></ul>',
-                'regenerative_impact' => 'This journey directly supports local Maasai communities through employment, education programs, and conservation initiatives that protect the migration corridors.',
-                'journey_category' => 'Signature Safaris',
+                'title' => 'Kenya Signature Safari',
+                'slug' => 'kenya-signature-safari',
+                'narrative_intro' => 'An immersive wildlife journey across Kenya’s most celebrated ecosystems with conservation at the core.',
+                'experience_highlights' => '<ul><li>Private game drives</li><li>Conservancy visits</li><li>Community-led storytelling</li></ul>',
+                'regenerative_impact' => '<p>Supports local conservation teams and women-led livelihoods.</p>',
+                'journey_category' => 'signature-safaris',
+                'cta_label' => 'Enquire',
+                'cta_link' => '/contact?journey=kenya-signature-safari',
                 'is_published' => true,
                 'sort_order' => 1,
-                'countries' => [$kenya->id, $tanzania->id],
             ],
             [
-                'title' => 'Gorilla & Chimpanzee Encounter',
-                'slug' => 'gorilla-chimpanzee-encounter',
-                'narrative_intro' => 'An intimate journey into Uganda\'s pristine forests to encounter mountain gorillas and chimpanzees in their natural habitat. This transformative experience supports critical conservation efforts.',
-                'experience_highlights' => '<ul><li>Mountain gorilla trekking in Bwindi</li><li>Chimpanzee tracking in Kibale Forest</li><li>Community visits and cultural experiences</li><li>Luxury eco-lodges</li></ul>',
-                'regenerative_impact' => 'Every journey contributes to gorilla conservation through permit fees, community revenue sharing, and support for anti-poaching initiatives.',
-                'journey_category' => 'Conservation & Community',
+                'title' => 'Uganda Gorilla & Forest Journey',
+                'slug' => 'uganda-gorilla-forest-journey',
+                'narrative_intro' => 'Track gorillas responsibly and explore Uganda’s rich biodiversity through expert-led experiences.',
+                'experience_highlights' => '<ul><li>Gorilla trekking</li><li>Chimpanzee tracking</li><li>Forest lodge stays</li></ul>',
+                'regenerative_impact' => '<p>Contributes to forest protection and community conservation projects.</p>',
+                'journey_category' => 'conservation-community',
+                'cta_label' => 'Enquire',
+                'cta_link' => '/contact?journey=uganda-gorilla-forest-journey',
                 'is_published' => true,
                 'sort_order' => 2,
-                'countries' => [$uganda->id],
             ],
             [
-                'title' => 'Okavango Delta Luxury Safari',
-                'slug' => 'okavango-delta-luxury-safari',
-                'narrative_intro' => 'Discover the pristine wilderness of the Okavango Delta, one of Africa\'s last great wilderness areas. This exclusive journey combines water-based safaris with luxury accommodation.',
-                'experience_highlights' => '<ul><li>Mokoro (dugout canoe) safaris</li><li>Walking safaris with expert guides</li><li>Helicopter flights over the delta</li><li>Luxury tented camps</li></ul>',
-                'regenerative_impact' => 'This journey supports community conservancies that protect the delta ecosystem while providing sustainable livelihoods for local communities.',
-                'journey_category' => 'Luxury Retreats',
+                'title' => 'Tanzania Migration Expedition',
+                'slug' => 'tanzania-migration-expedition',
+                'narrative_intro' => 'Follow the migration with expert guides while engaging with conservation partnerships on the ground.',
+                'journey_category' => 'signature-safaris',
+                'cta_label' => 'Enquire',
+                'cta_link' => '/contact?journey=tanzania-migration-expedition',
                 'is_published' => true,
                 'sort_order' => 3,
-                'countries' => [],
+            ],
+            [
+                'title' => 'Botswana Delta Luxury Retreat',
+                'slug' => 'botswana-delta-luxury-retreat',
+                'narrative_intro' => 'A refined Okavango journey blending high-comfort camps with low-impact exploration.',
+                'journey_category' => 'luxury-retreats',
+                'cta_label' => 'Enquire',
+                'cta_link' => '/contact?journey=botswana-delta-luxury-retreat',
+                'is_published' => true,
+                'sort_order' => 4,
+            ],
+            [
+                'title' => 'Namibia Desert & Coast Escape',
+                'slug' => 'namibia-desert-coast-escape',
+                'narrative_intro' => 'Experience Namibia’s extraordinary dunes, coastline, and conservation-led lodges.',
+                'journey_category' => 'bespoke-private-travel',
+                'cta_label' => 'Enquire',
+                'cta_link' => '/contact?journey=namibia-desert-coast-escape',
+                'is_published' => true,
+                'sort_order' => 5,
+            ],
+            [
+                'title' => 'Zimbabwe & Zambia River Adventure',
+                'slug' => 'zimbabwe-zambia-river-adventure',
+                'narrative_intro' => 'A cross-border journey combining river safaris, community partnerships, and iconic landscapes.',
+                'journey_category' => 'conservation-community',
+                'cta_label' => 'Enquire',
+                'cta_link' => '/contact?journey=zimbabwe-zambia-river-adventure',
+                'is_published' => true,
+                'sort_order' => 6,
             ],
         ];
 
-        foreach ($journeys as $journeyData) {
-            $countries = $journeyData['countries'] ?? [];
-            unset($journeyData['countries']);
-
-            $journey = Journey::firstOrCreate(
-                ['slug' => $journeyData['slug']],
-                $journeyData
+        foreach ($journeys as $journey) {
+            Journey::updateOrCreate(
+                ['slug' => $journey['slug']],
+                $journey
             );
-
-            if (!empty($countries)) {
-                $journey->countries()->sync($countries);
-            }
         }
     }
 }

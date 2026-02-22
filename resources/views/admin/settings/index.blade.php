@@ -86,6 +86,15 @@
                                class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] transition-colors">
                     </div>
                     <div>
+                        <label for="office_hours" class="block text-sm font-medium text-gray-700 mb-2">
+                            Office Hours
+                        </label>
+                        <input type="text" id="office_hours" name="office_hours" 
+                               value="{{ isset($settings['office_hours']) ? $settings['office_hours']->setting_value : 'Mon–Fri: 09:00 — 17:00' }}"
+                               placeholder="Mon–Fri: 09:00 — 17:00"
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] transition-colors">
+                    </div>
+                    <div>
                         <label for="company_email" class="block text-sm font-medium text-gray-700 mb-2">
                             Email Address
                         </label>
@@ -396,6 +405,57 @@
                            value="{{ isset($settings['tinymce_api_key']) ? $settings['tinymce_api_key']->setting_value : '' }}"
                            placeholder="your-tinymce-api-key"
                            class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] transition-colors">
+                </div>
+            </div>
+        </div>
+
+        <!-- Newsletter Popup Section -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900">Newsletter Popup</h3>
+            </div>
+            <div class="p-6 space-y-6">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" name="newsletter_popup_enabled" value="1"
+                           {{ (isset($settings['newsletter_popup_enabled']) && $settings['newsletter_popup_enabled']->setting_value === '1') ? 'checked' : '' }}
+                           class="h-4 w-4 text-[var(--color-forest-green)] border-gray-300 rounded">
+                    <span class="ml-2 text-sm text-gray-700">Enable subscribe popup</span>
+                </label>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="newsletter_popup_delay_seconds" class="block text-sm font-medium text-gray-700 mb-2">
+                            Show Delay (seconds)
+                        </label>
+                        <input type="number" min="1" max="120" id="newsletter_popup_delay_seconds" name="newsletter_popup_delay_seconds"
+                               value="{{ isset($settings['newsletter_popup_delay_seconds']) ? $settings['newsletter_popup_delay_seconds']->setting_value : '10' }}"
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] transition-colors">
+                    </div>
+                    <div>
+                        <label for="newsletter_popup_button_label" class="block text-sm font-medium text-gray-700 mb-2">
+                            Button Label
+                        </label>
+                        <input type="text" maxlength="80" id="newsletter_popup_button_label" name="newsletter_popup_button_label"
+                               value="{{ isset($settings['newsletter_popup_button_label']) ? $settings['newsletter_popup_button_label']->setting_value : 'Subscribe' }}"
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] transition-colors">
+                    </div>
+                </div>
+
+                <div>
+                    <label for="newsletter_popup_title" class="block text-sm font-medium text-gray-700 mb-2">
+                        Popup Title
+                    </label>
+                    <input type="text" maxlength="255" id="newsletter_popup_title" name="newsletter_popup_title"
+                           value="{{ isset($settings['newsletter_popup_title']) ? $settings['newsletter_popup_title']->setting_value : 'Stay Connected with Halisi' }}"
+                           class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] transition-colors">
+                </div>
+
+                <div>
+                    <label for="newsletter_popup_description" class="block text-sm font-medium text-gray-700 mb-2">
+                        Popup Description
+                    </label>
+                    <textarea id="newsletter_popup_description" name="newsletter_popup_description" rows="3" maxlength="500"
+                              class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] transition-colors">{{ isset($settings['newsletter_popup_description']) ? $settings['newsletter_popup_description']->setting_value : 'Get travel inspiration, impact stories, and curated journey ideas.' }}</textarea>
                 </div>
             </div>
         </div>

@@ -1,6 +1,19 @@
 @php
     $footerLogo = \App\Models\SiteSetting::get('logo_main') ?: \App\Models\SiteSetting::get('logo_footer');
     $companyName = \App\Models\SiteSetting::get('company_name', 'Halisi Africa Discoveries');
+    $newsletterPopupEnabled = \App\Models\SiteSetting::get('newsletter_popup_enabled', '0') === '1';
+    $newsletterPopupDelay = (int) \App\Models\SiteSetting::get('newsletter_popup_delay_seconds', '10');
+    $newsletterPopupDelay = $newsletterPopupDelay > 0 ? $newsletterPopupDelay : 10;
+    $newsletterPopupTitle = \App\Models\SiteSetting::get('newsletter_popup_title', 'Stay Connected with Halisi');
+    $newsletterPopupDescription = \App\Models\SiteSetting::get('newsletter_popup_description', 'Get travel inspiration, impact stories, and curated journey ideas.');
+    $newsletterPopupButtonLabel = \App\Models\SiteSetting::get('newsletter_popup_button_label', 'Subscribe');
+
+    $newsletterChallengeLeft = random_int(1, 9);
+    $newsletterChallengeRight = random_int(1, 9);
+    session([
+        'newsletter_math_answer' => $newsletterChallengeLeft + $newsletterChallengeRight,
+        'newsletter_math_expires_at' => now()->addMinutes(15)->timestamp,
+    ]);
 @endphp
 
 <footer class="bg-gradient-to-b from-[var(--color-forest-green)] to-[#133629] text-white mt-auto">
@@ -23,25 +36,54 @@
                 <!-- Newsletter Signup -->
                 <div class="mb-7">
                     <h4 class="font-semibold mb-3 text-[0.68rem] uppercase tracking-[0.18em] text-white/75">Stay Connected</h4>
-                    <form class="flex flex-col sm:flex-row sm:items-center gap-3" method="POST" action="#" aria-label="Newsletter subscription">
+                    @if(session('newsletter_success'))
+                        <div class="mb-3 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-800">
+                            {{ session('newsletter_success') }}
+                        </div>
+                    @endif
+                    @if($errors->newsletterForm->any())
+                        <div class="mb-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
+                            {{ $errors->newsletterForm->first() }}
+                        </div>
+                    @endif
+                    <form class="flex flex-col gap-3" method="POST" action="{{ route('newsletter.subscribe') }}" aria-label="Newsletter subscription">
                         @csrf
+                        <input type="hidden" name="source" value="footer">
+                        <input type="hidden" name="rendered_at" value="{{ time() }}">
+                        <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
                         <label for="newsletter-email" class="sr-only">Email address</label>
-                        <input 
-                            type="email" 
-                            id="newsletter-email"
-                            name="email"
-                            placeholder="Your email address" 
-                            class="flex-1 px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/45 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:border-[var(--color-accent-gold)]"
-                            required
-                            aria-required="true"
-                        >
-                        <button 
-                            type="submit" 
-                            class="w-full sm:w-auto px-6 py-2.5 bg-[var(--color-accent-gold)] text-[var(--color-forest-green)] font-semibold tracking-wide rounded-lg hover:bg-[#e8c57a] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:ring-offset-2 transition-colors"
-                            aria-label="Subscribe to newsletter"
-                        >
-                            Subscribe
-                        </button>
+                        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+                            <input
+                                type="email"
+                                id="newsletter-email"
+                                name="email"
+                                value="{{ old('email') }}"
+                                placeholder="Your email address"
+                                class="flex-1 px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/45 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:border-[var(--color-accent-gold)]"
+                                required
+                                aria-required="true"
+                            >
+                            <button
+                                type="submit"
+                                class="w-full sm:w-auto px-6 py-2.5 bg-[var(--color-accent-gold)] text-[var(--color-forest-green)] font-semibold tracking-wide rounded-lg hover:bg-[#e8c57a] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:ring-offset-2 transition-colors"
+                                aria-label="Subscribe to newsletter"
+                            >
+                                Subscribe
+                            </button>
+                        </div>
+                        <div>
+                            <label for="newsletter_challenge_answer" class="block text-xs text-white/80 mb-1">
+                                What is {{ $newsletterChallengeLeft }} + {{ $newsletterChallengeRight }}?
+                            </label>
+                            <input
+                                type="number"
+                                id="newsletter_challenge_answer"
+                                name="challenge_answer"
+                                min="0"
+                                required
+                                class="w-full sm:w-48 px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/45 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:border-[var(--color-accent-gold)]"
+                            >
+                        </div>
                     </form>
                 </div>
                 
@@ -149,3 +191,69 @@
         </div>
     </div>
 </footer>
+
+@if($newsletterPopupEnabled)
+    <div id="newsletter-popup-overlay" class="fixed inset-0 z-[120] bg-black/50 hidden"></div>
+    <div id="newsletter-popup" class="fixed inset-x-4 bottom-4 z-[130] mx-auto max-w-lg rounded-2xl border border-[var(--color-sand-beige)] bg-white p-6 shadow-2xl hidden">
+        <button type="button" id="newsletter-popup-close" class="absolute right-3 top-3 rounded-full p-1 text-gray-500 hover:bg-gray-100" aria-label="Close popup">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <h3 class="text-2xl font-serif font-bold text-[var(--color-forest-green)] mb-2">{{ $newsletterPopupTitle }}</h3>
+        <p class="text-sm text-[var(--color-earth-brown)] mb-4">{{ $newsletterPopupDescription }}</p>
+
+        <form method="POST" action="{{ route('newsletter.subscribe') }}" class="space-y-4">
+            @csrf
+            <input type="hidden" name="source" value="popup">
+            <input type="hidden" name="rendered_at" value="{{ time() }}">
+            <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
+            <div>
+                <label for="newsletter-popup-email" class="sr-only">Email address</label>
+                <input type="email" id="newsletter-popup-email" name="email" required placeholder="Your email address"
+                    class="w-full rounded-lg border border-[var(--color-sand-beige)] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)]">
+            </div>
+            <div>
+                <label for="newsletter-popup-challenge" class="block text-xs text-[var(--color-earth-brown)] mb-1">
+                    What is {{ $newsletterChallengeLeft }} + {{ $newsletterChallengeRight }}?
+                </label>
+                <input type="number" id="newsletter-popup-challenge" name="challenge_answer" min="0" required
+                    class="w-full rounded-lg border border-[var(--color-sand-beige)] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)]">
+            </div>
+            <button type="submit" class="inline-flex items-center rounded-full bg-[var(--color-forest-green)] px-6 py-3 text-white font-semibold hover:bg-[var(--color-earth-brown)] transition-colors">
+                {{ $newsletterPopupButtonLabel }}
+            </button>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (sessionStorage.getItem('newsletter_popup_dismissed') === '1') {
+                return;
+            }
+
+            const popup = document.getElementById('newsletter-popup');
+            const overlay = document.getElementById('newsletter-popup-overlay');
+            const closeBtn = document.getElementById('newsletter-popup-close');
+
+            if (!popup || !overlay || !closeBtn) {
+                return;
+            }
+
+            const showPopup = function () {
+                popup.classList.remove('hidden');
+                overlay.classList.remove('hidden');
+            };
+
+            const hidePopup = function () {
+                popup.classList.add('hidden');
+                overlay.classList.add('hidden');
+                sessionStorage.setItem('newsletter_popup_dismissed', '1');
+            };
+
+            setTimeout(showPopup, {{ $newsletterPopupDelay * 1000 }});
+            closeBtn.addEventListener('click', hidePopup);
+            overlay.addEventListener('click', hidePopup);
+        });
+    </script>
+@endif

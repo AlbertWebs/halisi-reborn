@@ -1,17 +1,43 @@
 @extends('layouts.app')
 
-@section('title', 'Responsible & Regenerative Travel - Halisi Africa')
-@section('description', 'Learn how Halisi Africa creates regenerative travel experiences that restore ecosystems, support communities, and address climate change through nature-based solutions.')
+@section('title', $page?->meta_title ?: 'Responsible & Regenerative Travel - Halisi Africa')
+@section('description', $page?->meta_description ?: 'Learn how Halisi Africa creates regenerative travel experiences that restore ecosystems, support communities, and address climate change through nature-based solutions.')
 
 @section('content')
+    @php
+        $resolvePageImage = function (?string $image): ?string {
+            if (!filled($image)) {
+                return null;
+            }
+            if (str_starts_with($image, 'http://') || str_starts_with($image, 'https://')) {
+                return $image;
+            }
+            if (str_starts_with($image, '/storage/')) {
+                return asset(ltrim($image, '/'));
+            }
+            if (str_starts_with($image, 'storage/')) {
+                return asset($image);
+            }
+            return asset('storage/' . ltrim($image, '/'));
+        };
+
+        $impactHeroImage = $resolvePageImage($page?->hero_image);
+        $impactContentImage1 = $resolvePageImage($page?->content_image_1);
+        $impactContentImage2 = $resolvePageImage($page?->content_image_2);
+    @endphp
+
     <!-- Hero Section -->
-    <section class="relative min-h-[60vh] flex items-center justify-center bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section class="relative min-h-[60vh] flex items-center justify-center bg-[var(--color-forest-green)] text-white overflow-hidden">
+        @if($impactHeroImage)
+            <img src="{{ $impactHeroImage }}" alt="{{ $page?->hero_title ?: 'Responsible & Regenerative Travel' }}" class="absolute inset-0 w-full h-full object-cover" loading="eager">
+            <div class="absolute inset-0 bg-black/45"></div>
+        @endif
+        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-balance">
-                Responsible & Regenerative Travel
+                {{ $page?->hero_title ?: 'Responsible & Regenerative Travel' }}
             </h1>
             <p class="text-xl md:text-2xl text-gray-100 max-w-2xl mx-auto">
-                Our commitment to climate-positive travel and ecosystem restoration
+                {{ $page?->hero_subtext ?: 'Our commitment to climate-positive travel and ecosystem restoration' }}
             </p>
         </div>
     </section>
@@ -49,7 +75,17 @@
         </div>
     </section>
 
-    <x-section-divider />
+    @if($impactContentImage1)
+        <section class="pb-8 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="rounded-xl overflow-hidden shadow-lg border border-[var(--color-sand-beige)]">
+                    <img src="{{ $impactContentImage1 }}" alt="Responsible travel image" class="w-full h-[220px] sm:h-[300px] md:h-[380px] object-cover" loading="lazy">
+                </div>
+            </div>
+        </section>
+    @endif
+
+    
 
     <!-- Responsible Travel Practices Section -->
     <section class="section-padding bg-[var(--color-off-white)]">
@@ -113,7 +149,17 @@
         </div>
     </section>
 
-    <x-section-divider />
+    @if($impactContentImage2)
+        <section class="pb-8 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="rounded-xl overflow-hidden shadow-lg border border-[var(--color-sand-beige)]">
+                    <img src="{{ $impactContentImage2 }}" alt="Climate action image" class="w-full h-[220px] sm:h-[300px] md:h-[380px] object-cover" loading="lazy">
+                </div>
+            </div>
+        </section>
+    @endif
+
+
 
     <!-- Carbon Conscious Travel Section -->
     <section class="section-padding bg-white">
@@ -170,7 +216,7 @@
         </div>
     </section>
 
-    <x-section-divider />
+   
 
     <!-- Climate Action Through Nature-Based Solutions Section -->
     <section class="section-padding bg-[var(--color-off-white)]">

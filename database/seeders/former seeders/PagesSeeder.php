@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Page;
 use Illuminate\Database\Seeder;
+use App\Models\Page;
+use Illuminate\Support\Str;
 
 class PagesSeeder extends Seeder
 {
@@ -13,10 +14,11 @@ class PagesSeeder extends Seeder
             [
                 'title' => 'About Halisi',
                 'slug' => 'about-halisi',
-                'hero_title' => 'About Halisi Africa',
-                'hero_subtext' => 'Crafting regenerative luxury travel experiences across Africa',
-                'meta_title' => 'About Halisi Africa - Our Story & Philosophy',
-                'meta_description' => 'Learn about Halisi Africa Discoveries, our regenerative travel philosophy, and why we create journeys that leave more than footprints.',
+                'hero_title' => 'About Halisi Africa Discoveries',
+                'hero_subtext' => 'Authentic African Journeys, Designed to Regenerate',
+                'body_content' => '<p>Halisi Africa Discoveries was founded on a simple but powerful belief: travel should regenerate, not just visit.</p><p>We craft authentic African journeys that go beyond the ordinary—experiences that connect travelers with the continent\'s incredible wildlife, diverse cultures, and breathtaking landscapes while actively contributing to conservation and community empowerment.</p>',
+                'meta_title' => 'About Halisi Africa Discoveries - Regenerative Travel',
+                'meta_description' => 'Learn about Halisi Africa Discoveries and our commitment to regenerative tourism across Africa.',
                 'is_published' => true,
             ],
             [
@@ -24,6 +26,7 @@ class PagesSeeder extends Seeder
                 'slug' => 'work-with-us',
                 'hero_title' => 'Work With Us',
                 'hero_subtext' => 'Partnerships that create positive impact',
+                'body_content' => '<p>We partner with lodges, guides, communities, and conservation organizations across Africa to create journeys that benefit everyone.</p>',
                 'meta_title' => 'Work With Us - Halisi Africa Discoveries',
                 'meta_description' => 'Partner with Halisi Africa Discoveries to create regenerative travel experiences.',
                 'is_published' => true,
@@ -33,6 +36,7 @@ class PagesSeeder extends Seeder
                 'slug' => 'responsible-regenerative-travel',
                 'hero_title' => 'Responsible & Regenerative Travel',
                 'hero_subtext' => 'Our commitment to climate-positive travel and ecosystem restoration',
+                'body_content' => '<p>Learn how Halisi Africa creates regenerative travel experiences that restore ecosystems and support communities.</p>',
                 'meta_title' => 'Responsible & Regenerative Travel - Halisi Africa',
                 'meta_description' => 'Learn how Halisi Africa creates regenerative travel experiences that restore ecosystems, support communities, and address climate change through nature-based solutions.',
                 'is_published' => true,
@@ -73,7 +77,7 @@ class PagesSeeder extends Seeder
         ];
 
         foreach ($pages as $page) {
-            Page::updateOrCreate(
+            Page::firstOrCreate(
                 ['slug' => $page['slug']],
                 $page
             );

@@ -32,6 +32,23 @@ class PageController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
             'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'content_image_1' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'content_image_2' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'featured_label' => 'nullable|string|max:255',
+            'latest_articles_title' => 'nullable|string|max:255',
+            'latest_articles_description' => 'nullable|string|max:500',
+            'empty_state_message' => 'nullable|string|max:500',
+            'contact_section_title' => 'nullable|string|max:255',
+            'contact_section_intro' => 'nullable|string|max:1000',
+            'contact_form_title' => 'nullable|string|max:255',
+            'contact_form_intro' => 'nullable|string|max:1000',
+            'contact_form_button_label' => 'nullable|string|max:255',
+            'contact_map_embed_url' => 'nullable|string|max:2000',
+            'contact_email_label' => 'nullable|string|max:255',
+            'contact_phone_label' => 'nullable|string|max:255',
+            'contact_address_label' => 'nullable|string|max:255',
+            'contact_hours_label' => 'nullable|string|max:255',
+            'contact_social_label' => 'nullable|string|max:255',
             'is_published' => 'boolean',
         ]);
 
@@ -41,6 +58,12 @@ class PageController extends Controller
 
         if ($request->hasFile('hero_image')) {
             $validated['hero_image'] = $request->file('hero_image')->store('pages', 'public');
+        }
+        if ($request->hasFile('content_image_1')) {
+            $validated['content_image_1'] = $request->file('content_image_1')->store('pages', 'public');
+        }
+        if ($request->hasFile('content_image_2')) {
+            $validated['content_image_2'] = $request->file('content_image_2')->store('pages', 'public');
         }
 
         $validated['is_published'] = $request->has('is_published');
@@ -66,6 +89,23 @@ class PageController extends Controller
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
             'hero_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'content_image_1' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'content_image_2' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
+            'featured_label' => 'nullable|string|max:255',
+            'latest_articles_title' => 'nullable|string|max:255',
+            'latest_articles_description' => 'nullable|string|max:500',
+            'empty_state_message' => 'nullable|string|max:500',
+            'contact_section_title' => 'nullable|string|max:255',
+            'contact_section_intro' => 'nullable|string|max:1000',
+            'contact_form_title' => 'nullable|string|max:255',
+            'contact_form_intro' => 'nullable|string|max:1000',
+            'contact_form_button_label' => 'nullable|string|max:255',
+            'contact_map_embed_url' => 'nullable|string|max:2000',
+            'contact_email_label' => 'nullable|string|max:255',
+            'contact_phone_label' => 'nullable|string|max:255',
+            'contact_address_label' => 'nullable|string|max:255',
+            'contact_hours_label' => 'nullable|string|max:255',
+            'contact_social_label' => 'nullable|string|max:255',
             'is_published' => 'boolean',
         ]);
 
@@ -74,6 +114,18 @@ class PageController extends Controller
                 Storage::disk('public')->delete($page->hero_image);
             }
             $validated['hero_image'] = $request->file('hero_image')->store('pages', 'public');
+        }
+        if ($request->hasFile('content_image_1')) {
+            if ($page->content_image_1) {
+                Storage::disk('public')->delete($page->content_image_1);
+            }
+            $validated['content_image_1'] = $request->file('content_image_1')->store('pages', 'public');
+        }
+        if ($request->hasFile('content_image_2')) {
+            if ($page->content_image_2) {
+                Storage::disk('public')->delete($page->content_image_2);
+            }
+            $validated['content_image_2'] = $request->file('content_image_2')->store('pages', 'public');
         }
 
         $validated['is_published'] = $request->has('is_published');
@@ -87,6 +139,12 @@ class PageController extends Controller
     {
         if ($page->hero_image) {
             Storage::disk('public')->delete($page->hero_image);
+        }
+        if ($page->content_image_1) {
+            Storage::disk('public')->delete($page->content_image_1);
+        }
+        if ($page->content_image_2) {
+            Storage::disk('public')->delete($page->content_image_2);
         }
         $page->delete();
 

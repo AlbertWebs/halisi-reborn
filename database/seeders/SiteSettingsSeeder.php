@@ -10,45 +10,43 @@ class SiteSettingsSeeder extends Seeder
     public function run(): void
     {
         $settings = [
-            // Company Information
-            ['setting_key' => 'company_name', 'setting_type' => 'text', 'setting_value' => 'Halisi Africa Discoveries'],
-            ['setting_key' => 'company_tagline', 'setting_type' => 'text', 'setting_value' => 'Authentic African Journeys, Designed to Regenerate'],
-            ['setting_key' => 'company_address', 'setting_type' => 'text', 'setting_value' => ''],
-            ['setting_key' => 'company_city', 'setting_type' => 'text', 'setting_value' => ''],
-            ['setting_key' => 'company_state', 'setting_type' => 'text', 'setting_value' => ''],
-            ['setting_key' => 'company_country', 'setting_type' => 'text', 'setting_value' => 'Kenya'],
-            ['setting_key' => 'company_postal_code', 'setting_type' => 'text', 'setting_value' => ''],
-            ['setting_key' => 'company_phone', 'setting_type' => 'text', 'setting_value' => ''],
-            ['setting_key' => 'company_email', 'setting_type' => 'url', 'setting_value' => ''],
-            ['setting_key' => 'company_website', 'setting_type' => 'url', 'setting_value' => 'https://www.halisiafrica.com'],
-
-            // Logos & Branding placeholders
-            ['setting_key' => 'logo_main', 'setting_type' => 'image', 'setting_value' => ''],
-            ['setting_key' => 'logo_footer', 'setting_type' => 'image', 'setting_value' => ''],
-            ['setting_key' => 'logo_icon', 'setting_type' => 'image', 'setting_value' => ''],
-            ['setting_key' => 'favicon', 'setting_type' => 'image', 'setting_value' => ''],
-
-            // Social Media
-            ['setting_key' => 'social_facebook', 'setting_type' => 'url', 'setting_value' => ''],
-            ['setting_key' => 'social_instagram', 'setting_type' => 'url', 'setting_value' => ''],
-            ['setting_key' => 'social_twitter', 'setting_type' => 'url', 'setting_value' => ''],
-            ['setting_key' => 'social_linkedin', 'setting_type' => 'url', 'setting_value' => ''],
-            ['setting_key' => 'social_youtube', 'setting_type' => 'url', 'setting_value' => ''],
-            ['setting_key' => 'social_pinterest', 'setting_type' => 'url', 'setting_value' => ''],
-
-            // SEO Settings
-            ['setting_key' => 'default_meta_title', 'setting_type' => 'text', 'setting_value' => 'Halisi Africa Discoveries | Authentic African Journeys'],
-            ['setting_key' => 'default_meta_description', 'setting_type' => 'text', 'setting_value' => 'Luxury travel across Africa rooted in conservation and community. Discover bespoke safaris, retreats, and impact-led journeys.'],
-            ['setting_key' => 'default_meta_keywords', 'setting_type' => 'text', 'setting_value' => 'africa, safari, luxury travel, conservation, community tourism'],
-            ['setting_key' => 'google_analytics_id', 'setting_type' => 'text', 'setting_value' => ''],
-            ['setting_key' => 'google_tag_manager_id', 'setting_type' => 'text', 'setting_value' => ''],
-            ['setting_key' => 'tinymce_api_key', 'setting_type' => 'text', 'setting_value' => ''],
+            'company_name' => 'Halisi Africa Discoveries',
+            'company_tagline' => 'Authentic African Journeys, Designed to Regenerate',
+            'company_address' => 'PO Box 1234',
+            'company_city' => 'Nairobi',
+            'company_state' => '',
+            'company_country' => 'Kenya',
+            'company_postal_code' => '00100',
+            'company_phone' => '+254 700 000 000',
+            'office_hours' => 'Mon–Fri: 09:00 — 17:00',
+            'company_email' => 'info@halisiafrica.com',
+            'company_website' => 'https://halisiafrica.com',
+            'social_facebook' => 'https://facebook.com/halisiafrica',
+            'social_instagram' => 'https://instagram.com/halisiafrica',
+            'social_twitter' => 'https://twitter.com/halisiafrica',
+            'social_linkedin' => 'https://linkedin.com/company/halisiafrica',
+            'social_youtube' => '',
+            'social_pinterest' => '',
+            'default_meta_title' => 'Halisi Africa Discoveries',
+            'default_meta_description' => 'Authentic African Journeys, Designed to Regenerate.',
+            'default_meta_keywords' => 'africa, travel, safari, luxury, conservation, regenerative tourism',
+            'google_analytics_id' => '',
+            'google_tag_manager_id' => '',
+            'tinymce_api_key' => '',
+            'newsletter_popup_enabled' => '0',
+            'newsletter_popup_delay_seconds' => '10',
+            'newsletter_popup_title' => 'Stay Connected with Halisi',
+            'newsletter_popup_description' => 'Get travel inspiration, impact stories, and curated journey ideas.',
+            'newsletter_popup_button_label' => 'Subscribe',
         ];
 
-        foreach ($settings as $setting) {
-            SiteSetting::firstOrCreate(
-                ['setting_key' => $setting['setting_key']],
-                $setting
+        foreach ($settings as $key => $value) {
+            SiteSetting::updateOrCreate(
+                ['setting_key' => $key],
+                [
+                    'setting_type' => str_starts_with($key, 'social_') || str_ends_with($key, '_website') ? 'url' : 'text',
+                    'setting_value' => $value,
+                ]
             );
         }
     }

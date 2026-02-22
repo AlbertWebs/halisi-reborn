@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\TrustPost;
 use Illuminate\Http\Request;
 
@@ -9,6 +10,10 @@ class TrustController extends Controller
 {
     public function index()
     {
+        $page = Page::where('slug', 'halisi-trust')
+            ->where('is_published', true)
+            ->first();
+
         $featuredPost = TrustPost::where('is_published', true)
             ->orderBy('published_at', 'desc')
             ->first();
@@ -20,7 +25,7 @@ class TrustController extends Controller
             ->orderBy('published_at', 'desc')
             ->paginate(9);
             
-        return view('trust.index', compact('posts', 'featuredPost'));
+        return view('trust.index', compact('posts', 'featuredPost', 'page'));
     }
 
     public function show(TrustPost $post)

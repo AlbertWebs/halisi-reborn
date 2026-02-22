@@ -16,6 +16,11 @@ class SettingsController extends Controller
         $defaultSettings = [
             'company_name' => new SiteSetting(['setting_key' => 'company_name', 'setting_value' => 'Halisi Africa Discoveries']),
             'company_tagline' => new SiteSetting(['setting_key' => 'company_tagline', 'setting_value' => 'Authentic African Journeys, Designed to Regenerate']),
+            'newsletter_popup_enabled' => new SiteSetting(['setting_key' => 'newsletter_popup_enabled', 'setting_value' => '0']),
+            'newsletter_popup_delay_seconds' => new SiteSetting(['setting_key' => 'newsletter_popup_delay_seconds', 'setting_value' => '10']),
+            'newsletter_popup_title' => new SiteSetting(['setting_key' => 'newsletter_popup_title', 'setting_value' => 'Stay Connected with Halisi']),
+            'newsletter_popup_description' => new SiteSetting(['setting_key' => 'newsletter_popup_description', 'setting_value' => 'Get travel inspiration, impact stories, and curated journey ideas.']),
+            'newsletter_popup_button_label' => new SiteSetting(['setting_key' => 'newsletter_popup_button_label', 'setting_value' => 'Subscribe']),
         ];
         foreach ($defaultSettings as $key => $default) {
             if (!isset($settings[$key])) {
@@ -37,6 +42,7 @@ class SettingsController extends Controller
             'company_country' => 'nullable|string|max:255',
             'company_postal_code' => 'nullable|string|max:255',
             'company_phone' => 'nullable|string|max:255',
+            'office_hours' => 'nullable|string|max:255',
             'company_email' => 'nullable|email|max:255',
             'company_website' => 'nullable|url|max:255',
             
@@ -61,6 +67,11 @@ class SettingsController extends Controller
             'google_analytics_id' => 'nullable|string|max:255',
             'google_tag_manager_id' => 'nullable|string|max:255',
             'tinymce_api_key' => 'nullable|string|max:255',
+            'newsletter_popup_enabled' => 'nullable|boolean',
+            'newsletter_popup_delay_seconds' => 'nullable|integer|min:1|max:120',
+            'newsletter_popup_title' => 'nullable|string|max:255',
+            'newsletter_popup_description' => 'nullable|string|max:500',
+            'newsletter_popup_button_label' => 'nullable|string|max:80',
         ]);
 
         // Handle file uploads
@@ -91,12 +102,16 @@ class SettingsController extends Controller
         $textFields = [
             'company_name', 'company_tagline', 'company_address', 'company_city',
             'company_state', 'company_country', 'company_postal_code',
-            'company_phone', 'company_email', 'company_website',
+            'company_phone', 'office_hours', 'company_email', 'company_website',
             'social_facebook', 'social_instagram', 'social_twitter',
             'social_linkedin', 'social_youtube', 'social_pinterest',
             'default_meta_title', 'default_meta_description', 'default_meta_keywords',
-            'google_analytics_id', 'google_tag_manager_id', 'tinymce_api_key'
+            'google_analytics_id', 'google_tag_manager_id', 'tinymce_api_key',
+            'newsletter_popup_delay_seconds', 'newsletter_popup_title',
+            'newsletter_popup_description', 'newsletter_popup_button_label'
         ];
+
+        SiteSetting::set('newsletter_popup_enabled', $request->boolean('newsletter_popup_enabled') ? '1' : '0', 'text');
 
         foreach ($textFields as $field) {
             if ($request->has($field)) {

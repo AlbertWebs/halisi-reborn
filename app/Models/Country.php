@@ -32,6 +32,7 @@ class Country extends Model
         'conservation_focus',
         'conservation_title',
         'conservation_visual_text',
+        'conservation_image',
         'conservation_button_text',
         'conservation_button_link',
         'featured_journeys_title',

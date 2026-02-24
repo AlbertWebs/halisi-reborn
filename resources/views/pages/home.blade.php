@@ -59,7 +59,7 @@
     <!-- Welcome Section -->
     <section id="welcome-section" class="section-padding bg-white about-green-section">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="about-green-content">
+            <div class="about-green-content js-scroll">
                 <p class="about-green-intro">{{ $introSection?->subtitle ?: 'Welcome To' }}</p>
                 <h2 class="about-green-title">
                     {{ $introSection?->title ?: 'Halisi Africa Discoveries' }}
@@ -86,11 +86,11 @@
     <!-- Our Experiences Section -->
     <section class="section-padding bg-[var(--color-off-white)] experiences-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-[var(--color-forest-green)] mb-10 md:mb-12">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-[var(--color-forest-green)] mb-10 md:mb-12 js-scroll">
                 Our Experiences
             </h2>
        
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 experience-grid items-stretch">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 experience-grid items-stretch js-scroll-stagger">
                 <div class="experience-card flex flex-col overflow-hidden bg-white rounded-lg">
                     <img src="{{ (isset($experienceSections['experience_safaris']) && $experienceSections['experience_safaris']->image) ? asset('storage/' . $experienceSections['experience_safaris']->image) : asset('/og-image.jpg') }}" alt="Bespoke Safaris" class="experience-image">
                     <div class="experience-overlay"></div>
@@ -152,7 +152,7 @@
             ];
             @endphp
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 text-center">
+            <div class="mb-12 text-center js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-8"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Our 5 Pillars
@@ -161,7 +161,7 @@
                     These pillars guide every journey we design and every partnership we form.
                 </p>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8">
+            <div class="grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 js-scroll-stagger">
                 @foreach($pillars as $p)
                     <div class="text-center">
                         <div class="w-16 h-16 bg-[var(--color-sand-beige)] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -193,13 +193,13 @@
     <!-- Explore Africa Section - Grid (all countries visible) -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
+            <div class="text-center mb-10 js-scroll">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-4">
                     Explore Africa
                 </h2>
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto"></div>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 explore-africa-grid">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 explore-africa-grid js-scroll-stagger">
                 @foreach($exploreCountries as $country)
                     <x-country-card
                         :name="$country->name"
@@ -271,7 +271,7 @@
     <!-- Responsible Travel Teaser Section -->
     <section class="luxury-teaser-section bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 luxury-equal-grid">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 luxury-equal-grid js-scroll">
                 <div class="luxury-copy-col">
                     <h2 class="luxury-heading mobile-underline-fit font-serif font-bold text-[var(--color-forest-green)] mb-0 text-center md:text-left">
                         {{ $responsibleTravelSection?->title ?: 'Responsible Travel & Carbon Offsetting' }}
@@ -310,7 +310,7 @@
     <!-- Women & Restoration Teaser -->
     <section class="luxury-teaser-section bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 luxury-equal-grid">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 luxury-equal-grid js-scroll">
                 <div class="order-2 lg:order-1 relative luxury-media-col">
                     <div class="luxury-media-frame bg-[var(--color-sand-beige)]">
                         @if(filled($womenRestorationSection?->image))
@@ -358,10 +358,10 @@
     <!-- Signature Journeys Section -->
     <section class="luxury-teaser-section bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="luxury-heading font-serif font-bold text-center text-[var(--color-forest-green)] mb-14 md:text-center">
+            <h2 class="luxury-heading font-serif font-bold text-center text-[var(--color-forest-green)] mb-14 md:text-center js-scroll">
                 Signature Journeys
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 js-scroll-stagger">
                 <x-pillar-card 
                     class="signature-journey-card"
                     title="Wildlife Safaris" 
@@ -403,7 +403,7 @@
 
     <!-- Final CTA Section -->
     <section class="section-padding-lg final-luxury-cta text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
             <h2 class="text-3xl md:text-4xl font-serif font-bold mb-10 text-balance leading-tight">
                 Design a Journey That Leaves More Than Footprints
             </h2>

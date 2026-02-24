@@ -55,7 +55,7 @@
     <section id="journeys" class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             @if($journeys->count() > 0)
-                <div class="mb-12 text-center">
+                <div class="mb-12 text-center js-scroll">
                     <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-4">
                         {{ request()->routeIs('journeys.index') ? 'All Journeys' : 'Featured Journeys' }}
                     </h2>
@@ -64,7 +64,7 @@
                         Discover our curated collection of transformative African experiences
                     </p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10 js-scroll-stagger">
                     @foreach($journeys as $journey)
                         <x-journey-card :journey="$journey" />
                     @endforeach
@@ -92,7 +92,7 @@
 
     <!-- CTA Section -->
     <section class="section-padding bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
             <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
                 Ready to Begin Your Journey?
             </h2>

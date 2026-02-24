@@ -191,6 +191,13 @@
                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">{{ old('conservation_visual_text') }}</textarea>
                     </div>
 
+                    <div>
+                        <label for="conservation_image" class="block text-sm font-medium text-gray-700 mb-2">Section Image</label>
+                        <input type="file" id="conservation_image" name="conservation_image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                        <p class="text-xs text-gray-500 mt-1">Optional image for the Conservation & Community Focus section.</p>
+                    </div>
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="conservation_button_text" class="block text-sm font-medium text-gray-700 mb-2">Button Text</label>

@@ -41,7 +41,7 @@
 
     <!-- Styles / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+    @stack('styles')
     
     <!-- Structured Data - Organization -->
     <x-structured-data type="organization" />
@@ -64,6 +64,68 @@
         <!-- Footer -->
         <x-footer />
     </div>
+
+    @if(!request()->routeIs('home'))
+        <button
+            type="button"
+            id="back-to-top-btn"
+            class="back-to-hero-arrow fixed bottom-20 md:bottom-8 right-4 md:right-8 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[var(--color-nav-active)] text-white shadow-lg hover:bg-[var(--color-forest-green)] focus:outline-none focus:ring-2 focus:ring-[var(--color-nav-active)] focus:ring-offset-2 flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none"
+            aria-label="Back to top"
+        >
+            <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+            </svg>
+        </button>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const backToTopBtn = document.getElementById('back-to-top-btn');
+                if (!backToTopBtn) {
+                    return;
+                }
+
+                const toggleBackToTop = function () {
+                    if (window.scrollY > window.innerHeight * 0.4) {
+                        backToTopBtn.classList.remove('opacity-0', 'pointer-events-none');
+                    } else {
+                        backToTopBtn.classList.add('opacity-0', 'pointer-events-none');
+                    }
+                };
+
+                backToTopBtn.addEventListener('click', function () {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+
+                window.addEventListener('scroll', toggleBackToTop, { passive: true });
+                toggleBackToTop();
+            });
+        </script>
+    @endif
+
+    <!-- Scroll-triggered animations (all pages) -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof window.IntersectionObserver === 'undefined') {
+            document.querySelectorAll('.js-scroll, .js-scroll-stagger').forEach(function(el) { el.classList.add('is-visible'); });
+            return;
+        }
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var els = document.querySelectorAll('.js-scroll, .js-scroll-stagger');
+        if (reducedMotion) {
+            els.forEach(function(el) { el.classList.add('is-visible'); });
+            return;
+        }
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+        els.forEach(function(el) { observer.observe(el); });
+    });
+    </script>
 
     <!-- Mobile Bottom Nav (outside wrapper so overflow/transform on homepage don't affect fixed positioning) -->
     <x-mobile-bottom-nav />

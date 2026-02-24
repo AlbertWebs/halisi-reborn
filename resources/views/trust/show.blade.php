@@ -37,7 +37,7 @@
     <!-- Article Content -->
     <article class="section-padding bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-6">
+            <div class="mb-6 js-scroll">
                 <span class="text-xs uppercase tracking-wide text-[var(--color-accent-gold)] font-semibold">{{ $post->category }}</span>
                 @if($post->published_at)
                     <span class="text-sm text-[var(--color-earth-brown)] ml-4">{{ $post->published_at->format('F j, Y') }}</span>
@@ -54,7 +54,7 @@
                 </p>
             @endif
             
-            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)]">
+            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] js-scroll js-scroll-fade">
                 {!! nl2br(e($post->content)) !!}
             </div>
         </div>
@@ -66,10 +66,10 @@
     @if($relatedPosts->count() > 0)
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-8">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-8 js-scroll">
                 Related Articles
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 js-scroll-stagger">
                 @foreach($relatedPosts as $related)
                     <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group">
                         <a href="{{ route('trust.show', $related) }}" class="block">

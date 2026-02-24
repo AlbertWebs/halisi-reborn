@@ -33,7 +33,7 @@
                             <div class="text-sm text-gray-500">{{ $journey->slug }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="text-sm text-gray-900">{{ $journey->journey_category }}</span>
+                            <span class="text-sm text-gray-900">{{ $journey->category?->name ?? $journey->journey_category }}</span>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm text-gray-900">

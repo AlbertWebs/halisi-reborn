@@ -43,12 +43,12 @@
     @if($featuredPost ?? null)
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
+            <div class="mb-8 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-4"></div>
                 <p class="text-sm uppercase tracking-wide text-[var(--color-forest-green)] font-semibold">{{ $page?->featured_label ?: 'Featured Article' }}</p>
             </div>
             
-            <a href="{{ route('trust.show', $featuredPost) }}" class="block group">
+            <a href="{{ route('trust.show', $featuredPost) }}" class="block group js-scroll">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 bg-[var(--color-off-white)] rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
                     @php $featuredImage = $resolveImage($featuredPost->featured_image); @endphp
                     @if($featuredImage)
@@ -91,7 +91,7 @@
     <!-- Editorial Grid -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12">
+            <div class="mb-12 js-scroll">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-4">
                     {{ $page?->latest_articles_title ?: 'Latest Articles' }}
                 </h2>
@@ -101,7 +101,7 @@
             </div>
             
             @if($posts->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 js-scroll-stagger">
                     @foreach($posts as $post)
                         <article class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 group">
                             <a href="{{ route('trust.show', $post) }}" class="block">

@@ -25,7 +25,7 @@
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div>
+                <div class="js-scroll">
                     <div class="mb-8">
                         <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                         <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
@@ -53,7 +53,7 @@
                 </div>
                 
                 <!-- Stat Blocks -->
-                <div class="grid grid-cols-2 gap-6">
+                <div class="grid grid-cols-2 gap-6 js-scroll-stagger">
                     <div class="bg-[var(--color-off-white)] p-8 rounded-lg text-center border border-[var(--color-sand-beige)]">
                         <div class="text-5xl font-serif font-bold text-[var(--color-forest-green)] mb-2" data-count="100">0</div>
                         <div class="text-sm uppercase tracking-wide text-[var(--color-earth-brown)]">Mangroves Planted</div>
@@ -76,14 +76,14 @@
     <!-- Seedball Safaris Section -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
+            <div class="mb-8 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Seedball Safaris
                 </h2>
             </div>
             
-            <div class="bg-white p-8 rounded-lg mb-8">
+            <div class="bg-white p-8 rounded-lg mb-8 js-scroll js-scroll-fade">
                 <div class="flex items-center gap-6 mb-6">
                     <div class="w-20 h-20 bg-[var(--color-sand-beige)] rounded-full flex items-center justify-center flex-shrink-0">
                         <svg class="w-10 h-10 text-[var(--color-forest-green)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -121,14 +121,14 @@
     <!-- Community Partnerships Section -->
     <section class="section-padding bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
+            <div class="mb-8 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Community Partnerships
                 </h2>
             </div>
             
-            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] mb-8">
+            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] mb-8 js-scroll js-scroll-fade">
                 <p class="text-xl leading-relaxed mb-6">
                     Our impact is built on long-term collaboration with local communities, not short-term interventions. 
                     We partner with community-led initiatives, respecting local leadership and ensuring that conservation 
@@ -145,7 +145,7 @@
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 js-scroll-stagger">
                 <div class="bg-[var(--color-off-white)] p-6 rounded-lg">
                     <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-3">Long-Term Commitment</h3>
                     <p class="text-sm text-[var(--color-earth-brown)] leading-relaxed">
@@ -173,7 +173,7 @@
     <!-- Conservation Outcomes Section -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 text-center">
+            <div class="mb-12 text-center js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Conservation Outcomes
@@ -183,7 +183,7 @@
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 js-scroll-stagger">
                 <!-- Wildlife Impact -->
                 <div class="bg-white p-8 rounded-lg">
                     <div class="w-16 h-16 bg-[var(--color-sand-beige)] rounded-full flex items-center justify-center mb-6">
@@ -275,7 +275,7 @@
 
     <!-- CTA Block -->
     <section class="section-padding bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold mb-6">
                 Travel as a Force for Regeneration
             </h2>

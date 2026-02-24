@@ -24,14 +24,14 @@
     <!-- Design a Journey (Travellers) -->
     <section class="section-padding bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
+            <div class="mb-8 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Design a Journey
                 </h2>
             </div>
             
-            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] mb-8">
+            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] mb-8 js-scroll js-scroll-fade">
                 <p class="text-lg leading-relaxed mb-6">
                     Ready to experience regenerative travel? Our team works with you to design a bespoke journey that aligns 
                     with your interests, values, and travel style. Every itinerary is crafted to create meaningful experiences 
@@ -54,7 +54,7 @@
     <!-- Trade & Collaborations -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 text-center">
+            <div class="mb-12 text-center js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Trade & Collaborations
@@ -64,7 +64,7 @@
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 js-scroll-stagger">
                 <!-- Travel Advisors -->
                 <div class="bg-white p-8 rounded-lg">
                     <div class="w-16 h-16 bg-[var(--color-sand-beige)] rounded-full flex items-center justify-center mb-6">
@@ -139,14 +139,14 @@
     <!-- Conservation & Community Partners -->
     <section class="section-padding bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
+            <div class="mb-8 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Conservation & Community Partners
                 </h2>
             </div>
             
-            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] mb-8">
+            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] mb-8 js-scroll js-scroll-fade">
                 <p class="text-lg leading-relaxed mb-6">
                     We partner with NGOs, foundations, and local initiatives to amplify conservation and community impact. 
                     If your organization is working on ecosystem restoration, wildlife protection, or community empowerment 
@@ -193,14 +193,14 @@
     <!-- Media & Speaking -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
+            <div class="mb-8 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Media & Speaking
                 </h2>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 js-scroll-stagger">
                 <!-- Speaking Engagements -->
                 <div class="bg-white p-8 rounded-lg">
                     <h3 class="text-xl font-serif font-semibold text-[var(--color-forest-green)] mb-4">
@@ -236,14 +236,14 @@
 
     <!-- Final CTA -->
     <section class="section-padding bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
             <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
                 Start the Conversation
             </h2>
             <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
                 Whether you're a traveler, advisor, partner, or media professional, we'd love to hear from you.
             </p>
-            <x-button-primary href="{{ route('contact.index') }}" class="bg-white text-[var(--color-forest-green)] hover:bg-gray-100 text-lg px-10 py-5 border-0">
+            <x-button-primary href="{{ route('contact.index') }}" class="bg-[var(--color-accent-gold)] text-[var(--color-forest-green)] hover:bg-[#e8c57a] text-lg px-10 py-5 border border-white">
                 Get in Touch
             </x-button-primary>
         </div>

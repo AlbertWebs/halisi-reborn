@@ -16,7 +16,10 @@ class JourneyController extends Controller
     public function signatureSafaris()
     {
         $journeys = Journey::where('is_published', true)
-            ->where('journey_category', 'signature-safaris')
+            ->where(function ($q) {
+                $q->whereHas('category', fn ($q2) => $q2->where('slug', 'signature-safaris'))
+                    ->orWhere('journey_category', 'Signature Safaris');
+            })
             ->orderBy('sort_order')
             ->get();
         return view('journeys.category', ['journeys' => $journeys, 'category' => 'Signature Safaris']);
@@ -25,7 +28,10 @@ class JourneyController extends Controller
     public function bespokePrivate()
     {
         $journeys = Journey::where('is_published', true)
-            ->where('journey_category', 'bespoke-private-travel')
+            ->where(function ($q) {
+                $q->whereHas('category', fn ($q2) => $q2->where('slug', 'bespoke-private-travel'))
+                    ->orWhere('journey_category', 'Bespoke Private Travel');
+            })
             ->orderBy('sort_order')
             ->get();
         return view('journeys.category', ['journeys' => $journeys, 'category' => 'Bespoke Private Travel']);
@@ -34,7 +40,10 @@ class JourneyController extends Controller
     public function conservationCommunity()
     {
         $journeys = Journey::where('is_published', true)
-            ->where('journey_category', 'conservation-community')
+            ->where(function ($q) {
+                $q->whereHas('category', fn ($q2) => $q2->where('slug', 'conservation-community'))
+                    ->orWhere('journey_category', 'Conservation & Community');
+            })
             ->orderBy('sort_order')
             ->get();
         return view('journeys.category', ['journeys' => $journeys, 'category' => 'Conservation & Community']);
@@ -43,7 +52,10 @@ class JourneyController extends Controller
     public function luxuryRetreats()
     {
         $journeys = Journey::where('is_published', true)
-            ->where('journey_category', 'luxury-retreats')
+            ->where(function ($q) {
+                $q->whereHas('category', fn ($q2) => $q2->where('slug', 'luxury-retreats'))
+                    ->orWhere('journey_category', 'Luxury Retreats');
+            })
             ->orderBy('sort_order')
             ->get();
         return view('journeys.category', ['journeys' => $journeys, 'category' => 'Luxury Retreats']);

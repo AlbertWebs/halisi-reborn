@@ -56,7 +56,7 @@
     @if(isset($journey) || isset($country))
     <section class="section-padding bg-white border-b border-[var(--color-sand-beige)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 js-scroll-stagger">
 
                 @isset($journey)
                 <div class="bg-[var(--color-off-white)] p-6 rounded-lg border-l-4 border-[var(--color-accent-gold)] shadow-sm">
@@ -90,7 +90,7 @@
     <!-- Contact Section -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch js-scroll-stagger">
 
                 <!-- Contact Information -->
                 <div class="lg:col-span-4 flex">
@@ -240,7 +240,7 @@
 
     <!-- Map Section -->
 <div class="mt-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-    <div class="bg-white p-4 rounded-2xl shadow-md border border-[var(--color-sand-beige)]">
+    <div class="bg-white p-4 rounded-2xl shadow-md border border-[var(--color-sand-beige)] js-scroll">
         <iframe
             src="{{ $mapEmbedUrl }}"
             class="w-full h-[420px] rounded-xl border-0"
@@ -254,7 +254,7 @@
     @if(($suggestedJourneys ?? collect())->count() > 0)
     <section class="pb-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-10 text-center">
+            <div class="mb-10 text-center js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-4">
                     Suggested Journeys
@@ -263,7 +263,7 @@
                     Explore a few inspiring ideas while our team crafts your bespoke trip.
                 </p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 js-scroll-stagger">
                 @foreach($suggestedJourneys as $suggestedJourney)
                     <x-journey-card :journey="$suggestedJourney" />
                 @endforeach

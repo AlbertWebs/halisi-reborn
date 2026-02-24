@@ -5,10 +5,10 @@
 
 @section('content')
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h1 class="text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-12">Explore Africa by Country</h1>
+        <h1 class="text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-12 js-scroll">Explore Africa by Country</h1>
         
         @if($countries->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 js-scroll-stagger">
                 @foreach($countries as $country)
                     <x-country-card 
                         name="{{ $country->name }}" 
@@ -19,7 +19,7 @@
                 @endforeach
             </div>
         @else
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 js-scroll-stagger">
                 <x-country-card name="Kenya" slug="kenya" />
                 <x-country-card name="Uganda" slug="uganda" />
                 <x-country-card name="Tanzania" slug="tanzania" />

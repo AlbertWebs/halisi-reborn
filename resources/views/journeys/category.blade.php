@@ -17,6 +17,10 @@
     
     $description = $categoryDescriptions[$category] ?? 'Explore our ' . strtolower($category) . ' journeys designed to regenerate ecosystems and empower communities.';
     $headline = $categoryHeadlines[$category] ?? $category;
+
+    $heroJourneys = $journeys->filter(fn($j) => !empty($j->hero_image));
+    $randomHeroJourney = $heroJourneys->isNotEmpty() ? $heroJourneys->random() : null;
+    $heroImageUrl = $randomHeroJourney ? (str_starts_with($randomHeroJourney->hero_image, 'http') ? $randomHeroJourney->hero_image : asset('storage/' . $randomHeroJourney->hero_image)) : null;
 @endphp
 
 @section('title', $category . ' - Halisi Africa Discoveries')
@@ -24,10 +28,14 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="relative min-h-[70vh] flex items-center justify-center bg-[var(--color-forest-green)] text-white">
+    <section class="relative min-h-[70vh] flex items-center justify-center bg-[var(--color-forest-green)] text-white overflow-hidden">
         <div class="absolute inset-0">
+            @if($heroImageUrl)
+                <img src="{{ $heroImageUrl }}" alt="" class="absolute inset-0 w-full h-full object-cover" aria-hidden="true">
+            @else
+                <div class="w-full h-full bg-gradient-to-br from-[var(--color-forest-green)] via-[var(--color-earth-brown)] to-[var(--color-forest-green)]"></div>
+            @endif
             <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60 z-10"></div>
-            <div class="w-full h-full bg-gradient-to-br from-[var(--color-forest-green)] via-[var(--color-earth-brown)] to-[var(--color-forest-green)]"></div>
         </div>
         
         <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -44,7 +52,16 @@
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             @if($journeys->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="text-center mb-12 js-scroll">
+                    <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-4"></div>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)]">
+                        Our {{ $category }}
+                    </h2>
+                    <p class="text-lg text-[var(--color-earth-brown)] mt-2 max-w-2xl mx-auto">
+                        Explore the journeys below and find your next adventure.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 js-scroll-stagger">
                     @foreach($journeys as $journey)
                         <x-journey-card :journey="$journey" />
                     @endforeach
@@ -62,19 +79,19 @@
         </div>
     </section>
 
-    <x-section-divider />
+    
 
     <!-- Regenerative Angle Block -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-8">
+            <div class="text-center mb-8 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Regenerative Impact
                 </h2>
             </div>
             
-            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] text-center">
+            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] text-center js-scroll js-scroll-fade">
                 <p class="text-lg leading-relaxed mb-6">
                     Every {{ strtolower($category) }} journey with Halisi Africa is designed to create measurable positive impact. 
                     Through direct support for conservation projects, community-led initiatives, and nature-based solutions, 
@@ -95,19 +112,20 @@
         </div>
     </section>
 
-    <x-section-divider />
+    
 
-    <!-- CTA Block -->
+    <!-- CTA: Design Your Journey -->
     <section class="section-padding bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
+            <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
             <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
-                Design Your Private Journey
+                Design Your Journey
             </h2>
             <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-                Let us craft a bespoke {{ strtolower($category) }} experience tailored to your interests, values, and travel style.
+                Let us craft a bespoke {{ strtolower($category) }} experience tailored to your interests, values, and travel style. Get in touch to start planning.
             </p>
-            <x-button-primary href="{{ route('contact.index') }}" class="text-lg px-10 py-5 border-0">
-                Start Your Journey
+            <x-button-primary href="{{ route('contact.index') }}" class="text-lg px-10 py-5 border-2 border-white">
+                Design Your Journey
             </x-button-primary>
         </div>
     </section>

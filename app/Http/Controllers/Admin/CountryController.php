@@ -50,6 +50,7 @@ class CountryController extends Controller
             'conservation_focus' => 'nullable|string',
             'conservation_title' => 'nullable|string|max:255',
             'conservation_visual_text' => 'nullable|string',
+            'conservation_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'conservation_button_text' => 'nullable|string|max:255',
             'conservation_button_link' => 'nullable|string|max:500',
             'featured_journeys_title' => 'nullable|string|max:255',
@@ -80,6 +81,10 @@ class CountryController extends Controller
             if ($request->hasFile("signature_card_{$i}_image")) {
                 $validated["signature_card_{$i}_image"] = $request->file("signature_card_{$i}_image")->store('countries', 'public');
             }
+        }
+
+        if ($request->hasFile('conservation_image')) {
+            $validated['conservation_image'] = $request->file('conservation_image')->store('countries', 'public');
         }
 
         $validated['is_published'] = $request->has('is_published');
@@ -128,6 +133,7 @@ class CountryController extends Controller
             'conservation_focus' => 'nullable|string',
             'conservation_title' => 'nullable|string|max:255',
             'conservation_visual_text' => 'nullable|string',
+            'conservation_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'conservation_button_text' => 'nullable|string|max:255',
             'conservation_button_link' => 'nullable|string|max:500',
             'featured_journeys_title' => 'nullable|string|max:255',
@@ -166,6 +172,13 @@ class CountryController extends Controller
             }
         }
 
+        if ($request->hasFile('conservation_image')) {
+            if ($country->conservation_image) {
+                Storage::disk('public')->delete($country->conservation_image);
+            }
+            $validated['conservation_image'] = $request->file('conservation_image')->store('countries', 'public');
+        }
+
         $validated['is_published'] = $request->has('is_published');
 
         $country->update($validated);
@@ -192,6 +205,9 @@ class CountryController extends Controller
             if ($country->$key) {
                 Storage::disk('public')->delete($country->$key);
             }
+        }
+        if ($country->conservation_image) {
+            Storage::disk('public')->delete($country->conservation_image);
         }
         $country->journeys()->detach();
         $country->delete();

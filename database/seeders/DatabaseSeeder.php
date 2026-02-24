@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             HomepageSeeder::class,
             PagesSeeder::class,
             ImpactStatsSeeder::class,
+            JourneyCategorySeeder::class,
             CountriesSeeder::class,
             JourneysSeeder::class,
             CountryJourneySeeder::class,

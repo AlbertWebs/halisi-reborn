@@ -70,6 +70,26 @@ class PagesSeeder extends Seeder
                 'meta_description' => 'Get in touch with Halisi Africa to design your authentic African journey.',
                 'is_published' => true,
             ],
+            [
+                'title' => 'Media Credits',
+                'slug' => 'media-credits',
+                'hero_title' => 'Media Credits',
+                'hero_subtext' => 'Acknowledge photographers, filmmakers, creators, and companies whose media appears on this website.',
+                'body_content' => '<h2>Photography Credits</h2>
+<ul>
+  <li><strong>Individual / Company Name</strong> - Photo collection used on Homepage and Country pages</li>
+  <li><strong>Individual / Company Name</strong> - Wildlife portfolio used on Journey pages</li>
+</ul>
+<h2>Video Credits</h2>
+<ul>
+  <li><strong>Individual / Company Name</strong> - Hero background footage</li>
+</ul>
+<h2>How to Use This Section</h2>
+<p>Add one line per person or company and specify where their media appears.</p>',
+                'meta_title' => 'Media Credits - Halisi Africa Discoveries',
+                'meta_description' => 'Media and asset credits for Halisi Africa Discoveries website.',
+                'is_published' => true,
+            ],
         ];
 
         foreach ($pages as $page) {

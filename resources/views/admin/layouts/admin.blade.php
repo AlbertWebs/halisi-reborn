@@ -7,17 +7,15 @@
     <title>@yield('title', 'Admin Panel') - Halisi Africa</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
-        /* Thin translucent scrollbar for the sidebar (visible but subtle) */
-        .thin-scrollbar { -ms-overflow-style: auto; scrollbar-width: thin; }
-        .thin-scrollbar::-webkit-scrollbar { width: 8px; }
-        .thin-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .thin-scrollbar::-webkit-scrollbar-thumb {
-            background-color: rgba(255,255,255,0.12);
-            border-radius: 9999px;
-            border: 2px solid transparent; /* spacing to make thumb look thinner */
-            background-clip: padding-box;
+        /* Sidebar nav: scrollable, scrollbar hidden */
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
-        .thin-scrollbar:hover::-webkit-scrollbar-thumb { background-color: rgba(255,255,255,0.18); }
+        .sidebar-nav::-webkit-scrollbar { display: none; }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -53,7 +51,7 @@
             </div>
 
             <!-- Navigation -->
-            <nav class="flex-1 overflow-y-auto thin-scrollbar py-4 px-0">
+            <nav class="sidebar-nav py-4 px-0">
                 <!-- Dashboard -->
                 <div class="px-4 mb-4">
                     <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-3 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.dashboard') ? 'bg-gray-800 border-indigo-500' : '' }}">
@@ -64,16 +62,16 @@
                     </a>
                 </div>
 
-                <!-- Content Management -->
+                <!-- Website -->
                 <div class="px-4 mb-4">
-                    <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Content Management</p>
+                    <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Website</p>
                     
                     <a href="{{ route('admin.homepage.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.homepage.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
                         <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a1 1 0 001 1h16a1 1 0 001-1V7M8 3h8l1 4H7l1-4z"/></svg>
                         <span class="text-sm">Homepage Sections</span>
                     </a>
                     
-                    <a href="{{ route('admin.pages.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.pages.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                    <a href="{{ route('admin.pages.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.pages.*') && !request()->get('q') ? 'bg-gray-800 border-indigo-500' : '' }}">
                         <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10M7 11h10M7 15h7"/></svg>
                         <span class="text-sm">Pages</span>
                     </a>
@@ -92,7 +90,11 @@
                         <svg class="w-5 h-5 mr-3 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 1v22M1 12h22"/></svg>
                         <span class="text-sm">Privacy Policy</span>
                     </a>
-                    
+                </div>
+
+                <!-- Travel -->
+                <div class="px-4 mb-4">
+                    <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Travel</p>
                     <a href="{{ route('admin.journeys.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.journeys.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
                         <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3-1.343-3-3S10.343 2 12 2s3 1.343 3 3-1.343 3-3 3zM6 20c0-3.314 2.686-6 6-6s6 2.686 6 6"/></svg>
                         <span class="text-sm">Journeys</span>
@@ -102,17 +104,39 @@
                         <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2a10 10 0 100 20 10 10 0 000-20zM2 12h20M12 2v20"/></svg>
                         <span class="text-sm">Countries</span>
                     </a>
-                    
+                    <a href="{{ route('admin.categories.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.categories.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                        <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+                        <span class="text-sm">Categories</span>
+                    </a>
+                </div>
+
+                <!-- Impact -->
+                <div class="px-4 mb-4">
+                    <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Impact</p>
                     <a href="{{ route('admin.impact.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.impact.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
                         <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3v18M4 12h14"/></svg>
                         <span class="text-sm">Impact & Stats</span>
                     </a>
-                    
-                    <a href="{{ route('home') }}" target="_blank" rel="noopener" class="flex items-center px-4 py-2 mt-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7v7m0 0L10 14m4-11L5 19" />
-                        </svg>
-                        <span class="text-sm">View site</span>
+                </div>
+
+                <!-- Billing -->
+                <div class="px-4 mb-4">
+                    <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Billing</p>
+                    <a href="{{ route('admin.billing.dashboard') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.billing.dashboard') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                        <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                        <span class="text-sm">Billing Dashboard</span>
+                    </a>
+                    <a href="{{ route('admin.billing.clients.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.billing.clients.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                        <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        <span class="text-sm">Clients</span>
+                    </a>
+                    <a href="{{ route('admin.billing.invoices.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.billing.invoices.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                        <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                        <span class="text-sm">Invoices</span>
+                    </a>
+                    <a href="{{ route('admin.billing.payments.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.billing.payments.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                        <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+                        <span class="text-sm">Payments</span>
                     </a>
                 </div>
 
@@ -130,23 +154,26 @@
                         <span class="text-sm">Add Article</span>
                     </a>
                 </div>
-            </nav>
 
-            <!-- Admin links segment -->
-            <div class="px-4 py-3 border-t border-gray-800">
-                <p class="px-1 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Administration</p>
-                <div class="flex flex-col space-y-2">
-                    <a href="{{ route('admin.footer.index') }}" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.footer.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                <!-- Administration -->
+                <div class="px-4 mb-4 pt-2 border-t border-gray-800">
+                    <p class="px-4 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Administration</p>
+                    <a href="{{ route('home') }}" target="_blank" rel="noopener" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 3h7v7m0 0L10 14m4-11L5 19" />
+                        </svg>
+                        <span class="text-sm">View site</span>
+                    </a>
+                    <a href="{{ route('admin.footer.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.footer.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
                         <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7h18M3 12h18M3 17h18"/></svg>
                         <span class="text-sm">Footer</span>
                     </a>
-
-                    <a href="{{ route('admin.settings.index') }}" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.settings.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
+                    <a href="{{ route('admin.settings.index') }}" class="flex items-center px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors border-l-4 border-transparent {{ request()->routeIs('admin.settings.*') ? 'bg-gray-800 border-indigo-500' : '' }}">
                         <svg class="w-5 h-5 mr-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm8 3a8 8 0 11-16 0 8 8 0 0116 0z"/></svg>
                         <span class="text-sm">Settings</span>
                     </a>
                 </div>
-            </div>
+            </nav>
 
             <!-- Logout pinned to bottom (only button) -->
             <div class="mt-auto p-4 border-t border-gray-800">

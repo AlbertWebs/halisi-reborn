@@ -184,8 +184,9 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-white/55">
                 <p class="tracking-wide">&copy; {{ date('Y') }} Halisi Africa Discoveries. All rights reserved.</p>
                 <div class="flex gap-6">
-                    <a href="#" class="text-white/60 hover:text-[var(--color-accent-gold)] transition-colors">Privacy Policy</a>
-                    <a href="#" class="text-white/60 hover:text-[var(--color-accent-gold)] transition-colors">Terms of Service</a>
+                    <a href="{{ route('privacy-policy') }}" class="text-white/60 hover:text-[var(--color-accent-gold)] transition-colors">Privacy Policy</a>
+                    <a href="{{ route('terms-and-conditions') }}" class="text-white/60 hover:text-[var(--color-accent-gold)] transition-colors">Terms & Conditions</a>
+                    <a href="{{ route('media-credits') }}" class="text-white/60 hover:text-[var(--color-accent-gold)] transition-colors">Media Credits</a>
                 </div>
             </div>
         </div>

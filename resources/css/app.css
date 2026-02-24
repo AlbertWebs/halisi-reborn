@@ -64,6 +64,52 @@ body {
     padding: 0;
 }
 
+/* Scroll-triggered animations (global) */
+.js-scroll {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.js-scroll-fade {
+    transform: none;
+}
+.js-scroll-fade.is-visible {
+    transform: none;
+}
+.js-scroll-stagger > * {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js-scroll-stagger.is-visible > *:nth-child(1) { transition-delay: 0s; }
+.js-scroll-stagger.is-visible > *:nth-child(2) { transition-delay: 0.06s; }
+.js-scroll-stagger.is-visible > *:nth-child(3) { transition-delay: 0.12s; }
+.js-scroll-stagger.is-visible > *:nth-child(4) { transition-delay: 0.18s; }
+.js-scroll-stagger.is-visible > *:nth-child(5) { transition-delay: 0.24s; }
+.js-scroll-stagger.is-visible > *:nth-child(6) { transition-delay: 0.3s; }
+.js-scroll-stagger.is-visible > *:nth-child(7) { transition-delay: 0.36s; }
+.js-scroll-stagger.is-visible > *:nth-child(8) { transition-delay: 0.42s; }
+.js-scroll-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+    .js-scroll,
+    .js-scroll-stagger > * {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .js-scroll-stagger.is-visible > * {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 /* Parallax Container */
 .parallax-container {
     position: relative;

@@ -27,12 +27,12 @@
                     </div>
 
                     <div>
-                        <label for="journey_category" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
-                        <select id="journey_category" name="journey_category" required
+                        <label for="journey_category_id" class="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                        <select id="journey_category_id" name="journey_category_id" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
                             <option value="">Select a category</option>
                             @foreach($categories as $category)
-                                <option value="{{ $category }}" {{ old('journey_category') == $category ? 'selected' : '' }}>{{ $category }}</option>
+                                <option value="{{ $category->id }}" {{ old('journey_category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -45,12 +45,25 @@
                 </div>
             </div>
 
-            <!-- Hero Image -->
+            <!-- Hero Media (video takes priority over image) -->
             <div>
-                <label for="hero_image" class="block text-sm font-medium text-gray-700 mb-2">Hero Image</label>
-                <input type="file" id="hero_image" name="hero_image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
-                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
-                <p class="text-xs text-gray-500 mt-1">Recommended: 1920x1080px, max 2MB</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Hero Media</h3>
+                <p class="text-xs text-gray-500 mb-4">If both video and image are set, video is shown on the journey page. Leave video empty to use the image.</p>
+                <div class="space-y-4">
+                    <div>
+                        <label for="hero_video" class="block text-sm font-medium text-gray-700 mb-2">Hero Video (Vimeo URL)</label>
+                        <input type="text" id="hero_video" name="hero_video" value="{{ old('hero_video') }}"
+                               placeholder="https://vimeo.com/123456789 or https://player.vimeo.com/video/123456789"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                        <p class="text-xs text-gray-500 mt-1">Vimeo URL. Takes priority over hero image when set.</p>
+                    </div>
+                    <div>
+                        <label for="hero_image" class="block text-sm font-medium text-gray-700 mb-2">Hero Image (fallback)</label>
+                        <input type="file" id="hero_image" name="hero_image" accept="image/jpeg,image/png,image/gif,image/webp,image/avif,image/*"
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                        <p class="text-xs text-gray-500 mt-1">Recommended: 1920x1080px, max 2MB. Used when no video is set.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Content -->

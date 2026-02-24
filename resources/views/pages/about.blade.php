@@ -45,13 +45,13 @@
     <!-- Our Story Section -->
     <section class="section-padding bg-white">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12">
+            <div class="mb-12 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-8"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Our Story
                 </h2>
             </div>
-            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)]">
+            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] js-scroll js-scroll-fade">
                 <p class="text-lg leading-relaxed mb-6">
                     Halisi Africa Discoveries was born from a simple yet profound belief: travel should regenerate, not just preserve. 
                     Founded by conservationists and travel experts who witnessed the transformative power of responsible tourism, 
@@ -73,7 +73,7 @@
     @if($aboutContentImage1)
         <section class="pb-8 bg-white">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="rounded-xl overflow-hidden shadow-lg border border-[var(--color-sand-beige)]">
+                <div class="rounded-xl overflow-hidden shadow-lg border border-[var(--color-sand-beige)] js-scroll">
                     <img src="{{ $aboutContentImage1 }}" alt="About Halisi story image" class="w-full h-[220px] sm:h-[300px] md:h-[380px] object-cover" loading="lazy">
                 </div>
             </div>
@@ -85,13 +85,13 @@
     <!-- Our Philosophy Section -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12">
+            <div class="mb-12 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-8"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Our Philosophy
                 </h2>
             </div>
-            <div class="space-y-8">
+            <div class="space-y-8 js-scroll-stagger">
                 <div class="bg-white p-8 rounded-lg border-l-4 border-[var(--color-forest-green)]">
                     <h3 class="text-xl font-serif font-semibold text-[var(--color-forest-green)] mb-4">
                         Regeneration Over Preservation
@@ -141,7 +141,7 @@
     <!-- The 5 Regenerative Pillars - Expanded -->
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 text-center">
+            <div class="mb-12 text-center js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-8"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     The 5 Regenerative Pillars
@@ -151,7 +151,7 @@
                 </p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 js-scroll-stagger">
                 <div class="text-center">
                     <div class="w-16 h-16 bg-[var(--color-sand-beige)] rounded-full flex items-center justify-center mx-auto mb-4">
                         <svg class="w-8 h-8 text-[var(--color-forest-green)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -220,14 +220,14 @@
     <!-- Why Travel With Halisi Section -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12">
+            <div class="mb-12 js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-8"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                     Why Travel With Halisi
                 </h2>
             </div>
             
-            <div class="space-y-6">
+            <div class="space-y-6 js-scroll-stagger">
                 <div class="flex items-start gap-4">
                     <div class="flex-shrink-0 w-2 h-2 bg-[var(--color-accent-gold)] rounded-full mt-2"></div>
                     <div>
@@ -284,7 +284,7 @@
                 </div>
             </div>
             
-            <div class="mt-12 text-center">
+            <div class="mt-12 text-center js-scroll">
                 <x-button-primary href="{{ route('contact.index') }}">
                     Design Your Journey
                 </x-button-primary>

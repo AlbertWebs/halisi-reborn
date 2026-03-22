@@ -1,7 +1,7 @@
 @extends('layouts.app-home')
 
-@section('title', 'Halisi Africa Discoveries - Authentic African Journeys')
-@section('description', 'Authentic African Journeys, Designed to Regenerate')
+@section('title', 'Halisi Africa Discoveries - Women-led impact & African journeys')
+@section('description', 'Tour planning that empowers women and protects the environment. Authentic journeys across Africa.')
 
 
 @include('pages.homecss')
@@ -9,30 +9,22 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section id="hero-section" 
+    <section id="hero-section"
         class="hero-section-wrapper relative min-h-screen flex items-center justify-center hero-section-full-viewport">
-        <!-- Background Video with Overlay -->
-        <div class="hero-video-container z-0" > <!-- Vimeo Video Background -->
-            <div class="video-wrapper"> <iframe  id="hero-vimeo-iframe" 
-                    src="https://player.vimeo.com/video/1058906686?background=1&autoplay=1&loop=1&muted=1&controls=0&playsinline=0"
-                    frameborder="0" allow="autoplay; fullscreen;" allowfullscreen> </iframe> 
-                </div>
-            <!-- Overlay for better text readability -->
-            <div class="absolute inset-0 bg-[var(--color-forest-green)] opacity-40 z-10"></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60 z-10"></div>
-            <!-- Callout inside video container so on mobile it stays over the video -->
-            <div class="hero-eco-callout">
-                <p class="callout-subtitle">{!! nl2br(e($heroCalloutSection?->subtitle ?: "Immerse yourself in our wild,\nprecious world")) !!}</p>
-                <p class="callout-title">{{ $heroCalloutSection?->title ?: 'Where Eco is Luxury' }}</p> <a
-                    href="#welcome-section" class="callout-arrow-link" aria-label="Scroll to welcome section"> <span
-                        class="callout-arrow-line" aria-hidden="true"></span> <span class="callout-arrow-line second"
-                        aria-hidden="true"></span> </a>
+        <x-home-hero-background
+            :use-carousel="$useHeroCarousel"
+            :slides="$heroCarouselSlides"
+            :vimeo-video-id="$heroVimeoVideoId"
+            :carousel-interval-ms="$heroCarouselIntervalMs"
+            :hero-callout-section="$heroCalloutSection"
+        />
+        @unless($useHeroCarousel)
+            <div id="hero-video-preloader" class="hero-video-preloader" aria-live="polite"
+                aria-label="Loading background video">
+                <div class="hero-video-preloader-spinner" aria-hidden="true"></div>
             </div>
-        </div>
-        <div id="hero-video-preloader" class="hero-video-preloader" aria-live="polite" 
-            aria-label="Loading background video">
-            <div class="hero-video-preloader-spinner" aria-hidden="true"></div>
-        </div> <!-- Content -->
+        @endunless
+        <!-- Content -->
         <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="text-center text-white">
                 @if (filled($heroSection?->title))
@@ -56,46 +48,48 @@
 
      
 
-    <!-- Welcome Section -->
-    <section id="welcome-section" class="section-padding bg-white about-green-section">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-            <div class="about-green-content js-scroll">
-                <p class="about-green-intro">{{ $introSection?->subtitle ?: 'Welcome To' }}</p>
-                <h2 class="about-green-title">
-                    {{ $introSection?->title ?: 'Halisi Africa Discoveries' }}
-                </h2>
-                <div class="about-green-copy">
-                    {!! $introSection?->content ?: 'Crafting bespoke, luxury experiences across Africa with purpose and impact. From remote wilderness camps to curated conservation journeys, every itinerary is designed to immerse guests in extraordinary landscapes while supporting communities and ecosystems for generations to come.' !!}
-                </div>
-                <!-- <div class="about-green-actions">
-                    <x-button-secondary href="{{ route('trust.index') }}" class="inline-block">
-                        Our Stories
-                    </x-button-secondary>
-                </div> -->
-            </div>
-        </div>
-        <!-- <br><br>
-        <div class="about-green-ghost" aria-hidden="true">Crafting Bespoke Luxury<br> Experiences Across Africa</div> -->
-    </section>
+    <x-home-welcome-section
+        class="about-green-section"
+        :intro-section="$introSection"
+        :pillar-sections="$pillarSections"
+        :welcome-grid-sections="$welcomeGridSections"
+    />
 
     <!-- <section id="welcome-section" class="section-padding bg-white about-green-section">
        
         <div class="about-green-ghost" aria-hidden="true">Crafting Bespoke Luxury<br> Experiences Across Africa</div>
     </section> -->
 
-    <!-- Our Experiences Section -->
-    <section class="section-padding bg-[var(--color-off-white)] experiences-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-center text-[var(--color-forest-green)] mb-10 md:mb-12 js-scroll">
-                Our Experiences
-            </h2>
-       
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 experience-grid items-stretch js-scroll-stagger">
-                <div class="experience-card flex flex-col overflow-hidden bg-white rounded-lg">
-                    <img src="{{ (isset($experienceSections['experience_safaris']) && $experienceSections['experience_safaris']->image) ? asset('storage/' . $experienceSections['experience_safaris']->image) : asset('/og-image.jpg') }}" alt="Bespoke Safaris" class="experience-image">
-                    <div class="experience-overlay"></div>
+    <!-- Our Experiences — deep savanna band (contrast vs welcome cream) -->
+    <section class="experiences-section experiences-section--elevated section-padding" aria-labelledby="experiences-heading">
+        <div class="experiences-section__video-wrap" aria-hidden="true">
+            <iframe
+                class="experiences-section__video-iframe"
+                src="https://www.youtube-nocookie.com/embed/AA0UZVXJd2o?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=AA0UZVXJd2o&amp;controls=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;iv_load_policy=3"
+                title="Background video for Experiences section"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                loading="lazy"
+                tabindex="-1"
+            ></iframe>
+        </div>
+        <div class="experiences-section__video-overlay" aria-hidden="true"></div>
+        <div class="experiences-section__ambient" aria-hidden="true"></div>
+        <div class="experiences-section-inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-[3]">
+            <header class="experiences-section-header text-center js-scroll">
+                <p class="experiences-section-eyebrow">Our journeys</p>
+                <div class="experiences-section-title-stack">
+                    <h2 id="experiences-heading" class="experiences-section-title font-serif">
+                        Experiences
+                    </h2>
+                    <div class="experiences-section-title-rule" aria-hidden="true"></div>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-10 experience-grid items-stretch js-scroll-stagger">
+                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
                     <div class="experience-content">
-                        <h3 class="experience-title text-xl lg:text-2xl font-serif font-semibold">Bespoke Safaris</h3>
+                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Bespoke Safaris</h3>
                         <div>
                             <x-button-secondary href="{{ route('journeys.signature-safaris') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
                                 View Safaris
@@ -104,11 +98,9 @@
                     </div>
                 </div>
 
-                <div class="experience-card flex flex-col overflow-hidden bg-white rounded-lg">
-                    <img src="{{ (isset($experienceSections['experience_luxury']) && $experienceSections['experience_luxury']->image) ? asset('storage/' . $experienceSections['experience_luxury']->image) : asset('/og-image.jpg') }}" alt="Luxury Escapes" class="experience-image">
-                    <div class="experience-overlay"></div>
+                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
                     <div class="experience-content">
-                        <h3 class="experience-title text-xl lg:text-2xl font-serif font-semibold">Luxury Escapes</h3>
+                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Luxury Escapes</h3>
                         <div>
                             <x-button-secondary href="{{ route('journeys.luxury-retreats') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
                                 View Escapes
@@ -117,14 +109,23 @@
                     </div>
                 </div>
 
-                <div class="experience-card flex flex-col overflow-hidden bg-white rounded-lg">
-                    <img src="{{ (isset($experienceSections['experience_community']) && $experienceSections['experience_community']->image) ? asset('storage/' . $experienceSections['experience_community']->image) : asset('/og-image.jpg') }}" alt="Conservation and Community" class="experience-image">
-                    <div class="experience-overlay"></div>
+                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
                     <div class="experience-content">
-                        <h3 class="experience-title text-xl lg:text-2xl font-serif font-semibold">Conservation &amp; Community</h3>
+                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Conservation &amp; Community</h3>
                         <div>
                             <x-button-secondary href="{{ route('journeys.conservation-community') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
                                 View Impact Journeys
+                            </x-button-secondary>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
+                    <div class="experience-content">
+                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Bespoke Private Travel</h3>
+                        <div>
+                            <x-button-secondary href="{{ route('journeys.bespoke-private') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
+                                View Private Travel
                             </x-button-secondary>
                         </div>
                     </div>
@@ -144,21 +145,21 @@
             $pillarChangeAgents = $pillarSections['pillar_change_agents'] ?? null;
             $pillarClimateAction = $pillarSections['pillar_climate_action'] ?? null;
             $pillars = [
-                ['section' => $pillarCulture, 'title' => 'Culture', 'fallback' => 'Honoring and supporting traditional knowledge, cultural heritage, and indigenous practices that have sustained communities for generations.', 'cta_link' => route('impact.responsible-travel'), 'svg' => 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'],
-                ['section' => $pillarCommunity, 'title' => 'Community', 'fallback' => 'Investing in local leadership, sustainable livelihoods, and community-led initiatives that create lasting positive change.', 'cta_link' => route('impact.climate-community'), 'svg' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'],
-                ['section' => $pillarConservation, 'title' => 'Conservation', 'fallback' => 'Supporting projects that restore degraded landscapes, protect biodiversity, and ensure wildlife and ecosystems thrive for future generations.', 'cta_link' => route('impact.responsible-travel'), 'svg' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
-                ['section' => $pillarChangeAgents, 'title' => 'Change Agents', 'fallback' => 'Empowering local leaders, innovators, and initiatives that drive positive transformation in their communities and ecosystems.', 'cta_link' => route('trust.index'), 'svg' => 'M13 10V3L4 14h7v7l9-11h-7z'],
-                ['section' => $pillarClimateAction, 'title' => 'Climate Action', 'fallback' => 'Carbon-neutral journeys and support for climate resilience initiatives that protect communities and ecosystems from climate impacts.', 'cta_link' => route('impact.climate-community'), 'svg' => 'M12 3v18m9-9H3'],
+                ['section' => $pillarCulture, 'title' => 'Culture', 'fallback' => 'Heritage and knowledge—respected, not performed.', 'cta_link' => route('impact.responsible-travel'), 'svg' => 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253'],
+                ['section' => $pillarCommunity, 'title' => 'Community', 'fallback' => 'Women-led groups, local hosts, fair income.', 'cta_link' => route('impact.climate-community'), 'svg' => 'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z'],
+                ['section' => $pillarConservation, 'title' => 'Conservation', 'fallback' => 'Wildlife, habitat, restoration on the ground.', 'cta_link' => route('impact.responsible-travel'), 'svg' => 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z'],
+                ['section' => $pillarChangeAgents, 'title' => 'Change agents', 'fallback' => 'People who push the work forward locally.', 'cta_link' => route('trust.index'), 'svg' => 'M13 10V3L4 14h7v7l9-11h-7z'],
+                ['section' => $pillarClimateAction, 'title' => 'Climate', 'fallback' => 'Footprint down; nature-based action up.', 'cta_link' => route('impact.climate-community'), 'svg' => 'M12 3v18m9-9H3'],
             ];
             @endphp
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12 text-center js-scroll">
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-8"></div>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
-                    Our 5 Pillars
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-4">
+                    Five pillars
                 </h2>
-                <p class="text-sm sm:text-base md:text-lg text-[var(--color-earth-brown)] max-w-[18rem] sm:max-w-2xl md:max-w-3xl mx-auto">
-                    These pillars guide every journey we design and every partnership we form.
+                <p class="text-sm text-[var(--color-earth-brown)] max-w-xl mx-auto">
+                    Women &amp; community sit at the centre—alongside culture, conservation, climate.
                 </p>
             </div>
             <div class="grid grid-cols-2 lg:grid-cols-5 gap-6 lg:gap-8 js-scroll-stagger">
@@ -222,11 +223,158 @@
 
         if (heroVideoIframe && heroVideoPreloader) {
             heroVideoIframe.addEventListener('load', hideHeroVideoPreloader, { once: true });
-            // Fallback: avoid stuck loader on slow/blocked third-party video requests.
             window.setTimeout(hideHeroVideoPreloader, 6500);
         }
 
+        function initHeroCarousel() {
+            const root = document.getElementById('hero-carousel');
+            if (!root) return;
+
+            const slides = Array.from(root.querySelectorAll('[data-hero-slide]'));
+            const dots = Array.from(root.querySelectorAll('[data-hero-dot]'));
+            const fill = root.querySelector('[data-hero-progress-fill]');
+            const btnPrev = root.querySelector('[data-hero-prev]');
+            const btnNext = root.querySelector('[data-hero-next]');
+            if (!slides.length) return;
+
+            let idx = 0;
+            const raw = parseInt(root.getAttribute('data-interval-ms') || '6000', 10);
+            const intervalMs = Math.max(3000, Math.min(30000, Number.isFinite(raw) ? raw : 6000));
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            let fallbackTimer = null;
+            let pausedHover = false;
+            let controlPointerDown = false;
+            let chromeHasFocus = false;
+
+            function updatePauseState() {
+                root.classList.toggle('is-paused', pausedHover || controlPointerDown || chromeHasFocus);
+            }
+
+            function go(i) {
+                idx = (i + slides.length) % slides.length;
+                slides.forEach((s, j) => {
+                    const on = j === idx;
+                    s.classList.toggle('is-active', on);
+                    s.setAttribute('aria-hidden', on ? 'false' : 'true');
+                });
+                dots.forEach((d, j) => {
+                    d.classList.toggle('is-active', j === idx);
+                    d.setAttribute('aria-selected', j === idx ? 'true' : 'false');
+                });
+                restartProgress();
+            }
+
+            function next() {
+                go(idx + 1);
+            }
+
+            function prev() {
+                go(idx - 1);
+            }
+
+            function clearFallbackTimer() {
+                if (fallbackTimer) {
+                    clearInterval(fallbackTimer);
+                    fallbackTimer = null;
+                }
+            }
+
+            function restartProgress() {
+                clearFallbackTimer();
+                if (!fill || slides.length < 2) return;
+
+                fill.classList.remove('is-animating');
+                void fill.offsetWidth;
+
+                if (reduceMotion) {
+                    fallbackTimer = window.setInterval(() => {
+                        if (!root.classList.contains('is-paused')) next();
+                    }, intervalMs);
+                    return;
+                }
+
+                fill.style.animationDuration = intervalMs + 'ms';
+                fill.classList.add('is-animating');
+            }
+
+            if (fill && slides.length > 1 && !reduceMotion) {
+                fill.addEventListener('animationend', (e) => {
+                    if (e.target !== fill) return;
+                    const name = e.animationName || '';
+                    if (!name.includes('heroCarouselProgressFill')) return;
+                    next();
+                });
+            }
+
+            dots.forEach((d) => {
+                const j = parseInt(d.getAttribute('data-hero-dot') || '0', 10);
+                d.addEventListener('click', () => go(j));
+            });
+
+            if (btnPrev) btnPrev.addEventListener('click', () => prev());
+            if (btnNext) btnNext.addEventListener('click', () => next());
+
+            document.addEventListener('keydown', (e) => {
+                const chromeEl = root.querySelector('[data-hero-carousel-chrome]');
+                if (!chromeEl || !chromeEl.contains(document.activeElement)) return;
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prev();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    next();
+                }
+            });
+
+            const controlSelectors = '[data-hero-dot],[data-hero-prev],[data-hero-next]';
+            root.querySelectorAll(controlSelectors).forEach((el) => {
+                el.addEventListener('pointerdown', () => {
+                    controlPointerDown = true;
+                    updatePauseState();
+                });
+            });
+            document.addEventListener('pointerup', () => {
+                controlPointerDown = false;
+                updatePauseState();
+            });
+            document.addEventListener('pointercancel', () => {
+                controlPointerDown = false;
+                updatePauseState();
+            });
+
+            const chrome = root.querySelector('[data-hero-carousel-chrome]');
+            if (chrome) {
+                chrome.addEventListener('focusin', () => {
+                    chromeHasFocus = true;
+                    updatePauseState();
+                });
+                chrome.addEventListener('focusout', (e) => {
+                    if (!chrome.contains(e.relatedTarget)) {
+                        chromeHasFocus = false;
+                        updatePauseState();
+                    }
+                });
+            }
+
+            const heroSectionEl = document.getElementById('hero-section');
+            if (heroSectionEl) {
+                heroSectionEl.addEventListener('mouseenter', () => {
+                    pausedHover = true;
+                    updatePauseState();
+                });
+                heroSectionEl.addEventListener('mouseleave', () => {
+                    pausedHover = false;
+                    updatePauseState();
+                });
+            }
+
+            if (slides.length > 1) {
+                restartProgress();
+            }
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
+            initHeroCarousel();
             const sections = Array.from(document.querySelectorAll('main#main-content section'));
             if (!sections.length) return;
 
@@ -278,7 +426,7 @@
                     </h2>
                     <br>
                
-                    {!! $responsibleTravelSection?->content ?: 'Our commitment to climate-positive travel. Every journey with Halisi Africa is designed to leave a positive footprint. We partner with conservation organizations, community-led initiatives, and sustainable accommodations to ensure your travel contributes to regeneration, not just preservation.' !!}
+                    {!! $responsibleTravelSection?->content ?: 'Lower impact travel, offsets where they matter, and nature-based projects—aligned with our mission on <strong>environmental sustainability</strong>.' !!}
                     <br>
                     @if(filled($responsibleTravelSection?->cta_label) && filled($responsibleTravelSection?->cta_link))
                         <x-button-secondary href="{{ $responsibleTravelSection->cta_link }}" class="inline-flex w-auto self-start text-sm px-6 py-3 tracking-wide">
@@ -328,7 +476,7 @@
                     </h2>
                     <br>
                     
-                    {!! $womenRestorationSection?->content ?: '<strong>Mangrove Restoration & Seedball Safaris.</strong> Through the Halisi Trust, we support women-led restoration projects across Africa. These initiatives combine traditional knowledge with modern conservation practices, creating lasting change for communities and ecosystems.' !!}
+                    {!! $womenRestorationSection?->content ?: '<strong>Women-led restoration.</strong> Mangroves, seedballs, cooperatives—core to how we <strong>empower women</strong> and protect land. Same focus as our mission statement.' !!}
                     
                     
                     <!-- Stat Preview Blocks -->
@@ -353,65 +501,7 @@
         </div>
     </section>
 
-   
-
-    <!-- Signature Journeys Section -->
-    <section class="luxury-teaser-section bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="luxury-heading font-serif font-bold text-center text-[var(--color-forest-green)] mb-14 md:text-center js-scroll">
-                Signature Journeys
-            </h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10 js-scroll-stagger">
-                <x-pillar-card 
-                    class="signature-journey-card"
-                    title="Wildlife Safaris" 
-                    description="Experience Africa's iconic wildlife in their natural habitats through expertly guided safaris."
-                >
-                    <x-slot name="button">
-                        <x-button-secondary href="{{ route('journeys.signature-safaris') }}" class="text-sm px-5 py-2.5">
-                            View Journeys
-                        </x-button-secondary>
-                    </x-slot>
-                </x-pillar-card>
-                <x-pillar-card 
-                    class="signature-journey-card"
-                    title="Cultural Encounters" 
-                    description="Connect with local communities and experience authentic African cultures and traditions."
-                >
-                    <x-slot name="button">
-                        <x-button-secondary href="{{ route('journeys.conservation-community') }}" class="text-sm px-5 py-2.5">
-                            View Journeys
-                        </x-button-secondary>
-                    </x-slot>
-                </x-pillar-card>
-                <x-pillar-card 
-                    class="signature-journey-card"
-                    title="Luxury Retreats" 
-                    description="Indulge in exclusive accommodations and bespoke experiences in Africa's most stunning locations."
-                >
-                    <x-slot name="button">
-                        <x-button-secondary href="{{ route('journeys.luxury-retreats') }}" class="text-sm px-5 py-2.5">
-                            View Journeys
-                        </x-button-secondary>
-                    </x-slot>
-                </x-pillar-card>
-            </div>
-        </div>
-    </section>
-
-  
-
-    <!-- Final CTA Section -->
-    <section class="section-padding-lg final-luxury-cta text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-10 text-balance leading-tight">
-                Design a Journey That Leaves More Than Footprints
-            </h2>
-            <x-button-primary href="{{ route('contact.index') }}" class="text-lg md:text-xl px-10 md:px-12 py-5 border-0 tracking-wide">
-                Start Your Journey
-            </x-button-primary>
-        </div>
-    </section>
+    <x-home-blog-section :posts="$blogPosts" />
 
     <!-- Back to hero arrow (fixed bottom right); shown when user has scrolled down -->
     <a href="#hero-section" id="back-to-hero-btn" class="back-to-hero-arrow fixed bottom-20 md:bottom-8 right-4 md:right-8 z-30 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[var(--color-nav-active)] text-white shadow-lg hover:bg-[var(--color-forest-green)] focus:outline-none focus:ring-2 focus:ring-[var(--color-nav-active)] focus:ring-offset-2 flex items-center justify-center transition-all duration-300 opacity-0 pointer-events-none" aria-label="Back to hero section">

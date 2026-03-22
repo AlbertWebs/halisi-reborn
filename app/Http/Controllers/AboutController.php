@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Page;
-use Illuminate\Http\Request;
 
 class AboutController extends Controller
 {
@@ -11,6 +10,7 @@ class AboutController extends Controller
     {
         $page = Page::where('slug', 'about-halisi')
             ->where('is_published', true)
+            ->with('galleryImages')
             ->first();
 
         return view('pages.about', compact('page'));

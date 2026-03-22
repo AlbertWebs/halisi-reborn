@@ -227,7 +227,7 @@
                                     class="w-full md:w-56 px-4 py-3 border border-[var(--color-sand-beige)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)]">
                             </div>
 
-                            <button type="submit" class="inline-flex items-center px-8 py-3.5 rounded-full bg-[var(--color-forest-green)] text-white font-semibold hover:bg-[var(--color-earth-brown)] transition-colors">
+                            <button type="submit" class="inline-flex items-center px-8 py-3.5 rounded-[var(--radius-button)] border border-[var(--color-forest-green)] bg-[var(--color-forest-green)] text-white font-semibold tracking-[0.04em] hover:bg-[var(--color-earth-brown)] hover:border-[var(--color-earth-brown)] transition-colors duration-200">
                                 {{ $page?->contact_form_button_label ?: 'Send Message' }}
                             </button>
                         </form>

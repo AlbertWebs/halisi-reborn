@@ -4,14 +4,19 @@
 @section('page-title', 'Homepage Sections')
 
 @section('content')
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
             <h3 class="text-lg font-semibold text-gray-900">All Homepage Sections</h3>
             <p class="text-sm text-gray-600">Manage your homepage content sections</p>
         </div>
-        <a href="{{ route('admin.homepage.create') }}" class="bg-[var(--color-forest-green)] text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors font-medium">
-            Add New Section
-        </a>
+        <div class="flex flex-wrap gap-2">
+            <a href="{{ route('admin.homepage.welcome-grid.edit') }}" class="inline-flex items-center justify-center px-4 py-2 rounded-[var(--radius-button)] border border-[var(--color-forest-green)] text-[var(--color-forest-green)] text-sm font-medium hover:bg-[var(--color-forest-green)] hover:text-white transition-colors">
+                Welcome — 4 images
+            </a>
+            <a href="{{ route('admin.homepage.create') }}" class="inline-flex items-center justify-center bg-[var(--color-forest-green)] text-white px-6 py-2 rounded-lg hover:bg-opacity-90 transition-colors font-medium text-sm">
+                Add New Section
+            </a>
+        </div>
     </div>
 
     <div class="bg-white rounded-lg shadow-sm overflow-hidden">

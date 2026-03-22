@@ -21,12 +21,16 @@ class SettingsController extends Controller
             'newsletter_popup_title' => new SiteSetting(['setting_key' => 'newsletter_popup_title', 'setting_value' => 'Stay Connected with Halisi']),
             'newsletter_popup_description' => new SiteSetting(['setting_key' => 'newsletter_popup_description', 'setting_value' => 'Get travel inspiration, impact stories, and curated journey ideas.']),
             'newsletter_popup_button_label' => new SiteSetting(['setting_key' => 'newsletter_popup_button_label', 'setting_value' => 'Subscribe']),
+            'hero_background_mode' => new SiteSetting(['setting_key' => 'hero_background_mode', 'setting_value' => 'video']),
+            'hero_vimeo_video_id' => new SiteSetting(['setting_key' => 'hero_vimeo_video_id', 'setting_value' => '1058906686']),
+            'hero_carousel_interval_ms' => new SiteSetting(['setting_key' => 'hero_carousel_interval_ms', 'setting_value' => '6000']),
         ];
         foreach ($defaultSettings as $key => $default) {
-            if (!isset($settings[$key])) {
+            if (! isset($settings[$key])) {
                 $settings[$key] = $default;
             }
         }
+
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -45,13 +49,13 @@ class SettingsController extends Controller
             'office_hours' => 'nullable|string|max:255',
             'company_email' => 'nullable|email|max:255',
             'company_website' => 'nullable|url|max:255',
-            
+
             // Logos & Images
             'logo_main' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'logo_footer' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'logo_icon' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:512',
             'favicon' => 'nullable|image|mimes:ico,png,jpg,gif,svg|max:512',
-            
+
             // Social Media
             'social_facebook' => 'nullable|url|max:255',
             'social_instagram' => 'nullable|url|max:255',
@@ -59,7 +63,7 @@ class SettingsController extends Controller
             'social_linkedin' => 'nullable|url|max:255',
             'social_youtube' => 'nullable|url|max:255',
             'social_pinterest' => 'nullable|url|max:255',
-            
+
             // SEO Settings
             'default_meta_title' => 'nullable|string|max:255',
             'default_meta_description' => 'nullable|string|max:500',
@@ -72,6 +76,9 @@ class SettingsController extends Controller
             'newsletter_popup_title' => 'nullable|string|max:255',
             'newsletter_popup_description' => 'nullable|string|max:500',
             'newsletter_popup_button_label' => 'nullable|string|max:80',
+            'hero_background_mode' => 'nullable|in:video,carousel',
+            'hero_vimeo_video_id' => 'nullable|string|max:32',
+            'hero_carousel_interval_ms' => 'nullable|integer|min:3000|max:30000',
         ]);
 
         // Handle file uploads
@@ -80,15 +87,15 @@ class SettingsController extends Controller
             if ($request->hasFile($field)) {
                 $file = $request->file($field);
                 $path = $file->store('settings', 'public');
-                
+
                 // Delete old file if exists
                 $oldSetting = SiteSetting::where('setting_key', $field)->first();
                 if ($oldSetting && $oldSetting->setting_value) {
                     Storage::disk('public')->delete($oldSetting->setting_value);
                 }
-                
+
                 SiteSetting::set($field, $path, 'image');
-            } elseif ($request->input($field . '_remove') == '1') {
+            } elseif ($request->input($field.'_remove') == '1') {
                 // Handle removal
                 $oldSetting = SiteSetting::where('setting_key', $field)->first();
                 if ($oldSetting && $oldSetting->setting_value) {
@@ -108,10 +115,23 @@ class SettingsController extends Controller
             'default_meta_title', 'default_meta_description', 'default_meta_keywords',
             'google_analytics_id', 'google_tag_manager_id', 'tinymce_api_key',
             'newsletter_popup_delay_seconds', 'newsletter_popup_title',
-            'newsletter_popup_description', 'newsletter_popup_button_label'
+            'newsletter_popup_description', 'newsletter_popup_button_label',
         ];
 
         SiteSetting::set('newsletter_popup_enabled', $request->boolean('newsletter_popup_enabled') ? '1' : '0', 'text');
+
+        $heroMode = $request->input('hero_background_mode', 'video');
+        if (! in_array($heroMode, ['video', 'carousel'], true)) {
+            $heroMode = 'video';
+        }
+        SiteSetting::set('hero_background_mode', $heroMode, 'text');
+        $vimeoDigits = preg_replace('/\D/', '', (string) $request->input('hero_vimeo_video_id', ''));
+        SiteSetting::set('hero_vimeo_video_id', $vimeoDigits !== '' ? $vimeoDigits : '1058906686', 'text');
+        SiteSetting::set(
+            'hero_carousel_interval_ms',
+            (string) max(3000, min(30000, (int) $request->input('hero_carousel_interval_ms', 6000))),
+            'text'
+        );
 
         foreach ($textFields as $field) {
             if ($request->has($field)) {

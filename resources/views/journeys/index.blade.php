@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'Journeys - Halisi Africa Discoveries')
-@section('description', 'Explore our collection of authentic African journeys designed to regenerate ecosystems and empower communities.')
+@section('description', 'African journeys planned with women’s empowerment and environmental sustainability at the centre.')
 
 @section('content')
     <!-- Hero Section -->
@@ -15,7 +15,7 @@
                 Our Journeys
             </h1>
             <p class="text-xl md:text-2xl lg:text-3xl text-gray-100 max-w-3xl mx-auto mb-8 leading-relaxed">
-                Authentic African experiences designed to regenerate ecosystems and empower communities
+                Africa, planned with purpose—women &amp; the wild in mind
             </p>
             <div class="flex flex-row gap-2 sm:gap-4 justify-center flex-wrap">
                 <a href="{{ route('contact.index') }}" class="inline-block px-4 sm:px-8 py-3 sm:py-4 bg-white text-[var(--color-forest-green)] font-semibold uppercase tracking-wide hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--color-forest-green)] transition-colors text-sm sm:text-lg shadow-lg hover:shadow-xl whitespace-nowrap">
@@ -32,19 +32,19 @@
     <section class="section-padding bg-white border-b border-[var(--color-sand-beige)] sticky top-16 z-40 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-wrap justify-center gap-3 md:gap-4">
-                <a href="{{ route('journeys.index') }}" class="px-6 py-3 {{ request()->routeIs('journeys.index') ? 'bg-[var(--color-forest-green)] text-white' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] hover:bg-[var(--color-sand-beige)]' }} rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
+                <a href="{{ route('journeys.index') }}" class="px-6 py-3 {{ request()->routeIs('journeys.index') ? 'bg-[var(--color-forest-green)] text-white border-[var(--color-forest-green)]' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] border-[var(--color-sand-beige)] hover:bg-[var(--color-sand-beige)]' }} rounded-[var(--radius-button)] border transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
                     All Journeys
                 </a>
-                <a href="{{ route('journeys.signature-safaris') }}" class="px-6 py-3 {{ request()->routeIs('journeys.signature-safaris') ? 'bg-[var(--color-forest-green)] text-white' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] hover:bg-[var(--color-sand-beige)]' }} rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
+                <a href="{{ route('journeys.signature-safaris') }}" class="px-6 py-3 {{ request()->routeIs('journeys.signature-safaris') ? 'bg-[var(--color-forest-green)] text-white border-[var(--color-forest-green)]' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] border-[var(--color-sand-beige)] hover:bg-[var(--color-sand-beige)]' }} rounded-[var(--radius-button)] border transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
                     Signature Safaris
                 </a>
-                <a href="{{ route('journeys.bespoke-private') }}" class="px-6 py-3 {{ request()->routeIs('journeys.bespoke-private') ? 'bg-[var(--color-forest-green)] text-white' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] hover:bg-[var(--color-sand-beige)]' }} rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
+                <a href="{{ route('journeys.bespoke-private') }}" class="px-6 py-3 {{ request()->routeIs('journeys.bespoke-private') ? 'bg-[var(--color-forest-green)] text-white border-[var(--color-forest-green)]' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] border-[var(--color-sand-beige)] hover:bg-[var(--color-sand-beige)]' }} rounded-[var(--radius-button)] border transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
                     Bespoke Private Travel
                 </a>
-                <a href="{{ route('journeys.conservation-community') }}" class="px-6 py-3 {{ request()->routeIs('journeys.conservation-community') ? 'bg-[var(--color-forest-green)] text-white' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] hover:bg-[var(--color-sand-beige)]' }} rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
+                <a href="{{ route('journeys.conservation-community') }}" class="px-6 py-3 {{ request()->routeIs('journeys.conservation-community') ? 'bg-[var(--color-forest-green)] text-white border-[var(--color-forest-green)]' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] border-[var(--color-sand-beige)] hover:bg-[var(--color-sand-beige)]' }} rounded-[var(--radius-button)] border transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
                     Conservation & Community
                 </a>
-                <a href="{{ route('journeys.luxury-retreats') }}" class="px-6 py-3 {{ request()->routeIs('journeys.luxury-retreats') ? 'bg-[var(--color-forest-green)] text-white' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] hover:bg-[var(--color-sand-beige)]' }} rounded-lg transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
+                <a href="{{ route('journeys.luxury-retreats') }}" class="px-6 py-3 {{ request()->routeIs('journeys.luxury-retreats') ? 'bg-[var(--color-forest-green)] text-white border-[var(--color-forest-green)]' : 'bg-[var(--color-off-white)] text-[var(--color-forest-green)] border-[var(--color-sand-beige)] hover:bg-[var(--color-sand-beige)]' }} rounded-[var(--radius-button)] border transition-all duration-300 font-medium text-sm md:text-base shadow-sm hover:shadow-md">
                     Luxury Retreats
                 </a>
             </div>

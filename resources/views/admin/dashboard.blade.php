@@ -73,19 +73,19 @@
     <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
         <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <a href="{{ route('admin.journeys.create') }}" class="flex items-center justify-center px-6 py-3 bg-[var(--color-forest-green)] text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium">
+            <a href="{{ route('admin.journeys.create') }}" class="flex items-center justify-center px-6 py-3 bg-[var(--color-forest-green)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 transition-colors font-medium">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
                 Add Journey
             </a>
-            <a href="{{ route('admin.countries.create') }}" class="flex items-center justify-center px-6 py-3 bg-[var(--color-accent-gold)] text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium">
+            <a href="{{ route('admin.countries.create') }}" class="flex items-center justify-center px-6 py-3 bg-[var(--color-accent-gold)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 transition-colors font-medium">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>
                 Add Country
             </a>
-            <a href="{{ route('admin.trust.create') }}" class="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium">
+            <a href="{{ route('admin.trust.create') }}" class="flex items-center justify-center px-6 py-3 bg-blue-600 text-white rounded-[var(--radius-button)] hover:bg-opacity-90 transition-colors font-medium">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                 </svg>

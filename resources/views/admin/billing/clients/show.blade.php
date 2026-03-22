@@ -7,7 +7,7 @@
 @section('content')
     <div class="mb-6 flex gap-4">
         <a href="{{ route('admin.billing.clients.edit', $client) }}" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium">Edit Client</a>
-        <a href="{{ route('admin.billing.invoices.create') }}?client_id={{ $client->id }}" class="px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-lg hover:bg-opacity-90 text-sm font-medium">New Invoice</a>
+        <a href="{{ route('admin.billing.invoices.create') }}?client_id={{ $client->id }}" class="px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 text-sm font-medium">New Invoice</a>
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">

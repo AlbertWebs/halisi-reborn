@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="mt-6 flex gap-4">
-            <button type="submit" class="px-6 py-2 bg-[var(--color-forest-green)] text-white rounded-lg hover:bg-opacity-90 font-medium">Update Client</button>
+            <button type="submit" class="px-6 py-2 bg-[var(--color-forest-green)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 font-medium">Update Client</button>
             <a href="{{ route('admin.billing.clients.index') }}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50">Cancel</a>
         </div>
     </form>

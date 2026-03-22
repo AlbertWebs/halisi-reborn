@@ -102,15 +102,26 @@
         </script>
     @endif
 
-    <!-- Scroll-triggered animations (all pages) -->
+    <!-- Scroll-triggered animations: explicit .js-scroll* + auto whole-section reveal -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var main = document.getElementById('main-content');
+        if (main) {
+            var sections = main.querySelectorAll(':scope > section');
+            sections.forEach(function(section, index) {
+                if (index === 0) return;
+                if (section.classList.contains('no-scroll-reveal')) return;
+                if (section.querySelector('.js-scroll, .js-scroll-stagger')) return;
+                section.classList.add('js-scroll-section');
+            });
+        }
+        var selector = '.js-scroll, .js-scroll-stagger, .js-scroll-section';
         if (typeof window.IntersectionObserver === 'undefined') {
-            document.querySelectorAll('.js-scroll, .js-scroll-stagger').forEach(function(el) { el.classList.add('is-visible'); });
+            document.querySelectorAll(selector).forEach(function(el) { el.classList.add('is-visible'); });
             return;
         }
         var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        var els = document.querySelectorAll('.js-scroll, .js-scroll-stagger');
+        var els = document.querySelectorAll(selector);
         if (reducedMotion) {
             els.forEach(function(el) { el.classList.add('is-visible'); });
             return;
@@ -122,7 +133,7 @@
                     observer.unobserve(entry.target);
                 }
             });
-        }, { rootMargin: '0px 0px -40px 0px', threshold: 0.05 });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
         els.forEach(function(el) { observer.observe(el); });
     });
     </script>

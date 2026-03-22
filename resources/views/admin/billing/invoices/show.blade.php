@@ -13,7 +13,10 @@
     @endif
 
     <div class="mb-6 flex flex-wrap gap-3">
-        <a href="{{ route('admin.billing.invoices.pdf', $invoice) }}" target="_blank" class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium">Download PDF</a>
+        <a href="{{ route('admin.billing.invoices.pdf', $invoice) }}" download="invoice-{{ $invoice->invoice_number }}.pdf" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium bg-[var(--color-forest-green)] text-white hover:bg-opacity-90 shadow-sm border border-[#143d2e]/20">
+            <svg class="w-4 h-4 opacity-95 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Download branded PDF
+        </a>
         @if($invoice->status === 'draft')
             <a href="{{ route('admin.billing.invoices.edit', $invoice) }}" class="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium">Edit</a>
             <form action="{{ route('admin.billing.invoices.mark-sent', $invoice) }}" method="POST" class="inline">
@@ -23,7 +26,7 @@
         @endif
         <form action="{{ route('admin.billing.invoices.payment-link', $invoice) }}" method="POST" class="inline">
             @csrf
-            <button type="submit" class="inline-flex items-center px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-lg hover:bg-opacity-90 text-sm font-medium">Get Payment Link</button>
+            <button type="submit" class="inline-flex items-center px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 text-sm font-medium">Get Payment Link</button>
         </form>
         <form action="{{ route('admin.billing.invoices.duplicate', $invoice) }}" method="POST" class="inline">
             @csrf

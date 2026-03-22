@@ -409,6 +409,62 @@
             </div>
         </div>
 
+        <!-- Homepage hero -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+            <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
+                <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                    Homepage hero
+                </h3>
+                <p class="text-sm text-gray-600 mt-1">Video (Vimeo) or image carousel behind the main headline.</p>
+            </div>
+            <div class="p-6 space-y-6">
+                <fieldset>
+                    <legend class="text-sm font-medium text-gray-700 mb-3">Background type</legend>
+                    <div class="flex flex-wrap gap-6">
+                        <label class="inline-flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="hero_background_mode" value="video"
+                                   {{ (isset($settings['hero_background_mode']) ? $settings['hero_background_mode']->setting_value : 'video') === 'video' ? 'checked' : '' }}
+                                   class="h-4 w-4 text-[var(--color-forest-green)] border-gray-300">
+                            <span class="text-sm text-gray-800">Vimeo video</span>
+                        </label>
+                        <label class="inline-flex items-center gap-2 cursor-pointer">
+                            <input type="radio" name="hero_background_mode" value="carousel"
+                                   {{ (isset($settings['hero_background_mode']) && $settings['hero_background_mode']->setting_value === 'carousel') ? 'checked' : '' }}
+                                   class="h-4 w-4 text-[var(--color-forest-green)] border-gray-300">
+                            <span class="text-sm text-gray-800">Image carousel</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-gray-100">
+                    <div>
+                        <label for="hero_vimeo_video_id" class="block text-sm font-medium text-gray-700 mb-2">Vimeo video ID</label>
+                        <input type="text" id="hero_vimeo_video_id" name="hero_vimeo_video_id" inputmode="numeric" pattern="[0-9]*"
+                               value="{{ isset($settings['hero_vimeo_video_id']) ? $settings['hero_vimeo_video_id']->setting_value : '1058906686' }}"
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                        <p class="mt-1 text-xs text-gray-500">Digits only (from the Vimeo URL). Used when background type is video.</p>
+                    </div>
+                    <div>
+                        <label for="hero_carousel_interval_ms" class="block text-sm font-medium text-gray-700 mb-2">Carousel autoplay interval (ms)</label>
+                        <input type="number" id="hero_carousel_interval_ms" name="hero_carousel_interval_ms" min="3000" max="30000" step="500"
+                               value="{{ isset($settings['hero_carousel_interval_ms']) ? $settings['hero_carousel_interval_ms']->setting_value : '6000' }}"
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">
+                        <p class="mt-1 text-xs text-gray-500">3000–30000 ms. Pauses while the visitor hovers the hero. Respects reduce motion.</p>
+                    </div>
+                </div>
+
+                <div class="rounded-lg border border-dashed border-gray-300 bg-gray-50/80 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <p class="text-sm text-gray-700">Add, reorder, and edit slides (images + optional captions).</p>
+                    <a href="{{ route('admin.hero-carousel.index') }}" class="inline-flex justify-center items-center px-4 py-2 rounded-[var(--radius-button)] bg-[var(--color-forest-green)] text-white text-sm font-medium hover:bg-opacity-90">
+                        Manage carousel slides
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- Newsletter Popup Section -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
             <div class="px-6 py-4 bg-gray-50 border-b border-gray-200">
@@ -467,7 +523,7 @@
                 Cancel
             </a>
             <button type="submit" 
-                    class="px-6 py-3 bg-[var(--color-forest-green)] text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium shadow-sm">
+                    class="px-6 py-3 bg-[var(--color-forest-green)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 transition-colors font-medium shadow-sm">
                 Save All Settings
             </button>
         </div>

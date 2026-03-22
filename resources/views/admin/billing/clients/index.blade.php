@@ -10,7 +10,7 @@
             <input type="text" name="q" value="{{ request('q') }}" placeholder="Search name, email, company..." class="rounded-lg border border-gray-300 px-4 py-2 text-sm w-64">
             <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">Search</button>
         </form>
-        <a href="{{ route('admin.billing.clients.create') }}" class="inline-flex items-center px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-lg hover:bg-opacity-90 text-sm font-medium">Add Client</a>
+        <a href="{{ route('admin.billing.clients.create') }}" class="inline-flex items-center px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 text-sm font-medium">Add Client</a>
     </div>
 
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">

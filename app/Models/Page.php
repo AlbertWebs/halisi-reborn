@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Page extends Model
 {
@@ -34,4 +35,12 @@ class Page extends Model
         'contact_social_label',
         'is_published',
     ];
+
+    /**
+     * Extra content images (e.g. About page gallery). Ordered for display.
+     */
+    public function galleryImages(): HasMany
+    {
+        return $this->hasMany(PageImage::class)->orderBy('sort_order')->orderBy('id');
+    }
 }

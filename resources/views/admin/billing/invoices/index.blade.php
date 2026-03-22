@@ -16,7 +16,7 @@
             </select>
             <button type="submit" class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">Filter</button>
         </form>
-        <a href="{{ route('admin.billing.invoices.create') }}" class="inline-flex items-center px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-lg hover:bg-opacity-90 text-sm font-medium">New Invoice</a>
+        <a href="{{ route('admin.billing.invoices.create') }}" class="inline-flex items-center px-4 py-2 bg-[var(--color-forest-green)] text-white rounded-[var(--radius-button)] hover:bg-opacity-90 text-sm font-medium">New Invoice</a>
     </div>
 
     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -49,7 +49,7 @@
                         </td>
                         <td class="px-6 py-4 text-right text-sm space-x-2">
                             <a href="{{ route('admin.billing.invoices.show', $inv) }}" class="text-[var(--color-forest-green)] hover:underline">View</a>
-                            <a href="{{ route('admin.billing.invoices.pdf', $inv) }}" class="text-gray-600 hover:underline" target="_blank">PDF</a>
+                            <a href="{{ route('admin.billing.invoices.pdf', $inv) }}" download="invoice-{{ $inv->invoice_number }}.pdf" class="text-gray-600 hover:underline" title="Download branded PDF">PDF</a>
                             @if($inv->status === 'draft')
                                 <a href="{{ route('admin.billing.invoices.edit', $inv) }}" class="text-gray-600 hover:underline">Edit</a>
                             @endif

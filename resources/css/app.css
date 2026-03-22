@@ -32,11 +32,16 @@
     
     /* Border Radius */
     --radius-card: 0.5rem;
-    --radius-button: 0.25rem;
+    --radius-button: 0.375rem;
 }
 
 /* Custom Utilities */
 @layer utilities {
+    /* Explicit alias for CTAs (same as --radius-button / welcome CTA) */
+    .rounded-halisi-btn {
+        border-radius: var(--radius-button);
+    }
+
     .section-padding {
         padding-top: var(--spacing-section);
         padding-bottom: var(--spacing-section);
@@ -97,8 +102,19 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+/* Whole-section reveal (auto-applied to main > section after hero) */
+.js-scroll-section {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.js-scroll-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
 @media (prefers-reduced-motion: reduce) {
     .js-scroll,
+    .js-scroll-section,
     .js-scroll-stagger > * {
         opacity: 1;
         transform: none;

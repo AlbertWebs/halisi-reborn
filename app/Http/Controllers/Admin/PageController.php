@@ -4,15 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\PageImage;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PageController extends Controller
 {
     public function index()
     {
         $pages = Page::orderBy('created_at', 'desc')->paginate(20);
+
         return view('admin.pages.index', compact('pages'));
     }
 
@@ -52,7 +54,7 @@ class PageController extends Controller
             'is_published' => 'boolean',
         ]);
 
-        if (!$request->filled('slug')) {
+        if (! $request->filled('slug')) {
             $validated['slug'] = Str::slug($validated['title']);
         }
 
@@ -75,14 +77,51 @@ class PageController extends Controller
 
     public function edit(Page $page)
     {
+        $page->load('galleryImages');
+
         return view('admin.pages.edit', compact('page'));
+    }
+
+    public function addGalleryImages(Request $request, Page $page)
+    {
+        $request->validate([
+            'gallery' => 'required|array',
+            'gallery.*' => 'image|mimes:jpeg,jpg,png,gif,webp,avif|max:2048',
+        ]);
+
+        $maxOrder = (int) $page->galleryImages()->max('sort_order');
+        $created = [];
+
+        foreach ($request->file('gallery') as $file) {
+            $path = $file->store('pages/gallery', 'public');
+            $maxOrder++;
+            $image = $page->galleryImages()->create([
+                'image' => $path,
+                'sort_order' => $maxOrder,
+            ]);
+            $created[] = [
+                'id' => $image->id,
+                'image' => $image->image,
+                'url' => asset('storage/'.$image->image),
+            ];
+        }
+
+        return response()->json(['success' => true, 'images' => $created]);
+    }
+
+    public function destroyGalleryImage(PageImage $page_image)
+    {
+        Storage::disk('public')->delete($page_image->image);
+        $page_image->delete();
+
+        return redirect()->back()->with('success', 'Gallery image removed.');
     }
 
     public function update(Request $request, Page $page)
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:pages,slug,' . $page->id,
+            'slug' => 'nullable|string|max:255|unique:pages,slug,'.$page->id,
             'hero_title' => 'nullable|string|max:255',
             'hero_subtext' => 'nullable|string|max:500',
             'body_content' => 'nullable|string',
@@ -145,6 +184,9 @@ class PageController extends Controller
         }
         if ($page->content_image_2) {
             Storage::disk('public')->delete($page->content_image_2);
+        }
+        foreach ($page->galleryImages as $img) {
+            Storage::disk('public')->delete($img->image);
         }
         $page->delete();
 

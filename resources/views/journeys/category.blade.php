@@ -124,7 +124,7 @@
             <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
                 Let us craft a bespoke {{ strtolower($category) }} experience tailored to your interests, values, and travel style. Get in touch to start planning.
             </p>
-            <x-button-primary href="{{ route('contact.index') }}" class="text-lg px-10 py-5 border-2 border-white">
+            <x-button-primary href="{{ route('contact.index') }}" class="text-lg px-10 py-5 border border-white">
                 Design Your Journey
             </x-button-primary>
         </div>

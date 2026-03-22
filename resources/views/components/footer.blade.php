@@ -65,7 +65,7 @@
                             >
                             <button
                                 type="submit"
-                                class="w-full sm:w-auto px-6 py-2.5 bg-[var(--color-accent-gold)] text-[var(--color-forest-green)] font-semibold tracking-wide rounded-lg hover:bg-[#e8c57a] focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:ring-offset-2 transition-colors"
+                                class="w-full sm:w-auto px-6 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-accent-gold)] bg-[var(--color-accent-gold)] text-[var(--color-forest-green)] font-semibold tracking-[0.04em] hover:bg-[#e8c57a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)] focus-visible:ring-offset-2 transition-colors duration-200"
                                 aria-label="Subscribe to newsletter"
                             >
                                 Subscribe
@@ -221,7 +221,7 @@
                 <input type="number" id="newsletter-popup-challenge" name="challenge_answer" min="0" required
                     class="w-full rounded-lg border border-[var(--color-sand-beige)] px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)]">
             </div>
-            <button type="submit" class="inline-flex items-center rounded-full bg-[var(--color-forest-green)] px-6 py-3 text-white font-semibold hover:bg-[var(--color-earth-brown)] transition-colors">
+            <button type="submit" class="inline-flex items-center rounded-[var(--radius-button)] border border-[var(--color-forest-green)] bg-[var(--color-forest-green)] px-6 py-3 text-white font-semibold tracking-[0.04em] hover:bg-[var(--color-earth-brown)] hover:border-[var(--color-earth-brown)] transition-colors duration-200">
                 {{ $newsletterPopupButtonLabel }}
             </button>
         </form>

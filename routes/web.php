@@ -1,34 +1,36 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\JourneyController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\ImpactController;
-use App\Http\Controllers\TrustController;
-use App\Http\Controllers\WorkController;
-use App\Http\Controllers\ContactController;
-use App\Http\Controllers\NewsletterController;
-use App\Http\Controllers\MediaCreditsController;
-use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Admin\Auth\LoginController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\JourneyController as AdminJourneyController;
-use App\Http\Controllers\Admin\CountryController as AdminCountryController;
-use App\Http\Controllers\Admin\PageController as AdminPageController;
-use App\Http\Controllers\Admin\HomepageController;
-use App\Http\Controllers\Admin\ImpactController as AdminImpactController;
-use App\Http\Controllers\Admin\TrustController as AdminTrustController;
-use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\FooterController;
-use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\Billing\BillingDashboardController;
 use App\Http\Controllers\Admin\Billing\ClientController as BillingClientController;
 use App\Http\Controllers\Admin\Billing\InvoiceController as BillingInvoiceController;
 use App\Http\Controllers\Admin\Billing\PaymentController as BillingPaymentController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\CountryController as AdminCountryController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\FooterController;
+use App\Http\Controllers\Admin\HeroCarouselSlideController;
+use App\Http\Controllers\Admin\HomepageController;
+use App\Http\Controllers\Admin\ImpactController as AdminImpactController;
+use App\Http\Controllers\Admin\JourneyController as AdminJourneyController;
+use App\Http\Controllers\Admin\PageController as AdminPageController;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\Admin\TrustController as AdminTrustController;
+use App\Http\Controllers\Admin\WelcomeGridController;
 use App\Http\Controllers\Billing\PublicInvoiceController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ImpactController;
+use App\Http\Controllers\JourneyController;
+use App\Http\Controllers\MediaCreditsController;
+use App\Http\Controllers\NewsletterController;
+use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\TrustController;
+use App\Http\Controllers\WorkController;
 use App\Http\Middleware\AdminMiddleware;
+use Illuminate\Support\Facades\Route;
 
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -91,14 +93,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
     // Login routes (public)
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
-    
+
     // Protected admin routes
     Route::middleware([AdminMiddleware::class])->group(function () {
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-        
-        // Content Management
+
+        // Content Management (welcome-grid before homepage resource so "welcome-grid" is not treated as {homepage})
+        Route::get('homepage/welcome-grid', [WelcomeGridController::class, 'edit'])->name('homepage.welcome-grid.edit');
+        // POST (not PUT) so multipart file uploads are reliable in all browsers/proxies
+        Route::post('homepage/welcome-grid', [WelcomeGridController::class, 'update'])->name('homepage.welcome-grid.update');
         Route::resource('homepage', HomepageController::class);
+        Route::resource('hero-carousel', HeroCarouselSlideController::class)
+            ->parameters(['hero-carousel' => 'slide']);
+        Route::post('pages/{page}/gallery', [AdminPageController::class, 'addGalleryImages'])->name('pages.gallery.store');
+        Route::delete('pages/gallery/{page_image}', [AdminPageController::class, 'destroyGalleryImage'])->name('pages.gallery.destroy');
         Route::resource('pages', AdminPageController::class);
         Route::post('journeys/{journey}/gallery', [AdminJourneyController::class, 'addGalleryImages'])->name('journeys.gallery.store');
         Route::delete('journeys/gallery/{journey_image}', [AdminJourneyController::class, 'destroyGalleryImage'])->name('journeys.gallery.destroy');

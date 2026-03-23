@@ -102,6 +102,103 @@ body {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Halisi Trust article body (no @tailwindcss/typography — real HTML from admin) */
+.trust-article-body {
+    color: var(--color-earth-brown);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+}
+@media (min-width: 768px) {
+    .trust-article-body {
+        font-size: 1.125rem;
+        line-height: 1.8;
+    }
+}
+.trust-article-body > *:first-child {
+    margin-top: 0;
+}
+.trust-article-body p {
+    margin-bottom: 1.25em;
+}
+.trust-article-body h2 {
+    font-family: var(--font-serif);
+    font-size: 1.625rem;
+    font-weight: 700;
+    color: var(--color-forest-green);
+    margin-top: 2.25rem;
+    margin-bottom: 0.65rem;
+    line-height: 1.25;
+}
+@media (min-width: 768px) {
+    .trust-article-body h2 {
+        font-size: 1.875rem;
+    }
+}
+.trust-article-body h3 {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-forest-green);
+    margin-top: 1.75rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+.trust-article-body h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--color-forest-green);
+    margin-top: 1.5rem;
+    margin-bottom: 0.4rem;
+}
+.trust-article-body ul,
+.trust-article-body ol {
+    margin: 1em 0 1.25em;
+    padding-left: 1.35rem;
+}
+.trust-article-body li {
+    margin: 0.35em 0;
+}
+.trust-article-body li::marker {
+    color: var(--color-accent-gold);
+}
+.trust-article-body a {
+    color: var(--color-forest-green);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+.trust-article-body a:hover {
+    color: var(--color-accent-gold);
+}
+.trust-article-body blockquote {
+    border-left: 4px solid var(--color-accent-gold);
+    padding: 0.5rem 0 0.5rem 1.25rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: var(--color-earth-brown);
+    background: color-mix(in srgb, var(--color-sand-beige) 35%, transparent);
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+.trust-article-body img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    margin: 1.5rem 0;
+    box-shadow: 0 12px 40px rgba(26, 77, 58, 0.08);
+}
+.trust-article-body strong,
+.trust-article-body b {
+    font-weight: 600;
+    color: var(--color-forest-green);
+}
+.trust-article-body hr {
+    border: 0;
+    border-top: 1px solid color-mix(in srgb, var(--color-earth-brown) 22%, transparent);
+    margin: 2rem 0;
+}
+
 /* Whole-section reveal (auto-applied to main > section after hero) */
 .js-scroll-section {
     opacity: 0;

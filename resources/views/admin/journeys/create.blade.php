@@ -8,6 +8,16 @@
     <form method="POST" action="{{ route('admin.journeys.store') }}" enctype="multipart/form-data" class="space-y-6">
         @csrf
 
+        <div class="rounded-lg border border-amber-200 bg-amber-50 px-4 py-4">
+            <h3 class="text-sm font-semibold text-amber-900 mb-2">Compulsory fields (required to submit)</h3>
+            <ul class="list-disc list-inside text-sm text-amber-800 space-y-1">
+                <li><strong>Title</strong></li>
+                <li><strong>Category</strong></li>
+                <li><strong>Narrative Introduction</strong></li>
+            </ul>
+            <p class="text-xs text-amber-700 mt-2">All other fields are optional and can be added later.</p>
+        </div>
+
         <div class="bg-white rounded-lg shadow-sm p-6 space-y-6">
             <!-- Basic Information -->
             <div>

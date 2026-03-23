@@ -16,8 +16,19 @@
     ]);
 @endphp
 
-<footer class="bg-gradient-to-b from-[var(--color-forest-green)] to-[#133629] text-white mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-20 md:py-14">
+<footer class="relative bg-gradient-to-b from-[var(--color-forest-green)] to-[#133629] text-white mt-auto overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <iframe
+            src="https://www.youtube-nocookie.com/embed/AA0UZVXJd2o?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=AA0UZVXJd2o&amp;controls=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1&amp;iv_load_policy=3"
+            title="Footer background video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            loading="lazy"
+            tabindex="-1"
+            class="absolute top-1/2 left-1/2 w-[177.78vh] h-[56.25vw] min-w-full min-h-full -translate-x-1/2 -translate-y-1/2 border-0"
+        ></iframe>
+        <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(6,24,18,0.78)_0%,rgba(10,33,25,0.84)_40%,rgba(12,39,29,0.9)_100%)]"></div>
+    </div>
+    <div class="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-20 md:py-14">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
             <!-- Brand & Newsletter -->
             <div class="lg:col-span-2">
@@ -152,31 +163,74 @@
 
         <!-- Certifications -->
         <div class="pt-8 border-t border-white/15">
-            <p class="text-[0.68rem] uppercase tracking-[0.18em] text-white/70 mb-5">Certified by:</p>
-            <div class="flex flex-wrap gap-3 items-center justify-center md:justify-start">
-                <!-- Partner logos - replace placeholders with actual logo images -->
-                <!-- Logos should be equal height, grayscale/muted, not overpower brand -->
-                <div class="px-3 py-1.5 rounded-full border border-white/20 bg-white/5 opacity-80 hover:opacity-100 hover:border-white/35 transition-all">
-                    <span class="text-xs text-white/75">Tripadvisor</span>
-                    <!-- <img src="/images/partners/tripadvisor.svg" alt="Tripadvisor" class="h-8 w-auto grayscale opacity-60"> -->
-                </div>
-                <div class="px-3 py-1.5 rounded-full border border-white/20 bg-white/5 opacity-80 hover:opacity-100 hover:border-white/35 transition-all">
-                    <span class="text-xs text-white/75">SafariBookings</span>
-                    <!-- <img src="/images/partners/safaribookings.svg" alt="SafariBookings" class="h-8 w-auto grayscale opacity-60"> -->
-                </div>
-                <div class="px-3 py-1.5 rounded-full border border-white/20 bg-white/5 opacity-80 hover:opacity-100 hover:border-white/35 transition-all">
-                    <span class="text-xs text-white/75">Regenerative Travel</span>
-                    <!-- <img src="/images/partners/regenerative-travel.svg" alt="Regenerative Travel" class="h-8 w-auto grayscale opacity-60"> -->
-                </div>
-                <div class="px-3 py-1.5 rounded-full border border-white/20 bg-white/5 opacity-80 hover:opacity-100 hover:border-white/35 transition-all">
-                    <span class="text-xs text-white/75">Equality in Tourism</span>
-                    <!-- <img src="/images/partners/equality-tourism.svg" alt="Equality in Tourism" class="h-8 w-auto grayscale opacity-60"> -->
-                </div>
-                <div class="px-3 py-1.5 rounded-full border border-white/20 bg-white/5 opacity-80 hover:opacity-100 hover:border-white/35 transition-all">
-                    <span class="text-xs text-white/75">Climate Friendly Travel</span>
-                    <!-- <img src="/images/partners/climate-friendly.svg" alt="Climate Friendly Travel Services" class="h-8 w-auto grayscale opacity-60"> -->
-                </div>
-            </div>
+            <p class="text-[0.68rem] uppercase tracking-[0.18em] text-white/70 mb-6">Certified by:</p>
+            <ul class="flex flex-wrap gap-x-4 gap-y-4 items-center justify-center md:justify-start list-none p-0 m-0">
+                <li class="shrink-0">
+                    <a href="https://www.tripadvisor.com/" title="Tripadvisor" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/TripAdvisor_Logo.svg') }}"
+                            alt="Tripadvisor"
+                            width="120"
+                            height="32"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+                <li class="shrink-0">
+                    <a href="https://www.safaribookings.com/" title="SafariBookings" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/safaribookingswwww.png') }}"
+                            alt="SafariBookings"
+                            width="200"
+                            height="36"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+                <li class="shrink-0">
+                    <a href="https://www.regenerativetravel.com/" title="Regenerative Travel" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/regenerative-travel-logo-ret-2048x504-1.webp') }}"
+                            alt="Regenerative Travel"
+                            width="200"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+                <li class="shrink-0">
+                    <a href="https://www.equalityintourism.org/" title="Equality in Tourism" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/Equality-In-Tourism-logo.png') }}"
+                            alt="Equality in Tourism"
+                            width="220"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+                <li class="shrink-0">
+                    <a href="https://climatefriendly.travel/" title="Climate Friendly Travel" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/climatefriencly.webp') }}"
+                            alt="Climate Friendly Travel"
+                            width="240"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+            </ul>
         </div>
 
         <!-- Copyright & Legal -->

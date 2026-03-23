@@ -39,7 +39,7 @@
                             <div
                                 class="flex flex-col sm:flex-row gap-4 justify-center fade-up-on-scroll animation-delay-400">
                                 <x-button-primary href="{{ $heroSection->cta_link }}"
-                                    class="text-lg px-8 py-4 bg-white text-[var(--color-forest-green)] hover:bg-gray-100 border-0">
+                                    class="text-lg px-8 py-4 !bg-white !text-[var(--color-forest-green)] hover:!bg-gray-100 !border-transparent">
                                     {{ $heroSection->cta_label }} </x-button-primary> </div>
                         @endif
             </div>
@@ -417,29 +417,36 @@
 
 
     <!-- Responsible Travel Teaser Section -->
-    <section class="luxury-teaser-section bg-white">
+    <section class="luxury-teaser-section bg-white responsible-teaser-shell">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 luxury-equal-grid js-scroll">
-                <div class="luxury-copy-col">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 lg:gap-0 luxury-equal-grid js-scroll responsible-teaser-grid">
+                <div class="luxury-copy-col responsible-teaser-copy">
+                    <p class="responsible-kicker">Impact in action</p>
                     <h2 class="luxury-heading mobile-underline-fit font-serif font-bold text-[var(--color-forest-green)] mb-0 text-center md:text-left">
                         {{ $responsibleTravelSection?->title ?: 'Responsible Travel & Carbon Offsetting' }}
                     </h2>
                     <br>
                
-                    {!! $responsibleTravelSection?->content ?: 'Lower impact travel, offsets where they matter, and nature-based projects—aligned with our mission on <strong>environmental sustainability</strong>.' !!}
-                    <br>
+                    <div class="responsible-copy-body">
+                        {!! $responsibleTravelSection?->content ?: 'Lower impact travel, offsets where they matter, and nature-based projects—aligned with our mission on <strong>environmental sustainability</strong>.' !!}
+                    </div>
+                    <div class="responsible-pill-row" aria-hidden="true">
+                        <span class="responsible-pill">Carbon-aware planning</span>
+                        <span class="responsible-pill">Nature-based restoration</span>
+                        <span class="responsible-pill">Community-first impact</span>
+                    </div>
                     @if(filled($responsibleTravelSection?->cta_label) && filled($responsibleTravelSection?->cta_link))
-                        <x-button-secondary href="{{ $responsibleTravelSection->cta_link }}" class="inline-flex w-auto self-start text-sm px-6 py-3 tracking-wide">
+                        <x-button-secondary href="{{ $responsibleTravelSection->cta_link }}" class="inline-flex w-auto self-start text-sm px-6 py-3 tracking-wide responsible-teaser-cta">
                             {{ $responsibleTravelSection->cta_label }}
                         </x-button-secondary>
                     @else
-                        <x-button-secondary href="{{ route('impact.responsible-travel') }}" class="inline-flex w-auto self-start text-sm px-6 py-3 tracking-wide">
+                        <x-button-secondary href="{{ route('impact.responsible-travel') }}" class="inline-flex w-auto self-start text-sm px-6 py-3 tracking-wide responsible-teaser-cta">
                             Learn More
                         </x-button-secondary>
                     @endif
                 </div>
                 <div class="luxury-media-col">
-                    <div class="luxury-media-frame bg-[var(--color-sand-beige)]">
+                    <div class="luxury-media-frame bg-[var(--color-sand-beige)] responsible-media-frame">
                     @if(filled($responsibleTravelSection?->image))
                         <img
                             src="{{ asset('storage/' . $responsibleTravelSection->image) }}"
@@ -447,6 +454,9 @@
                             class="w-full h-full object-cover"
                         >
                     @endif
+                    </div>
+                    <div class="responsible-media-badge">
+                        <span class="responsible-media-badge-label">Responsible by design</span>
                     </div>
                 </div>
             </div>

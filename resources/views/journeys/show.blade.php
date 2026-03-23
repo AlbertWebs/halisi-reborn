@@ -131,7 +131,7 @@
                 </a>
             </nav>
             <p class="journey-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-6">About this journey</p>
-            <div class="js-scroll js-scroll-fade border-l-4 border-[var(--color-accent-gold)] pl-8 md:pl-10">
+            <div class="js-scroll js-scroll-fade">
                 <div class="journey-prose prose prose-lg max-w-none text-[var(--color-earth-brown)] prose-headings:text-[var(--color-forest-green)]">
                     <div class="text-lg md:text-xl leading-relaxed">
                         {!! $journey->narrative_intro !!}
@@ -175,11 +175,6 @@
        
     </section>
     @endif
-
-     <!-- separator -->
-     <x-section-divider />
-
-  
 
     <!-- Gallery -->
     @if($journey->galleryImages->count() > 0)

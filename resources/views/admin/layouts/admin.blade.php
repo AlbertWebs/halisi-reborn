@@ -301,10 +301,31 @@
 
                 // Skip very small textareas (like meta descriptions with 2-3 rows)
                 // But include important ones
-                const importantIds = ['body_content', 'content', 'narrative_intro', 'country_narrative', 'experience_highlights', 'regenerative_impact', 'signature_experiences', 'conservation_focus'];
+                const importantIds = [
+                    'body_content',
+                    'content',
+                    'narrative_intro',
+                    'country_narrative',
+                    'experience_highlights',
+                    'regenerative_impact',
+                    'signature_experiences',
+                    'conservation_focus',
+                    'highlight_1_text',
+                    'highlight_2_text',
+                    'highlight_3_text',
+                    'highlight_4_text'
+                ];
                 if (textarea.rows && textarea.rows <= 3 && !importantIds.includes(textarea.id)) {
                     console.log('Skipping small textarea: ' + textarea.id);
                     return;
+                }
+
+                // TinyMCE hides the source textarea; native required validation
+                // can block submit with "invalid form control is not focusable".
+                // Keep validation on the backend for editor-managed fields.
+                if (textarea.hasAttribute('required')) {
+                    textarea.setAttribute('data-was-required', 'true');
+                    textarea.removeAttribute('required');
                 }
 
                 textareaIds.push(textarea.id);
@@ -333,9 +354,37 @@
                     'alignright alignjustify | bullist numlist outdent indent | ' +
                     'removeformat | link image | code fullscreen | help',
                 content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+                automatic_uploads: true,
+                images_upload_handler: function (blobInfo, progress) {
+                    const formData = new FormData();
+                    formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+                    return fetch("{{ route('admin.trust.editor-image') }}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name=\"csrf-token\"]').getAttribute('content'),
+                            'Accept': 'application/json'
+                        },
+                        credentials: 'same-origin',
+                        body: formData
+                    }).then(function (response) {
+                        if (!response.ok) {
+                            throw new Error('Image upload failed (' + response.status + ')');
+                        }
+                        return response.json();
+                    }).then(function (json) {
+                        if (!json || typeof json.location !== 'string') {
+                            throw new Error('Invalid upload response');
+                        }
+                        return json.location;
+                    });
+                },
                 branding: false,
                 promotion: false,
                 setup: function(editor) {
+                    editor.on('change keyup undo redo', function() {
+                        editor.save();
+                    });
                     console.log('TinyMCE initialized for: ' + editor.id);
                 }
             });
@@ -352,6 +401,12 @@
 
         window.addEventListener('load', function() {
             setTimeout(initTinyMCE, 500);
+        });
+
+        document.addEventListener('submit', function() {
+            if (typeof tinymce !== 'undefined') {
+                tinymce.triggerSave();
+            }
         });
     </script>
 </body>

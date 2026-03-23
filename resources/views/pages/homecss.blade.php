@@ -1078,6 +1078,97 @@ section.hero-section-wrapper .video-wrapper iframe {
     box-shadow: 0 6px 20px rgba(17, 24, 39, 0.06);
 }
 
+.responsible-teaser-shell {
+    position: relative;
+}
+
+.responsible-teaser-grid {
+    border-radius: 1.25rem;
+    border: 1px solid rgba(26, 77, 58, 0.1);
+    background: linear-gradient(180deg, #ffffff 0%, #faf8f2 100%);
+    box-shadow: 0 16px 42px rgba(17, 24, 39, 0.08);
+    overflow: hidden;
+}
+
+.responsible-teaser-copy {
+    padding: clamp(1.1rem, 2.1vw, 1.5rem) clamp(1.1rem, 2.1vw, 1.5rem) clamp(1.1rem, 2.1vw, 1.5rem) clamp(1.1rem, 2.3vw, 1.75rem);
+    gap: 1rem;
+}
+
+.responsible-kicker {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-accent-gold);
+    font-weight: 700;
+}
+
+.responsible-copy-body {
+    color: var(--color-earth-brown);
+    line-height: 1.85;
+}
+
+.responsible-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.responsible-pill {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-forest-green);
+    background: #f4efe0;
+    border: 1px solid rgba(26, 77, 58, 0.16);
+    border-radius: 9999px;
+    padding: 0.35rem 0.7rem;
+}
+
+.responsible-teaser-cta {
+    margin-top: 0.25rem;
+}
+
+.responsible-media-frame {
+    position: relative;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: clamp(20rem, 34vw, 27rem);
+}
+
+.responsible-media-frame::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.05) 45%, transparent 70%);
+}
+
+.responsible-media-badge {
+    margin-top: 0.6rem;
+    margin-right: 0.9rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.responsible-media-badge-label {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.35rem 0.65rem;
+    border-radius: 9999px;
+    background: rgba(26, 77, 58, 0.08);
+    border: 1px solid rgba(26, 77, 58, 0.2);
+    color: var(--color-forest-green);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
 .signature-journey-card {
     border: 1px solid rgba(26, 77, 58, 0.12);
     border-radius: 0.95rem;
@@ -1239,6 +1330,16 @@ section.hero-section-wrapper .video-wrapper iframe {
     /* Center Learn More / CTA buttons in teaser sections on mobile */
     .luxury-teaser-section .luxury-copy-col .inline-flex.self-start {
         align-self: center !important;
+    }
+
+    .responsible-pill-row {
+        justify-content: center;
+    }
+
+    .responsible-media-badge {
+        justify-content: center;
+        margin-right: 0;
+        margin-bottom: 0.85rem;
     }
 }
 

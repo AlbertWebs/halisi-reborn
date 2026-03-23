@@ -14,6 +14,60 @@
     ]"
 />
 @endpush
+@push('styles')
+<style>
+    /* Country page: premium WOW-style reveal (scoped) */
+    .country-wow.js-scroll {
+        opacity: 0;
+        transform: translateY(34px) scale(0.99);
+        filter: blur(6px);
+        transition:
+            opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1),
+            transform 0.9s cubic-bezier(0.19, 1, 0.22, 1),
+            filter 0.9s cubic-bezier(0.19, 1, 0.22, 1);
+        will-change: opacity, transform, filter;
+    }
+    .country-wow.js-scroll.is-visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+    .country-wow-delay-1 { transition-delay: 90ms !important; }
+    .country-wow-delay-2 { transition-delay: 170ms !important; }
+    .country-wow-delay-3 { transition-delay: 260ms !important; }
+
+    .country-wow-group.js-scroll-stagger > * {
+        opacity: 0;
+        transform: translateY(28px) scale(0.992);
+        filter: blur(4px);
+        transition:
+            opacity 0.78s cubic-bezier(0.19, 1, 0.22, 1),
+            transform 0.78s cubic-bezier(0.19, 1, 0.22, 1),
+            filter 0.78s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    .country-wow-group.js-scroll-stagger.is-visible > *:nth-child(1) { transition-delay: 0s; }
+    .country-wow-group.js-scroll-stagger.is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+    .country-wow-group.js-scroll-stagger.is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+    .country-wow-group.js-scroll-stagger.is-visible > *:nth-child(4) { transition-delay: 0.24s; }
+    .country-wow-group.js-scroll-stagger.is-visible > *:nth-child(5) { transition-delay: 0.32s; }
+    .country-wow-group.js-scroll-stagger.is-visible > *:nth-child(6) { transition-delay: 0.4s; }
+    .country-wow-group.js-scroll-stagger.is-visible > * {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .country-wow.js-scroll,
+        .country-wow-group.js-scroll-stagger > * {
+            opacity: 1 !important;
+            transform: none !important;
+            filter: none !important;
+            transition: none !important;
+        }
+    }
+</style>
+@endpush
 
 @section('content')
     @php
@@ -62,10 +116,10 @@
         
         <div class="country-hero-content relative z-20 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
             <div class="max-w-4xl">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-balance">
+                <h1 class="country-wow js-scroll text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-balance">
                     {{ $country->name }}
                 </h1>
-                <div class="prose prose-lg max-w-none text-gray-100">
+                <div class="country-wow country-wow-delay-1 js-scroll prose prose-lg max-w-none text-gray-100">
                     <p class="text-xl leading-relaxed">
                         {{ $country->hero_subtitle ?: Str::limit(strip_tags($country->country_narrative), 200) }}
                     </p>
@@ -78,19 +132,19 @@
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] js-scroll js-scroll-fade">
+                <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] js-scroll js-scroll-fade country-wow">
                     {!! $country->country_narrative !!}
                 </div>
                 @if($country->narrative_image)
-                    <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl js-scroll">
+                    <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl js-scroll country-wow country-wow-delay-1">
                         <img src="{{ asset('storage/' . $country->narrative_image) }}" alt="{{ $country->name }}" class="w-full h-full object-cover">
                     </div>
                 @elseif($country->hero_image && !$heroVideoId)
-                    <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl js-scroll">
+                    <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl js-scroll country-wow country-wow-delay-1">
                         <img src="{{ asset('storage/' . $country->hero_image) }}" alt="{{ $country->name }}" class="w-full h-full object-cover">
                     </div>
                 @else
-                    <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl bg-gradient-to-br from-[var(--color-forest-green)] to-[var(--color-earth-brown)] flex items-center justify-center js-scroll">
+                    <div class="relative h-[400px] lg:h-[500px] rounded-lg overflow-hidden shadow-xl bg-gradient-to-br from-[var(--color-forest-green)] to-[var(--color-earth-brown)] flex items-center justify-center js-scroll country-wow country-wow-delay-1">
                         <div class="text-center text-white p-8">
                             <svg class="w-24 h-24 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -109,13 +163,13 @@
     @if($country->signature_experiences)
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 js-scroll">
+            <div class="text-center mb-12 js-scroll country-wow">
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-4">
                     {{ $country->signature_experiences_title ?: 'Signature Experiences' }}
                 </h2>
                 <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto"></div>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center js-scroll-stagger">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center js-scroll-stagger country-wow-group">
                 <div class="bg-white p-8 lg:p-12 rounded-lg shadow-lg">
                     <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)]">
                         {!! $country->signature_experiences !!}
@@ -186,78 +240,340 @@
     </section>
     @endif
 
-    <!-- Conservation & Community Focus -->
-    @if($country->conservation_focus)
+    @php
+        $countryGuide = [
+            'tanzania' => [
+                'lead' => 'A country of vast plains, iconic wildlife corridors, and Indian Ocean islands framed by coral reefs and Swahili heritage.',
+                'capital' => 'Dodoma',
+                'currency' => 'Tanzanian Shilling',
+                'languages' => 'Swahili and English',
+                'airport' => 'Julius Nyerere (DAR), Kilimanjaro (JRO), Abeid Amani Karume (ZNZ)',
+                'time_zone' => 'East Africa Time (UTC+3)',
+                'best_for' => 'Great Migration, crater safaris, coast + island retreats',
+                'ideal_trip_length' => '8-14 nights',
+                'best_time' => 'Jun-Oct for dry season safaris; Jan-Mar for calving landscapes',
+                'entry' => 'Visa and entry policy depend on nationality',
+                'health' => 'Travel insurance and pre-travel health guidance recommended',
+                'style' => 'Private fly-in circuits or overland combinations',
+                'ecosystems' => 'Savanna plains, volcanic highlands, Rift Valley, coral islands',
+                'climate_intro' => 'Tropical on the coast and islands, temperate in most parks, with hotter conditions between October and March.',
+                'climate' => [
+                    ['season' => 'Dec - Mar', 'note' => 'Hot dry season, strong beach conditions.'],
+                    ['season' => 'Apr - May', 'note' => 'Long rains, lush landscapes, fewer crowds.'],
+                    ['season' => 'Jun - Nov', 'note' => 'Cooler dry season, excellent safari viewing.'],
+                ],
+                'highlights' => [
+                    ['title' => 'Mount Kilimanjaro', 'text' => 'Africa\'s highest peak at 5,895m, with distinct ecological zones as you ascend.'],
+                    ['title' => 'Ngorongoro Crater', 'text' => 'A vast intact caldera and one of East Africa\'s richest wildlife habitats.'],
+                    ['title' => 'Serengeti', 'text' => 'Predator-rich plains and the famed Great Migration corridors.'],
+                    ['title' => 'Zanzibar Archipelago', 'text' => 'Spice routes, coral reefs, and a refined coast-and-safari pairing.'],
+                ],
+            ],
+            'kenya' => [
+                'lead' => 'From the Maasai Mara and Amboseli to the Indian Ocean coast, Kenya blends iconic safaris with deeply rooted cultural heritage.',
+                'capital' => 'Nairobi',
+                'currency' => 'Kenyan Shilling',
+                'languages' => 'Swahili and English',
+                'airport' => 'Jomo Kenyatta (NBO), Moi (MBA), Kisumu (KIS)',
+                'time_zone' => 'East Africa Time (UTC+3)',
+                'best_for' => 'Big-cat safaris, conservancy travel, coast extensions',
+                'ideal_trip_length' => '7-12 nights',
+                'best_time' => 'Jun-Oct for classic game viewing; Jan-Mar for warm dry travel',
+                'entry' => 'Visa and entry policy depend on nationality',
+                'health' => 'Travel insurance and pre-travel health guidance recommended',
+                'style' => 'Conservancy-led safaris with optional beach finish',
+                'ecosystems' => 'Savanna, highlands, lakes, and Indian Ocean coastline',
+                'climate_intro' => 'Generally warm with regional variation by altitude; dry windows often deliver the best game concentration.',
+                'climate' => [
+                    ['season' => 'Jan - Mar', 'note' => 'Warm and mostly dry, ideal for mixed safari routes.'],
+                    ['season' => 'Apr - May', 'note' => 'Long rains, dramatic skies, rich green landscapes.'],
+                    ['season' => 'Jun - Oct', 'note' => 'Cooler dry season, prime for wildlife movement.'],
+                ],
+                'highlights' => [
+                    ['title' => 'Maasai Mara', 'text' => 'Classic big-cat territory and migration crossings.'],
+                    ['title' => 'Amboseli', 'text' => 'Elephant herds set beneath Kilimanjaro views.'],
+                    ['title' => 'Laikipia', 'text' => 'Conservancy-led wilderness and strong community partnerships.'],
+                    ['title' => 'Kenya Coast', 'text' => 'Swahili heritage, marine life, and restorative beach retreats.'],
+                ],
+            ],
+        ];
+
+        $slug = $country->slug;
+        $guide = $countryGuide[$slug] ?? null;
+        $defaultLead = Str::limit(strip_tags((string) ($country->country_narrative ?? '')), 280);
+        $guideLead = filled($country->destination_brief_lead)
+            ? $country->destination_brief_lead
+            : ($guide['lead'] ?? ($defaultLead ?: ('A layered destination where wildlife, culture, and landscape meet in one remarkable journey through ' . $country->name . '.')));
+        $guideClimateIntro = filled($country->destination_brief_climate_intro)
+            ? $country->destination_brief_climate_intro
+            : ($guide['climate_intro'] ?? 'Conditions vary by region and elevation; we tailor timing around your preferred experience and pace.');
+        $guideClimate = [
+            ['season' => $country->destination_brief_climate_1_season, 'note' => $country->destination_brief_climate_1_note],
+            ['season' => $country->destination_brief_climate_2_season, 'note' => $country->destination_brief_climate_2_note],
+            ['season' => $country->destination_brief_climate_3_season, 'note' => $country->destination_brief_climate_3_note],
+        ];
+        $guideClimate = array_values(array_filter($guideClimate, function ($item) {
+            return filled($item['season']) || filled($item['note']);
+        }));
+        if (count($guideClimate) === 0) {
+            $guideClimate = $guide['climate'] ?? [
+            ['season' => 'Dry window', 'note' => 'Excellent for game viewing and overland movement.'],
+            ['season' => 'Green window', 'note' => 'Richer landscapes and strong photographic contrast.'],
+            ['season' => 'Shoulder period', 'note' => 'Balanced conditions with fewer travellers.'],
+            ];
+        }
+        $dynamicHighlights = $country->highlights()
+            ->orderBy('sort_order')
+            ->orderBy('id')
+            ->get(['title', 'text', 'image'])
+            ->map(function ($item) {
+                return [
+                    'title' => $item->title,
+                    'text' => $item->text,
+                    'image' => $item->image,
+                ];
+            })
+            ->all();
+        $guideHighlights = $dynamicHighlights;
+        if (count($guideHighlights) === 0) {
+            $guideHighlights = [
+                ['title' => $country->highlight_1_title, 'text' => $country->highlight_1_text, 'image' => $country->highlight_1_image],
+                ['title' => $country->highlight_2_title, 'text' => $country->highlight_2_text, 'image' => $country->highlight_2_image],
+                ['title' => $country->highlight_3_title, 'text' => $country->highlight_3_text, 'image' => $country->highlight_3_image],
+                ['title' => $country->highlight_4_title, 'text' => $country->highlight_4_text, 'image' => $country->highlight_4_image],
+            ];
+        }
+        $guideHighlights = array_values(array_filter($guideHighlights, function ($item) {
+            return filled($item['title']) || filled($item['text']);
+        }));
+        if (count($guideHighlights) === 0) {
+            $guideHighlights = $guide['highlights'] ?? [
+            ['title' => 'Iconic wilderness', 'text' => 'Protected landscapes where biodiversity remains central to the experience.'],
+            ['title' => 'Cultural depth', 'text' => 'Host-led encounters grounded in respect, context, and exchange.'],
+            ['title' => 'Conservation models', 'text' => 'Journeys linked to long-term habitat and community outcomes.'],
+            ['title' => 'Refined stays', 'text' => 'Properties selected for character, comfort, and place-based design.'],
+            ];
+        }
+        $guideEssentials = [
+            'Capital' => $country->destination_brief_capital ?: ($guide['capital'] ?? 'Available on request'),
+            'Currency' => $country->destination_brief_currency ?: ($guide['currency'] ?? 'Varies by region'),
+            'Languages' => $country->destination_brief_languages ?: ($guide['languages'] ?? 'English and local languages'),
+            'Time zone' => $country->destination_brief_time_zone ?: ($guide['time_zone'] ?? 'East Africa Time (UTC+3)'),
+            'Main airports' => $country->destination_brief_airports ?: ($guide['airport'] ?? 'Primary international gateway + regional airstrips'),
+            'Best for' => $country->destination_brief_best_for ?: ($guide['best_for'] ?? 'Wildlife, culture, and conservation-led travel'),
+            'Ideal trip length' => $country->destination_brief_ideal_trip_length ?: ($guide['ideal_trip_length'] ?? '7-12 nights'),
+            'Best time to visit' => $country->destination_brief_best_time ?: ($guide['best_time'] ?? 'Planned around your route and preferred experiences'),
+            'Travel style' => $country->destination_brief_travel_style ?: ($guide['style'] ?? 'Private, tailored journeys'),
+            'Ecosystems' => $country->destination_brief_ecosystems ?: ($guide['ecosystems'] ?? 'Mixed habitats and protected landscapes'),
+            'Entry requirements' => $country->destination_brief_entry_requirements ?: ($guide['entry'] ?? 'Check latest rules for your passport before departure'),
+            'Health notes' => $country->destination_brief_health_notes ?: ($guide['health'] ?? 'Travel insurance and pre-travel health guidance recommended'),
+        ];
+        $resolveCountryImage = function (?string $image): ?string {
+            if (!filled($image)) {
+                return null;
+            }
+            if (str_starts_with($image, 'http://') || str_starts_with($image, 'https://')) {
+                return $image;
+            }
+            if (str_starts_with($image, '/storage/')) {
+                return asset(ltrim($image, '/'));
+            }
+            if (str_starts_with($image, 'storage/')) {
+                return asset($image);
+            }
+            return asset('storage/' . ltrim($image, '/'));
+        };
+        $decodeEntitiesRepeatedly = function (?string $value): string {
+            $decoded = (string) $value;
+            for ($i = 0; $i < 3; $i++) {
+                $next = html_entity_decode($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                if ($next === $decoded) {
+                    break;
+                }
+                $decoded = $next;
+            }
+            return $decoded;
+        };
+        $highlightImages = array_values(array_filter([
+            $resolveCountryImage($country->highlight_1_image),
+            $resolveCountryImage($country->highlight_2_image),
+            $resolveCountryImage($country->highlight_3_image),
+            $resolveCountryImage($country->highlight_4_image),
+            $resolveCountryImage($country->signature_card_1_image),
+            $resolveCountryImage($country->signature_card_2_image),
+            $resolveCountryImage($country->signature_card_3_image),
+            $resolveCountryImage($country->signature_card_4_image),
+            $resolveCountryImage($country->narrative_image),
+            $resolveCountryImage($country->conservation_image),
+            $resolveCountryImage($country->hero_image),
+        ]));
+    @endphp
+
     <section class="section-padding bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="relative h-[500px] rounded-lg overflow-hidden shadow-xl order-2 lg:order-1">
-                    @if($country->conservation_image)
-                        <img src="{{ asset('storage/' . $country->conservation_image) }}" alt="{{ $country->conservation_title ?: 'Conservation & Community Focus' }}" class="absolute inset-0 w-full h-full object-cover z-0">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent z-10"></div>
-                    @else
-                        <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-forest-green)] via-[var(--color-earth-brown)] to-[var(--color-accent-gold)] opacity-90 z-0"></div>
-                    @endif
-                    <div class="absolute inset-0 flex items-center justify-center text-white p-8 z-20">
-                        <div class="text-center">
-                            @if($country->conservation_image)
-                                <div class="absolute bottom-0 left-0 right-0 p-8 text-left">
-                                    @if($country->conservation_visual_text)
-                                        <div class="prose prose-lg max-w-none text-white prose-headings:text-white prose-p:text-white">
-                                            {!! $country->conservation_visual_text !!}
-                                        </div>
-                                    @else
-                                        <h3 class="text-2xl font-serif font-bold mb-2">Our Commitment</h3>
-                                        <p class="text-lg text-white/95">Supporting local communities and conservation efforts across {{ $country->name }}</p>
-                                    @endif
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-stretch">
+                <div class="lg:col-span-7 js-scroll country-wow h-full flex flex-col">
+                    <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-accent-gold)] font-semibold mb-3">Destination brief</p>
+                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-5">
+                        {{ $country->name }}: Legends and landscapes
+                    </h2>
+                    <p class="text-lg text-[var(--color-earth-brown)] leading-relaxed mb-6">
+                        {{ $guideLead }}
+                    </p>
+                    <div class="rounded-2xl border border-[var(--color-sand-beige)]/85 bg-[var(--color-off-white)] p-6 md:p-7 shadow-sm mt-auto">
+                        <h3 class="text-base md:text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-3">Climate</h3>
+                        <p class="text-sm md:text-base text-[var(--color-earth-brown)] leading-relaxed mb-4">{{ $guideClimateIntro }}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                            @foreach($guideClimate as $slice)
+                                <div class="rounded-xl border border-[var(--color-sand-beige)] bg-white p-4">
+                                    <p class="text-xs uppercase tracking-[0.14em] text-[var(--color-accent-gold)] font-semibold mb-1">{{ $slice['season'] }}</p>
+                                    <p class="text-sm text-[var(--color-earth-brown)] leading-snug">{{ $slice['note'] }}</p>
                                 </div>
-                            @else
-                                <svg class="w-20 h-20 mx-auto mb-4 opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                </svg>
-                                @if($country->conservation_visual_text)
-                                    <div class="prose prose-lg max-w-none text-white">
-                                        {!! $country->conservation_visual_text !!}
-                                    </div>
-                                @else
-                                    <h3 class="text-2xl font-serif font-bold mb-2">Our Commitment</h3>
-                                    <p class="text-lg">Supporting local communities and conservation efforts across {{ $country->name }}</p>
-                                @endif
-                            @endif
+                            @endforeach
                         </div>
                     </div>
                 </div>
-                <div class="order-1 lg:order-2">
-                    <div class="mb-8">
-                        <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
-                        <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
-                            {{ $country->conservation_title ?: 'Conservation & Community Focus' }}
-                        </h2>
+
+                <div class="lg:col-span-5 js-scroll country-wow country-wow-delay-1 h-full">
+                    <div class="rounded-2xl overflow-hidden border border-[var(--color-sand-beige)]/80 shadow-[0_16px_40px_rgba(26,77,58,0.08)] bg-white h-full">
+                        <div class="px-6 py-5 border-b border-[var(--color-sand-beige)]/70 bg-[var(--color-off-white)]">
+                            <p class="text-xs uppercase tracking-[0.16em] text-[var(--color-accent-gold)] font-semibold">Country essentials</p>
+                        </div>
+                        <dl class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-4">
+                            @foreach($guideEssentials as $label => $value)
+                                <div class="flex flex-col gap-1">
+                                    <dt class="text-[0.68rem] uppercase tracking-[0.14em] text-[var(--color-forest-green)]/75 font-semibold">{{ $label }}</dt>
+                                    <dd class="text-sm text-[var(--color-earth-brown)] leading-snug">{{ $value }}</dd>
+                                </div>
+                            @endforeach
+                        </dl>
                     </div>
-                    
-                    <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)]">
-                        {!! $country->conservation_focus !!}
-                    </div>
-                    
-                    <div class="mt-8">
-                        <x-button-secondary href="{{ $country->conservation_button_link ?: route('impact.responsible-travel') }}">
-                            {{ $country->conservation_button_text ?: 'Learn About Our Impact Approach' }}
-                        </x-button-secondary>
-                    </div>
+                </div>
+            </div>
+
+            <div class="mt-14 md:mt-16 rounded-2xl border border-[var(--color-sand-beige)]/80 bg-white px-4 py-7 md:px-7 md:py-9 lg:px-8 lg:py-10 shadow-[0_14px_34px_rgba(26,77,58,0.08)]">
+                <header class="mb-7 md:mb-8 js-scroll country-wow">
+                    <p class="text-[0.68rem] uppercase tracking-[0.16em] text-[var(--color-accent-gold)] font-semibold mb-2">Signature places</p>
+                    <h3 class="text-2xl md:text-3xl lg:text-4xl font-serif font-bold text-[var(--color-forest-green)]">
+                        {{ $country->highlights_title ?: 'Highlights' }}
+                    </h3>
+                    <div class="w-16 h-0.5 bg-[var(--color-accent-gold)] mt-4 mb-3"></div>
+                    <p class="text-sm md:text-base text-[var(--color-earth-brown)] leading-relaxed max-w-3xl">
+                        Places that define {{ $country->name }} and the rhythm of each journey.
+                    </p>
+                </header>
+                <div class="space-y-5 md:space-y-6">
+                    @foreach($guideHighlights as $idx => $item)
+                        @php
+                            $itemImage = $resolveCountryImage($item['image'] ?? null);
+                            $image = $itemImage ?: ($highlightImages[$idx] ?? $highlightImages[0] ?? null);
+                            $isEven = $idx % 2 === 1;
+                            $highlightTextRaw = $decodeEntitiesRepeatedly($item['text'] ?? '');
+                            $highlightTextHtml = preg_match('/<[a-z][\s\S]*>/i', trim($highlightTextRaw))
+                                ? $highlightTextRaw
+                                : nl2br(e($highlightTextRaw));
+                        @endphp
+                        <article class="grid grid-cols-1 md:grid-cols-12 overflow-hidden border border-[var(--color-sand-beige)]/85 bg-white js-scroll country-wow md:min-h-[390px] shadow-[0_10px_26px_rgba(26,77,58,0.07)]">
+                            <div class="relative p-7 md:p-8 lg:p-10 flex flex-col justify-center bg-[var(--color-off-white)] md:col-span-6 {{ $isEven ? 'md:order-2' : '' }}">
+                                <div class="absolute left-0 top-0 h-full w-1 bg-[var(--color-accent-gold)]" aria-hidden="true"></div>
+                                <div class="max-w-xl">
+                                    <div class="inline-flex items-center gap-2 mb-3">
+                                        <span class="inline-flex items-center justify-center min-w-7 h-7 px-2 rounded-sm bg-[var(--color-forest-green)] text-white text-[0.68rem] font-semibold">
+                                            {{ str_pad((string) ($idx + 1), 2, '0', STR_PAD_LEFT) }}
+                                        </span>
+                                        <span class="text-[0.64rem] uppercase tracking-[0.14em] text-[var(--color-forest-green)]/75 font-semibold">Signature place</span>
+                                    </div>
+                                    <h4 class="text-2xl md:text-3xl font-serif font-semibold text-[var(--color-forest-green)] leading-tight">
+                                        {{ $item['title'] }}
+                                    </h4>
+                                    <div class="text-[0.95rem] md:text-base text-[var(--color-earth-brown)]/90 leading-relaxed mt-4 prose prose-sm max-w-none">
+                                        {!! $highlightTextHtml !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="relative h-[230px] md:h-full md:min-h-[390px] md:col-span-6 {{ $isEven ? 'md:order-1' : '' }}">
+                                @if($image)
+                                    <img src="{{ $image }}" alt="{{ $item['title'] }} in {{ $country->name }}" loading="lazy" class="absolute inset-0 w-full h-full object-cover">
+                                @else
+                                    <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-forest-green)] via-[var(--color-earth-brown)] to-[var(--color-accent-gold)]"></div>
+                                @endif
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/35 via-black/10 to-transparent"></div>
+                                <div class="absolute inset-0 ring-1 ring-inset ring-white/25"></div>
+                            </div>
+                        </article>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
-    @endif
+
+    @php
+        $ctaVideoFiles = \Illuminate\Support\Facades\File::glob(public_path('uploads/videos/*.{mp4,webm,mov,m4v}'), GLOB_BRACE) ?: [];
+        $ctaVideoPath = null;
+        if (!empty($ctaVideoFiles)) {
+            foreach ($ctaVideoFiles as $videoFile) {
+                if (\Illuminate\Support\Str::contains(strtolower(basename($videoFile)), strtolower($country->slug))) {
+                    $ctaVideoPath = $videoFile;
+                    break;
+                }
+            }
+            $ctaVideoPath = $ctaVideoPath ?: $ctaVideoFiles[0];
+        }
+        $ctaVideoUrl = $ctaVideoPath ? asset('uploads/videos/' . basename($ctaVideoPath)) : null;
+    @endphp
+
+    <!-- CTA Block (matched to Responsible page Start Planning card) -->
+    <section class="relative section-padding-lg overflow-hidden bg-gradient-to-b from-[var(--color-forest-green)] via-[#174030] to-[#0f241c] text-white">
+        @if($ctaVideoUrl)
+            <video
+                class="absolute inset-0 w-full h-full object-cover"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-hidden="true"
+            >
+                <source src="{{ $ctaVideoUrl }}" type="video/{{ pathinfo($ctaVideoUrl, PATHINFO_EXTENSION) }}">
+            </video>
+            <div class="absolute inset-0 bg-black/55" aria-hidden="true"></div>
+        @endif
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,175,55,0.12),transparent_60%)]" aria-hidden="true"></div>
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-3xl border border-white/15 bg-white/[0.06] backdrop-blur-sm p-8 md:p-12 lg:p-14 text-center shadow-[0_28px_90px_rgba(0,0,0,0.35)]">
+                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-4 js-scroll country-wow">Start planning</p>
+                <h2 class="text-3xl sm:text-4xl md:text-[2.75rem] font-serif font-bold mb-6 js-scroll country-wow text-balance leading-tight">
+                    {{ $country->cta_title ?: ('Explore ' . $country->name . ' Journeys') }}
+                </h2>
+                @if($country->cta_description)
+                    <p class="text-base md:text-lg text-white/85 max-w-2xl mx-auto mb-10 js-scroll country-wow country-wow-delay-1 leading-relaxed">
+                        {{ $country->cta_description }}
+                    </p>
+                @else
+                    <p class="text-base md:text-lg text-white/85 max-w-2xl mx-auto mb-10 js-scroll country-wow country-wow-delay-1 leading-relaxed">
+                        Let us design a bespoke journey in {{ $country->name }} tailored to your interests, travel style, and pace.
+                    </p>
+                @endif
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 js-scroll country-wow country-wow-delay-2">
+                    <x-button-primary href="{{ $country->cta_link ?: route('contact.index', ['country' => $country->slug]) }}" title="Plan your {{ $country->name }} journey" class="!bg-white !text-[var(--color-forest-green)] hover:!bg-gray-100 !border-[var(--color-forest-green)]/25 px-10 py-4 text-base shadow-lg">
+                        {{ $country->cta_button_text ?: 'Design Your Journey' }}
+                    </x-button-primary>
+                    <x-button-secondary href="{{ route('journeys.index') }}" class="border-white/90 text-white hover:bg-white hover:text-[var(--color-forest-green)] px-10 py-4 text-base">
+                        Explore journeys
+                    </x-button-secondary>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Featured Journeys -->
     @if($journeys->count() > 0)
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-8 text-center js-scroll country-wow">
                 {{ $country->featured_journeys_title ?: 'Featured Journeys in ' . $country->name }}
             </h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 js-scroll-stagger country-wow-group">
                 @foreach($journeys as $journey)
                     <x-journey-card :journey="$journey" />
                 @endforeach
@@ -273,27 +589,6 @@
 
     
     @endif
-
-    <!-- CTA Block -->
-    <section class="section-padding bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
-                {{ $country->cta_title ?: 'Explore ' . $country->name . ' Journeys' }}
-            </h2>
-            @if($country->cta_description)
-                <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-                    {{ $country->cta_description }}
-                </p>
-            @else
-                <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-                    Let us design a bespoke journey in {{ $country->name }} tailored to your interests and travel style.
-                </p>
-            @endif
-            <a href="{{ $country->cta_link ?: route('contact.index', ['country' => $country->slug]) }}" class="inline-block px-10 py-5 bg-white text-[var(--color-forest-green)] font-semibold uppercase tracking-wide hover:bg-gray-100 hover:text-[var(--color-forest-green)] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--color-forest-green)] transition-colors text-lg border-0">
-                {{ $country->cta_button_text ?: 'Design Your Journey' }}
-            </a>
-        </div>
-    </section>
 
     <script>
         document.querySelectorAll('.signature-card').forEach(function (card) {

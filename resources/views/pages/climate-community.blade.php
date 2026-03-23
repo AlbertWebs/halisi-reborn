@@ -282,7 +282,7 @@
             <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
                 Join us in creating journeys that restore ecosystems, empower communities, and address climate change.
             </p>
-            <x-button-primary href="{{ route('contact.index') }}" class="bg-white text-[var(--color-forest-green)] hover:bg-gray-100 text-lg px-10 py-5 border-0">
+            <x-button-primary href="{{ route('contact.index') }}" title="Get in touch to plan your journey" class="!bg-white !text-[var(--color-forest-green)] hover:!bg-gray-100 !border-[var(--color-forest-green)]/25 text-lg px-10 py-5">
                 Design Your Journey
             </x-button-primary>
         </div>

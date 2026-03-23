@@ -163,6 +163,11 @@
                 </div>
             </div>
 
+            <div class="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-4">
+                <h3 class="text-sm font-semibold text-indigo-900 mb-1">Destination Brief, Essentials & Highlights</h3>
+                <p class="text-sm text-indigo-800">This section is now managed from a separate page after creating the country.</p>
+            </div>
+
             <!-- Conservation & Community Focus (country page section) -->
             <div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Conservation & Community Focus</h3>

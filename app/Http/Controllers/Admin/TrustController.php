@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
 
 class TrustController extends Controller
 {
@@ -96,5 +97,18 @@ class TrustController extends Controller
         $trust->delete();
 
         return redirect()->route('admin.trust.index')->with('success', 'Article deleted successfully.');
+    }
+
+    public function uploadEditorImage(Request $request): JsonResponse
+    {
+        $request->validate([
+            'file' => 'required|image|mimes:jpeg,jpg,png,gif,webp|max:4096',
+        ]);
+
+        $path = $request->file('file')->store('trust/content', 'public');
+
+        return response()->json([
+            'location' => asset('storage/' . $path),
+        ]);
     }
 }

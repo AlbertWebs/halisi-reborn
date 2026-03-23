@@ -149,6 +149,14 @@
                 </div>
             </div>
 
+            <div class="rounded-lg border border-indigo-200 bg-indigo-50 px-4 py-4">
+                <h3 class="text-sm font-semibold text-indigo-900 mb-1">Destination Brief, Essentials & Highlights moved</h3>
+                <p class="text-sm text-indigo-800">This content is now managed on a dedicated page.</p>
+                <a href="{{ route('admin.countries.destination-brief.edit', $country) }}" class="inline-block mt-3 text-sm font-medium text-[var(--color-forest-green)] hover:underline">
+                    Open Destination Brief editor
+                </a>
+            </div>
+
             <!-- Conservation & Community Focus (country page section) -->
             <div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Conservation & Community Focus</h3>

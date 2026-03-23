@@ -117,8 +117,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('journeys/{journey}/itinerary/{itinerary}', [AdminJourneyController::class, 'destroyItinerary'])->name('journeys.itinerary.destroy');
         Route::resource('journeys', AdminJourneyController::class);
         Route::resource('categories', AdminCategoryController::class)->parameters(['categories' => 'category']);
+        Route::get('countries/{country}/destination-brief', [AdminCountryController::class, 'editDestinationBrief'])->name('countries.destination-brief.edit');
+        Route::put('countries/{country}/destination-brief', [AdminCountryController::class, 'updateDestinationBrief'])->name('countries.destination-brief.update');
         Route::resource('countries', AdminCountryController::class);
         Route::resource('impact', AdminImpactController::class);
+        Route::post('trust/editor-image', [AdminTrustController::class, 'uploadEditorImage'])->name('trust.editor-image');
         Route::resource('trust', AdminTrustController::class);
         Route::get('footer', [FooterController::class, 'index'])->name('footer.index');
         Route::post('footer', [FooterController::class, 'update'])->name('footer.update');

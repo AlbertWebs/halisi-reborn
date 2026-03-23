@@ -46,6 +46,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                             <a href="{{ route('admin.countries.edit', $country) }}" class="text-[var(--color-forest-green)] hover:text-opacity-80 mr-4">Edit</a>
+                            <a href="{{ route('admin.countries.destination-brief.edit', $country) }}" class="text-indigo-700 hover:text-indigo-900 mr-4">Destination Brief</a>
                             <form action="{{ route('admin.countries.destroy', $country) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this country?');">
                                 @csrf
                                 @method('DELETE')

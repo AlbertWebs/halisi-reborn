@@ -50,6 +50,7 @@ class CountryController extends Controller
 
     public function show(Country $country)
     {
+        $country->load('highlights');
         // Get journeys associated with this country
         $journeys = \App\Models\Journey::where('is_published', true)
             ->whereHas('countries', function($query) use ($country) {
@@ -63,7 +64,7 @@ class CountryController extends Controller
 
     private function showCountry(string $slug)
     {
-        $country = Country::where('slug', $slug)->where('is_published', true)->first();
+        $country = Country::where('slug', $slug)->where('is_published', true)->with('highlights')->first();
         $journeys = collect();
         
         // If country doesn't exist in DB, create a temporary object with default data

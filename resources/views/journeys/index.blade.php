@@ -89,24 +89,4 @@
             @endif
         </div>
     </section>
-
-    <!-- CTA Section -->
-    <section class="section-padding bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
-            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
-                Ready to Begin Your Journey?
-            </h2>
-            <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Let us design a bespoke African experience tailored to your interests, travel style, and conservation values.
-            </p>
-            <div class="flex flex-row gap-2 sm:gap-4 justify-center flex-wrap">
-                <a href="{{ route('contact.index') }}" class="inline-block px-4 sm:px-10 py-3 sm:py-5 bg-white text-[var(--color-forest-green)] font-semibold uppercase tracking-wide hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--color-forest-green)] transition-colors text-sm sm:text-lg shadow-lg hover:shadow-xl whitespace-nowrap">
-                    Start Planning
-                </a>
-                <a href="{{ route('countries.index') }}" class="inline-block px-4 sm:px-10 py-3 sm:py-5 bg-transparent text-white border-2 border-white font-semibold uppercase tracking-wide hover:bg-white hover:text-[var(--color-forest-green)] focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-[var(--color-forest-green)] transition-colors text-sm sm:text-lg whitespace-nowrap">
-                    Explore Countries
-                </a>
-            </div>
-        </div>
-    </section>
 @endsection

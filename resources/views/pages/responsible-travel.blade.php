@@ -6,9 +6,33 @@
 @push('styles')
 <style>
     .impact-section-label { letter-spacing: 0.2em; }
-    .impact-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-    .impact-card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(26, 77, 58, 0.12); }
-    .impact-quote { border-left: 4px solid var(--color-accent-gold); }
+    .impact-card { transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+    .impact-card:hover { transform: translateY(-4px); box-shadow: 0 16px 34px rgba(26, 77, 58, 0.16); border-color: rgba(26, 77, 58, 0.2); }
+    .impact-glass-band {
+        background:
+            radial-gradient(ellipse 110% 60% at 50% 0%, rgba(212, 175, 55, 0.14) 0%, transparent 52%),
+            radial-gradient(ellipse 55% 40% at 100% 40%, rgba(97, 172, 69, 0.12) 0%, transparent 50%),
+            radial-gradient(ellipse 60% 38% at 0% 80%, rgba(26, 77, 58, 0.36) 0%, transparent 52%),
+            linear-gradient(165deg, #15271f 0%, #1a3228 42%, #1f3d31 74%, #152920 100%);
+    }
+    .impact-body p + p { margin-top: 1rem; }
+    .impact-body h2, .impact-body h3 { color: var(--color-forest-green); font-family: var(--font-serif); }
+    .impact-carbon-zone {
+        background:
+            radial-gradient(ellipse 90% 55% at 50% -10%, rgba(212, 175, 55, 0.18) 0%, transparent 55%),
+            radial-gradient(ellipse 50% 45% at 100% 60%, rgba(97, 172, 69, 0.14) 0%, transparent 50%),
+            radial-gradient(ellipse 45% 40% at 0% 100%, rgba(0, 0, 0, 0.35) 0%, transparent 55%),
+            linear-gradient(180deg, #0c1a14 0%, #143528 38%, #1a4d3a 55%, #0f241c 100%);
+    }
+    .impact-carbon-stat {
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.04) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+    .impact-nature-shell {
+        background:
+            linear-gradient(180deg, rgba(250, 249, 246, 0.98) 0%, rgba(232, 220, 196, 0.35) 45%, rgba(250, 249, 246, 1) 100%);
+    }
 </style>
 @endpush
 
@@ -36,69 +60,73 @@
     @endphp
 
     <!-- Hero Section -->
-    <section class="relative min-h-[70vh] flex items-center justify-center bg-[var(--color-forest-green)] text-white overflow-hidden">
+    <section class="relative min-h-[72vh] flex items-center justify-center bg-[var(--color-forest-green)] text-white overflow-hidden">
         @if($impactHeroImage)
             <img src="{{ $impactHeroImage }}" alt="{{ $page?->hero_title ?: 'Responsible & Regenerative Travel' }}" class="absolute inset-0 w-full h-full object-cover" loading="eager">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/30"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/20"></div>
         @else
             <div class="absolute inset-0 bg-gradient-to-br from-[var(--color-forest-green)] via-[var(--color-earth-brown)]/80 to-[var(--color-forest-green)]"></div>
         @endif
-        <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <nav class="js-scroll mb-8" aria-label="Breadcrumb">
+                <a href="{{ route('home') }}" class="inline-flex items-center gap-2 text-sm text-white/85 hover:text-white transition-colors">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    Back to home
+                </a>
+            </nav>
             <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-4">Our commitment</p>
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 text-balance drop-shadow-sm">
                 {{ $page?->hero_title ?: 'Responsible & Regenerative Travel' }}
             </h1>
-            <p class="text-xl md:text-2xl text-white/95 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-lg md:text-2xl text-white/95 max-w-3xl mx-auto leading-relaxed">
                 {{ $page?->hero_subtext ?: 'Same mission: empower women · protect the environment' }}
             </p>
+            <div class="w-28 h-0.5 bg-[var(--color-accent-gold)]/85 mx-auto mt-8"></div>
         </div>
     </section>
 
-    <!-- What Regenerative Tourism Means Section -->
-    <section class="section-padding bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav class="js-scroll mb-8" aria-label="Breadcrumb">
-                <a href="{{ route('home') }}" class="inline-flex items-center gap-2 text-sm text-[var(--color-earth-brown)] hover:text-[var(--color-forest-green)] transition-colors">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                    Home
-                </a>
-            </nav>
-            <div class="js-scroll">
-            <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Impact</p>
-            <div class="w-16 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
-            <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-8 text-center">
-                Travel that does more
-            </h2>
-            </div>
-            <div class="js-scroll grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10 max-w-3xl mx-auto">
-                <div class="flex flex-col items-center text-center p-5 rounded-xl bg-[var(--color-off-white)] border border-[var(--color-sand-beige)]/60">
-                    <div class="w-11 h-11 rounded-full bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-2" aria-hidden="true">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z"/></svg>
-                    </div>
-                    <p class="text-sm font-semibold text-[var(--color-forest-green)]">Women-led</p>
-                    <p class="text-xs text-[var(--color-earth-brown)] mt-1">Income &amp; leadership</p>
-                </div>
-                <div class="flex flex-col items-center text-center p-5 rounded-xl bg-[var(--color-off-white)] border border-[var(--color-sand-beige)]/60">
-                    <div class="w-11 h-11 rounded-full bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-2" aria-hidden="true">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <p class="text-sm font-semibold text-[var(--color-forest-green)]">Habitat</p>
-                    <p class="text-xs text-[var(--color-earth-brown)] mt-1">Land &amp; climate</p>
-                </div>
-                <div class="flex flex-col items-center text-center p-5 rounded-xl bg-[var(--color-off-white)] border border-[var(--color-sand-beige)]/60 sm:col-span-1">
-                    <div class="w-11 h-11 rounded-full bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-2" aria-hidden="true">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                    </div>
-                    <p class="text-sm font-semibold text-[var(--color-forest-green)]">Fair visits</p>
-                    <p class="text-xs text-[var(--color-earth-brown)] mt-1">Respect, not performance</p>
-                </div>
+    <section class="impact-glass-band section-padding text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 js-scroll">
+                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Travel that does more</p>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">What we protect and grow</h2>
+                <div class="w-24 h-0.5 bg-[var(--color-accent-gold)]/85 mx-auto"></div>
             </div>
 
-            <div class="js-scroll impact-quote bg-[var(--color-off-white)] p-6 md:p-8 rounded-r-xl my-10 shadow-sm max-w-2xl mx-auto">
-                <blockquote class="text-base md:text-lg font-serif italic text-[var(--color-forest-green)] leading-snug text-center">
-                    Exceptional travel that empowers women and protects the natural world.
-                </blockquote>
-                <cite class="block text-center text-xs text-[var(--color-earth-brown)] not-italic mt-3">— Mission</cite>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 js-scroll-stagger">
+                <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-6 text-center">
+                    <div class="w-12 h-12 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-2">Women-led livelihoods</h3>
+                    <p class="text-sm text-white/80">Income, leadership, and decision-making where travel happens.</p>
+                </div>
+                <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-6 text-center">
+                    <div class="w-12 h-12 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-2">Habitat and climate</h3>
+                    <p class="text-sm text-white/80">Lower footprint journeys and investments in nature-based solutions.</p>
+                </div>
+                <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-6 text-center">
+                    <div class="w-12 h-12 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </div>
+                    <h3 class="font-serif text-xl font-semibold mb-2">Respectful exchange</h3>
+                    <p class="text-sm text-white/80">Culture shared by invitation, with dignity and fair value.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="js-scroll text-center mb-10">
+                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Approach</p>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)]">Our responsible travel framework</h2>
+            </div>
+            <div class="impact-body js-scroll bg-[var(--color-off-white)] border border-[var(--color-sand-beige)]/70 rounded-2xl p-6 md:p-10 text-[var(--color-earth-brown)] leading-relaxed">
+                {!! filled($page?->body_content) ? html_entity_decode($page->body_content, ENT_QUOTES | ENT_HTML5, 'UTF-8') : '<p>Exceptional travel should leave places stronger than we found them. Our framework starts with women-led local partnerships, protects wildlife habitats, and channels part of every journey into restoration and climate work.</p><p>Every itinerary is designed to reduce harm first: better routing, thoughtful supplier choices, and practical guest guidance. Then we invest in verified climate and community initiatives that return value to local ecosystems and livelihoods.</p>' !!}
             </div>
         </div>
     </section>
@@ -115,14 +143,13 @@
 
     
 
-    <!-- Responsible Travel Practices Section -->
     <section class="section-padding bg-[var(--color-off-white)]">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="js-scroll text-center mb-12">
                 <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Practices</p>
                 <div class="w-16 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
                 <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)]">
-                    On the ground
+                    On the ground standards
                 </h2>
             </div>
             
@@ -184,59 +211,72 @@
 
 
 
-    <!-- Carbon Conscious Travel Section -->
-    <section class="section-padding bg-white">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="js-scroll text-center mb-10">
-                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Carbon</p>
-                <div class="w-16 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-8">
-                    Carbon
+    <section class="impact-carbon-zone section-padding-lg text-white relative overflow-hidden" aria-labelledby="carbon-accountability-heading">
+        <div class="pointer-events-none absolute inset-0 opacity-[0.07]" aria-hidden="true" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
+        <div class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="js-scroll text-center mb-12 md:mb-14">
+                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-4">Carbon</p>
+                <h2 id="carbon-accountability-heading" class="text-3xl sm:text-4xl md:text-5xl font-serif font-bold text-white text-balance mb-6">
+                    Carbon accountability
                 </h2>
+                <p class="text-base md:text-lg text-white/85 max-w-2xl mx-auto leading-relaxed">
+                    Trips are planned <strong class="text-[var(--color-accent-gold)] font-semibold">carbon-neutral</strong>: we cut waste and inefficiency first, then invest in verified offsets for what remains.
+                </p>
+                <div class="w-28 h-0.5 bg-gradient-to-r from-transparent via-[var(--color-accent-gold)] to-transparent mx-auto mt-8"></div>
             </div>
-            
-            <p class="js-scroll text-sm md:text-base text-[var(--color-earth-brown)] mb-10 max-w-xl mx-auto text-center leading-snug">
-                Trips are planned <strong class="text-[var(--color-forest-green)]">carbon-neutral</strong>: cut waste first, then verified offsets.
-            </p>
-            
-            <!-- Impact Stats -->
-            <div class="js-scroll-stagger grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-                <div class="impact-card text-center bg-[var(--color-off-white)] p-8 rounded-xl border border-[var(--color-sand-beige)]/40">
-                    <div class="text-4xl md:text-5xl font-serif font-bold text-[var(--color-forest-green)] mb-2">100%</div>
-                    <div class="text-xs sm:text-sm uppercase tracking-wide text-[var(--color-earth-brown)]">Neutral trips</div>
+
+            <div class="js-scroll-stagger grid grid-cols-1 sm:grid-cols-3 gap-5 md:gap-6 mb-12 md:mb-14">
+                <div class="impact-carbon-stat impact-card rounded-2xl p-8 md:p-9 text-center">
+                    <div class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-[var(--color-accent-gold)] mb-2 leading-none">100%</div>
+                    <div class="text-[0.7rem] sm:text-xs uppercase tracking-[0.16em] text-white/75 font-semibold">Carbon-neutral trips</div>
+                    <p class="text-sm text-white/60 mt-4 leading-snug">Every journey balanced through reduction + offsets.</p>
                 </div>
-                <div class="impact-card text-center bg-[var(--color-off-white)] p-8 rounded-xl border border-[var(--color-sand-beige)]/40">
-                    <div class="text-4xl md:text-5xl font-serif font-bold text-[var(--color-forest-green)] mb-2">150%</div>
-                    <div class="text-xs sm:text-sm uppercase tracking-wide text-[var(--color-earth-brown)]">Offset aim</div>
+                <div class="impact-carbon-stat impact-card rounded-2xl p-8 md:p-9 text-center ring-1 ring-[var(--color-accent-gold)]/35">
+                    <div class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-2 leading-none">150%</div>
+                    <div class="text-[0.7rem] sm:text-xs uppercase tracking-[0.16em] text-white/75 font-semibold">Offset ambition</div>
+                    <p class="text-sm text-white/60 mt-4 leading-snug">We aim beyond neutral where projects allow.</p>
                 </div>
-                <div class="impact-card text-center bg-[var(--color-off-white)] p-8 rounded-xl border border-[var(--color-sand-beige)]/40">
-                    <div class="text-4xl md:text-5xl font-serif font-bold text-[var(--color-forest-green)] mb-2">Verified</div>
-                    <div class="text-xs sm:text-sm uppercase tracking-wide text-[var(--color-earth-brown)]">Gold Standard</div>
+                <div class="impact-carbon-stat impact-card rounded-2xl p-8 md:p-9 text-center">
+                    <div class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-2 leading-tight pt-1">Verified</div>
+                    <div class="text-[0.7rem] sm:text-xs uppercase tracking-[0.16em] text-white/75 font-semibold">Gold Standard calibre</div>
+                    <p class="text-sm text-white/60 mt-4 leading-snug">Rigorous projects with measurable climate outcomes.</p>
                 </div>
             </div>
-            
-            <div class="js-scroll impact-card bg-[var(--color-off-white)] p-6 md:p-8 rounded-xl border border-[var(--color-sand-beige)]/50 shadow-sm">
-                <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-6 text-center md:text-left">Carbon — 3 steps</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-[var(--color-earth-brown)]">
-                    <div class="flex gap-3 items-start">
-                        <span class="w-10 h-10 rounded-lg bg-[var(--color-forest-green)]/10 flex items-center justify-center text-[var(--color-forest-green)] shrink-0 font-bold text-sm" aria-hidden="true">1</span>
-                        <div>
-                            <span class="text-[var(--color-accent-gold)] font-bold text-xs uppercase tracking-wide">Reduce</span>
-                            <p class="text-xs leading-snug mt-1">Smarter routing · less waste · greener stays where possible.</p>
+
+            <div class="js-scroll rounded-3xl border border-white/15 bg-black/25 backdrop-blur-md p-6 sm:p-8 md:p-10 shadow-[0_24px_80px_rgba(0,0,0,0.35)]">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 md:mb-10 pb-6 border-b border-white/10">
+                    <div>
+                        <h3 class="text-xl md:text-2xl font-serif font-semibold text-white">How we close the loop</h3>
+                        <p class="text-sm text-white/65 mt-2 max-w-xl">Three deliberate steps—so climate action is visible, not vague.</p>
+                    </div>
+                    <span class="inline-flex items-center self-start md:self-auto rounded-full border border-[var(--color-accent-gold)]/50 bg-[var(--color-accent-gold)]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[var(--color-accent-gold)]">Reduce · Offset · Restore</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+                    <div class="relative md:pr-4">
+                        <div class="hidden md:block absolute top-6 left-[2.25rem] right-0 h-px bg-gradient-to-r from-white/25 to-transparent" aria-hidden="true"></div>
+                        <div class="flex gap-4">
+                            <span class="w-12 h-12 shrink-0 rounded-2xl bg-[var(--color-accent-gold)] text-[var(--color-forest-green)] flex items-center justify-center font-serif font-bold text-lg shadow-lg" aria-hidden="true">1</span>
+                            <div>
+                                <span class="text-[var(--color-accent-gold)] font-bold text-xs uppercase tracking-[0.14em]">Reduce</span>
+                                <p class="text-sm text-white/80 leading-relaxed mt-2">Smarter routing, less waste, and greener stays wherever the itinerary allows.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex gap-3 items-start">
-                        <span class="w-10 h-10 rounded-lg bg-[var(--color-forest-green)]/10 flex items-center justify-center text-[var(--color-forest-green)] shrink-0 font-bold text-sm" aria-hidden="true">2</span>
-                        <div>
-                            <span class="text-[var(--color-accent-gold)] font-bold text-xs uppercase tracking-wide">Offset</span>
-                            <p class="text-xs leading-snug mt-1">Gold Standard–type projects for what’s left.</p>
+                    <div class="relative md:pr-4">
+                        <div class="hidden md:block absolute top-6 left-[2.25rem] right-0 h-px bg-gradient-to-r from-white/25 to-transparent" aria-hidden="true"></div>
+                        <div class="flex gap-4">
+                            <span class="w-12 h-12 shrink-0 rounded-2xl bg-white/15 border border-white/25 text-white flex items-center justify-center font-serif font-bold text-lg" aria-hidden="true">2</span>
+                            <div>
+                                <span class="text-[var(--color-accent-gold)] font-bold text-xs uppercase tracking-[0.14em]">Offset</span>
+                                <p class="text-sm text-white/80 leading-relaxed mt-2">High-integrity credits for emissions we cannot eliminate on the trip itself.</p>
+                            </div>
                         </div>
                     </div>
-                    <div class="flex gap-3 items-start">
-                        <span class="w-10 h-10 rounded-lg bg-[var(--color-forest-green)]/10 flex items-center justify-center text-[var(--color-forest-green)] shrink-0 font-bold text-sm" aria-hidden="true">3</span>
+                    <div class="flex gap-4">
+                        <span class="w-12 h-12 shrink-0 rounded-2xl bg-white/15 border border-white/25 text-white flex items-center justify-center font-serif font-bold text-lg" aria-hidden="true">3</span>
                         <div>
-                            <span class="text-[var(--color-accent-gold)] font-bold text-xs uppercase tracking-wide">Restore</span>
-                            <p class="text-xs leading-snug mt-1">Mangroves, trees, grasslands—carbon + people.</p>
+                            <span class="text-[var(--color-accent-gold)] font-bold text-xs uppercase tracking-[0.14em]">Restore</span>
+                            <p class="text-sm text-white/80 leading-relaxed mt-2">Mangroves, trees, and grasslands—carbon storage that supports people and wildlife.</p>
                         </div>
                     </div>
                 </div>
@@ -244,63 +284,89 @@
         </div>
     </section>
 
-   
-
-    <!-- Climate Action Through Nature-Based Solutions Section -->
-    <section class="section-padding bg-[var(--color-off-white)]">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="js-scroll text-center mb-12">
-                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Nature-based solutions</p>
-                <div class="w-16 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-8">
-                    Land &amp; water
-                </h2>
+    <section class="impact-nature-shell section-padding-lg relative overflow-hidden" aria-labelledby="land-water-heading">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--color-accent-gold)] to-transparent opacity-90" aria-hidden="true"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-2">
+            <div class="js-scroll flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 md:mb-14">
+                <div class="max-w-2xl">
+                    <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Nature-based solutions</p>
+                    <h2 id="land-water-heading" class="text-3xl md:text-4xl lg:text-[2.75rem] font-serif font-bold text-[var(--color-forest-green)] text-balance leading-tight">
+                        Land &amp; water that store carbon—and livelihoods
+                    </h2>
+                </div>
+                <p class="text-sm md:text-base text-[var(--color-earth-brown)] max-w-md lg:text-right leading-relaxed lg:pb-1">
+                    Restoration isn’t decoration: it’s how travel dollars return to soils, coasts, and communities for the long term.
+                </p>
             </div>
-            
-            
-            <div class="js-scroll-stagger grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div class="impact-card bg-white p-6 rounded-xl shadow-sm border border-[var(--color-sand-beige)]/40">
-                    <div class="w-10 h-10 rounded-full bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-3" aria-hidden="true">
+
+            <div class="js-scroll-stagger grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6">
+                <div class="impact-card group relative bg-white rounded-2xl border border-[var(--color-forest-green)]/10 shadow-md p-6 md:p-8 overflow-hidden">
+                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-[var(--color-accent-gold)] rounded-l-2xl" aria-hidden="true"></div>
+                    <div class="w-11 h-11 rounded-xl bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-4" aria-hidden="true">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                     </div>
-                    <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-2">Mangroves</h3>
-                    <p class="text-xs text-[var(--color-earth-brown)] leading-snug mb-3">Heavy carbon store · women’s co-ops on the coast.</p>
-                    <div class="p-3 bg-[var(--color-off-white)] rounded-lg inline-flex flex-wrap items-baseline gap-2">
-                        <span class="text-xl font-serif font-bold text-[var(--color-forest-green)]">1:1</span>
-                        <span class="text-xs text-[var(--color-earth-brown)]">Guest · tree planted</span>
+                    <h3 class="text-xl font-serif font-semibold text-[var(--color-forest-green)] mb-2">Mangroves</h3>
+                    <p class="text-sm text-[var(--color-earth-brown)] leading-relaxed mb-5">Dense coastal carbon · women’s co-ops and shoreline resilience.</p>
+                    <div class="inline-flex items-baseline gap-2 rounded-xl bg-[var(--color-off-white)] border border-[var(--color-sand-beige)] px-4 py-2.5">
+                        <span class="text-2xl font-serif font-bold text-[var(--color-forest-green)]">1:1</span>
+                        <span class="text-xs uppercase tracking-wide text-[var(--color-earth-brown)]">Guest · tree planted</span>
                     </div>
                 </div>
 
-                <div class="impact-card bg-white p-6 rounded-xl shadow-sm border border-[var(--color-sand-beige)]/40">
-                    <div class="w-10 h-10 rounded-full bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-3" aria-hidden="true">
+                <div class="impact-card bg-white rounded-2xl border border-[var(--color-forest-green)]/10 shadow-md p-6 md:p-8">
+                    <div class="w-11 h-11 rounded-xl bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-4" aria-hidden="true">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
-                    <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-2">Trees</h3>
-                    <p class="text-xs text-[var(--color-earth-brown)] leading-snug">Community-led planting · corridors for wildlife.</p>
+                    <h3 class="text-xl font-serif font-semibold text-[var(--color-forest-green)] mb-2">Trees</h3>
+                    <p class="text-sm text-[var(--color-earth-brown)] leading-relaxed">Community-led planting and corridors that connect fragmented habitat.</p>
                 </div>
 
-                <div class="impact-card bg-white p-6 rounded-xl shadow-sm border border-[var(--color-sand-beige)]/40">
-                    <div class="w-10 h-10 rounded-full bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-3" aria-hidden="true">
+                <div class="impact-card bg-white rounded-2xl border border-[var(--color-forest-green)]/10 shadow-md p-6 md:p-8">
+                    <div class="w-11 h-11 rounded-xl bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-4" aria-hidden="true">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-2">Grasslands</h3>
-                    <p class="text-xs text-[var(--color-earth-brown)] leading-snug">Grazing · fire where it helps · carbon in soil.</p>
+                    <h3 class="text-xl font-serif font-semibold text-[var(--color-forest-green)] mb-2">Grasslands</h3>
+                    <p class="text-sm text-[var(--color-earth-brown)] leading-relaxed">Regenerative grazing and fire where it helps—carbon held in living soil.</p>
                 </div>
 
-                <div class="impact-card bg-white p-6 rounded-xl shadow-sm border border-[var(--color-sand-beige)]/40">
-                    <div class="w-10 h-10 rounded-full bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-3" aria-hidden="true">
+                <div class="impact-card bg-white rounded-2xl border border-[var(--color-forest-green)]/10 shadow-md p-6 md:p-8">
+                    <div class="w-11 h-11 rounded-xl bg-[var(--color-sand-beige)] flex items-center justify-center text-[var(--color-forest-green)] mb-4" aria-hidden="true">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                     </div>
-                    <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-2">Farms</h3>
-                    <p class="text-xs text-[var(--color-earth-brown)] leading-snug">Tougher crops · less waste · better local food.</p>
+                    <h3 class="text-xl font-serif font-semibold text-[var(--color-forest-green)] mb-2">Farms</h3>
+                    <p class="text-sm text-[var(--color-earth-brown)] leading-relaxed">More resilient crops, less waste, and better food sourced close to the journey.</p>
                 </div>
             </div>
-            
-            <div class="js-scroll mt-14 text-center">
-                <a href="{{ route('impact.climate-community') }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-[var(--radius-button)] border border-[var(--color-forest-green)] bg-[var(--color-forest-green)] text-white font-semibold uppercase tracking-[0.04em] hover:bg-[var(--color-forest-green)]/90 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)] focus-visible:ring-offset-2 transition-all duration-200 shadow-lg hover:shadow-xl">
+
+            <div class="js-scroll mt-12 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="{{ route('impact.climate-community') }}" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-[var(--radius-button)] bg-[var(--color-forest-green)] text-white font-semibold uppercase tracking-[0.06em] text-sm shadow-lg hover:shadow-xl hover:bg-[#153d2e] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-off-white)] transition-all duration-200">
                     Climate &amp; community
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 </a>
+                <a href="{{ route('trust.index') }}" class="text-sm font-semibold text-[var(--color-forest-green)] underline underline-offset-4 decoration-[var(--color-accent-gold)]/70 hover:text-[var(--color-earth-brown)] transition-colors">
+                    Read field notes on impact
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="relative section-padding-lg overflow-hidden bg-gradient-to-b from-[var(--color-forest-green)] via-[#174030] to-[#0f241c] text-white">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,175,55,0.12),transparent_60%)]" aria-hidden="true"></div>
+        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="rounded-3xl border border-white/15 bg-white/[0.06] backdrop-blur-sm p-8 md:p-12 lg:p-14 text-center shadow-[0_28px_90px_rgba(0,0,0,0.35)]">
+                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-4 js-scroll">Start planning</p>
+                <h2 class="text-3xl sm:text-4xl md:text-[2.75rem] font-serif font-bold mb-6 js-scroll text-balance leading-tight">Ready to travel with impact?</h2>
+                <p class="text-base md:text-lg text-white/85 max-w-2xl mx-auto mb-10 js-scroll leading-relaxed">
+                    Build a journey that supports women, conserves biodiversity, and contributes to climate-positive action—without sacrificing depth or comfort.
+                </p>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 js-scroll">
+                    <x-button-primary href="{{ route('journeys.index') }}" title="Explore curated journeys across Africa" class="!bg-white !text-[var(--color-forest-green)] hover:!bg-gray-100 !border-[var(--color-forest-green)]/25 px-10 py-4 text-base shadow-lg">
+                        Explore journeys
+                    </x-button-primary>
+                    <x-button-secondary href="{{ route('contact.index') }}" class="border-white/90 text-white hover:bg-white hover:text-[var(--color-forest-green)] px-10 py-4 text-base">
+                        Plan with our team
+                    </x-button-secondary>
+                </div>
             </div>
         </div>
     </section>

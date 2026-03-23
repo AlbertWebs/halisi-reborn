@@ -111,22 +111,4 @@
             </div>
         </div>
     </section>
-
-    
-
-    <!-- CTA: Design Your Journey -->
-    <section class="section-padding bg-[var(--color-forest-green)] text-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center js-scroll">
-            <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto mb-6"></div>
-            <h2 class="text-3xl md:text-4xl font-serif font-bold mb-6">
-                Design Your Journey
-            </h2>
-            <p class="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-                Let us craft a bespoke {{ strtolower($category) }} experience tailored to your interests, values, and travel style. Get in touch to start planning.
-            </p>
-            <x-button-primary href="{{ route('contact.index') }}" class="text-lg px-10 py-5 border border-white">
-                Design Your Journey
-            </x-button-primary>
-        </div>
-    </section>
 @endsection

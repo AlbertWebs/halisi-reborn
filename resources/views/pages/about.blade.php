@@ -121,41 +121,107 @@
 
     <!-- Our Story Section -->
     <section class="section-padding bg-white">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 about-luxe-reveal js-scroll">
-                <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-8"></div>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10 md:mb-12 about-luxe-reveal js-scroll">
+                <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mb-7"></div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)]">
                     Our Story
                 </h2>
             </div>
-            <div class="about-intro-surface prose prose-lg max-w-none text-[var(--color-earth-brown)] js-scroll js-scroll-fade about-luxe-reveal about-luxe-delay-2">
-                <p class="text-lg leading-relaxed mb-6">
-                    Halisi Africa Discoveries was born from a simple yet profound belief: travel should regenerate, not just preserve. 
-                    Founded by conservationists and travel experts who witnessed the transformative power of responsible tourism, 
-                    we set out to create journeys that honor Africa's wild places while empowering the communities who call them home.
-                </p>
-                <p class="text-lg leading-relaxed mb-6">
-                    Our name, "Halisi," means "authentic" in Swahili—a commitment that guides every journey we design. 
-                    We believe that authentic travel experiences emerge when conservation, community, and culture converge, 
-                    creating lasting positive impact for both travelers and the destinations they visit.
-                </p>
-                <p class="text-lg leading-relaxed">
-                    Today, we partner with leading conservation organizations, community-led initiatives, and sustainable 
-                    accommodations across East and Southern Africa to offer bespoke journeys that leave more than footprints—they leave legacy.
-                </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+                <!-- Matched-height row: Story + Media -->
+                <div class="lg:col-span-7 flex">
+                    <div class="about-intro-surface js-scroll js-scroll-fade about-luxe-reveal about-luxe-delay-1 w-full min-h-[260px] sm:min-h-[320px] lg:min-h-[520px] flex">
+                        <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] w-full self-center">
+                            <p class="text-lg leading-relaxed mb-6">
+                                Halisi Africa Discoveries was born from a simple yet profound belief: travel should regenerate, not just preserve.
+                                Founded by conservationists and travel experts who witnessed the transformative power of responsible tourism,
+                                we set out to create journeys that honor Africa's wild places while empowering the communities who call them home.
+                            </p>
+                            <p class="text-lg leading-relaxed mb-6">
+                                Our name, "Halisi," means "authentic" in Swahili, a commitment that guides every journey we design.
+                                We believe that authentic travel experiences emerge when conservation, community, and culture converge,
+                                creating lasting positive impact for both travelers and the destinations they visit.
+                            </p>
+                            <p class="text-lg leading-relaxed">
+                                Today, we partner with leading conservation organizations, community-led initiatives, and sustainable
+                                accommodations across East and Southern Africa to offer bespoke journeys that leave more than footprints, they leave legacy.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5">
+                    @php
+                        $aboutStoryVideoPath = public_path('uploads/videos/about.mp4');
+                        $aboutStoryVideoUrl = \Illuminate\Support\Facades\File::exists($aboutStoryVideoPath)
+                            ? asset('uploads/videos/about.mp4')
+                            : null;
+                    @endphp
+
+                    @if($aboutStoryVideoUrl)
+                        <div class="rounded-2xl overflow-hidden shadow-[0_16px_40px_rgba(26,77,58,0.16)] border border-[var(--color-sand-beige)]/85 js-scroll about-luxe-reveal about-luxe-delay-1 relative min-h-[260px] sm:min-h-[320px] lg:min-h-[520px]">
+                            <video
+                                class="absolute inset-0 w-full h-full object-cover"
+                                autoplay
+                                muted
+                                loop
+                                playsinline
+                                preload="metadata"
+                                aria-label="About Halisi story video"
+                            >
+                                <source src="{{ $aboutStoryVideoUrl }}" type="video/mp4">
+                            </video>
+                            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-transparent" aria-hidden="true"></div>
+                        </div>
+                    @elseif($aboutContentImage1)
+                        <div class="rounded-2xl overflow-hidden shadow-[0_16px_40px_rgba(26,77,58,0.16)] border border-[var(--color-sand-beige)]/85 js-scroll about-luxe-reveal about-luxe-delay-1 min-h-[260px] sm:min-h-[320px] lg:min-h-[520px] relative">
+                            <img src="{{ $aboutContentImage1 }}" alt="About Halisi story image" class="absolute inset-0 w-full h-full object-cover" loading="lazy">
+                        </div>
+                    @endif
+
+                </div>
+            </div>
+
+            <!-- Supporting row (practical + scannable) -->
+            <div class="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 js-scroll js-scroll-fade about-luxe-reveal about-luxe-delay-2">
+                <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div class="about-benefit-card flex flex-col justify-center min-h-[130px]">
+                        <div class="text-[0.72rem] uppercase tracking-[0.18em] text-[var(--color-accent-gold)] font-semibold mb-2">How we work</div>
+                        <div class="text-sm text-[var(--color-earth-brown)] leading-relaxed">Bespoke itineraries built around place, pace, and purpose.</div>
+                    </div>
+                    <div class="about-benefit-card flex flex-col justify-center min-h-[130px]">
+                        <div class="text-[0.72rem] uppercase tracking-[0.18em] text-[var(--color-accent-gold)] font-semibold mb-2">Who it serves</div>
+                        <div class="text-sm text-[var(--color-earth-brown)] leading-relaxed">Women-led livelihoods and community-led conservation.</div>
+                    </div>
+                    <div class="about-benefit-card flex flex-col justify-center min-h-[130px]">
+                        <div class="text-[0.72rem] uppercase tracking-[0.18em] text-[var(--color-accent-gold)] font-semibold mb-2">What it protects</div>
+                        <div class="text-sm text-[var(--color-earth-brown)] leading-relaxed">Wildlife habitat, cultural heritage, and climate action.</div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5">
+                    <div class="rounded-2xl border border-[var(--color-sand-beige)]/80 bg-[var(--color-off-white)] p-6 md:p-7 shadow-sm">
+                        <p class="text-[0.72rem] uppercase tracking-[0.18em] text-[var(--color-accent-gold)] font-semibold mb-3">Practical promise</p>
+                        <ul class="space-y-3 text-sm md:text-base text-[var(--color-earth-brown)] leading-relaxed">
+                            <li class="flex gap-3">
+                                <span class="mt-1 h-2 w-2 rounded-full bg-[var(--color-accent-gold)] shrink-0" aria-hidden="true"></span>
+                                <span>Clear planning: the right parks, the right season, the right rhythm.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="mt-1 h-2 w-2 rounded-full bg-[var(--color-accent-gold)] shrink-0" aria-hidden="true"></span>
+                                <span>Grounded partnerships: hosts and guides who know their landscapes.</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="mt-1 h-2 w-2 rounded-full bg-[var(--color-accent-gold)] shrink-0" aria-hidden="true"></span>
+                                <span>Impact you can feel: conservation and community outcomes built into the journey.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-
-    @if($aboutContentImage1)
-        <section class="pb-8 bg-white">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="rounded-2xl overflow-hidden shadow-[0_16px_40px_rgba(26,77,58,0.16)] border border-[var(--color-sand-beige)]/85 js-scroll about-luxe-reveal about-luxe-delay-1">
-                    <img src="{{ $aboutContentImage1 }}" alt="About Halisi story image" class="w-full h-[220px] sm:h-[300px] md:h-[380px] object-cover" loading="lazy">
-                </div>
-            </div>
-        </section>
-    @endif
 
     
 

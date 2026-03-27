@@ -30,7 +30,7 @@
     </div>
     <div class="relative z-[1] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-20 md:py-14">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 mb-12">
-            <!-- Brand & Newsletter -->
+            <!-- Brand -->
             <div class="lg:col-span-2">
                 @if($footerLogo)
                     <a href="{{ route('home') }}" class="inline-block mb-7">
@@ -43,61 +43,7 @@
                 @else
                     <h3 class="text-3xl font-serif font-bold tracking-tight text-white/95 mb-7">{{ $companyName }}</h3>
                 @endif
-                
-                <!-- Newsletter Signup -->
-                <div class="mb-7">
-                    <h4 class="font-semibold mb-3 text-[0.68rem] uppercase tracking-[0.18em] text-white/75">Stay Connected</h4>
-                    @if(session('newsletter_success'))
-                        <div class="mb-3 rounded-md border border-green-200 bg-green-50 px-3 py-2 text-sm text-green-800">
-                            {{ session('newsletter_success') }}
-                        </div>
-                    @endif
-                    @if($errors->newsletterForm->any())
-                        <div class="mb-3 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
-                            {{ $errors->newsletterForm->first() }}
-                        </div>
-                    @endif
-                    <form class="flex flex-col gap-3" method="POST" action="{{ route('newsletter.subscribe') }}" aria-label="Newsletter subscription">
-                        @csrf
-                        <input type="hidden" name="source" value="footer">
-                        <input type="hidden" name="rendered_at" value="{{ time() }}">
-                        <input type="text" name="website" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true">
-                        <label for="newsletter-email" class="sr-only">Email address</label>
-                        <div class="flex flex-col sm:flex-row sm:items-center gap-3">
-                            <input
-                                type="email"
-                                id="newsletter-email"
-                                name="email"
-                                value="{{ old('email') }}"
-                                placeholder="Your email address"
-                                class="flex-1 px-4 py-2.5 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/45 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:border-[var(--color-accent-gold)]"
-                                required
-                                aria-required="true"
-                            >
-                            <button
-                                type="submit"
-                                class="w-full sm:w-auto px-6 py-2.5 rounded-[var(--radius-button)] border border-[var(--color-accent-gold)] bg-[var(--color-accent-gold)] text-[var(--color-forest-green)] font-semibold tracking-[0.04em] hover:bg-[#e8c57a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)] focus-visible:ring-offset-2 transition-colors duration-200"
-                                aria-label="Subscribe to newsletter"
-                            >
-                                Subscribe
-                            </button>
-                        </div>
-                        <div>
-                            <label for="newsletter_challenge_answer" class="block text-xs text-white/80 mb-1">
-                                What is {{ $newsletterChallengeLeft }} + {{ $newsletterChallengeRight }}?
-                            </label>
-                            <input
-                                type="number"
-                                id="newsletter_challenge_answer"
-                                name="challenge_answer"
-                                min="0"
-                                required
-                                class="w-full sm:w-48 px-4 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder:text-white/45 focus:outline-none focus:ring-2 focus:ring-[var(--color-accent-gold)] focus:border-[var(--color-accent-gold)]"
-                            >
-                        </div>
-                    </form>
-                </div>
-                
+
                 <!-- Social Icons -->
                 <div class="flex gap-4">
                     <a href="#" class="w-10 h-10 bg-white/10 border border-white/20 rounded-full flex items-center justify-center hover:bg-[var(--color-accent-gold)] hover:border-[var(--color-accent-gold)] transition-all duration-200" aria-label="Facebook">

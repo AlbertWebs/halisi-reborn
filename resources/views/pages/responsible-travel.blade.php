@@ -85,35 +85,35 @@
         </div>
     </section>
 
-    <section class="impact-glass-band section-padding text-white">
+    <section class="section-padding bg-[var(--color-off-white)] text-[var(--color-earth-brown)]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12 js-scroll">
                 <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Travel that does more</p>
-                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4">What we protect and grow</h2>
-                <div class="w-24 h-0.5 bg-[var(--color-accent-gold)]/85 mx-auto"></div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold text-[var(--color-forest-green)] mb-4">What we protect and grow</h2>
+                <div class="w-24 h-0.5 bg-[var(--color-accent-gold)] mx-auto"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 js-scroll-stagger">
-                <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-6 text-center">
-                    <div class="w-12 h-12 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
+                <div class="rounded-2xl border border-[var(--color-sand-beige)]/80 bg-white p-6 text-center shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-[var(--color-off-white)] border border-[var(--color-sand-beige)] flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1z"/></svg>
                     </div>
-                    <h3 class="font-serif text-xl font-semibold mb-2">Women-led livelihoods</h3>
-                    <p class="text-sm text-white/80">Income, leadership, and decision-making where travel happens.</p>
+                    <h3 class="font-serif text-xl font-semibold text-[var(--color-forest-green)] mb-2">Women-led livelihoods</h3>
+                    <p class="text-sm text-[var(--color-earth-brown)]/85">Income, leadership, and decision-making where travel happens.</p>
                 </div>
-                <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-6 text-center">
-                    <div class="w-12 h-12 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
+                <div class="rounded-2xl border border-[var(--color-sand-beige)]/80 bg-white p-6 text-center shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-[var(--color-off-white)] border border-[var(--color-sand-beige)] flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                     </div>
-                    <h3 class="font-serif text-xl font-semibold mb-2">Habitat and climate</h3>
-                    <p class="text-sm text-white/80">Lower footprint journeys and investments in nature-based solutions.</p>
+                    <h3 class="font-serif text-xl font-semibold text-[var(--color-forest-green)] mb-2">Habitat and climate</h3>
+                    <p class="text-sm text-[var(--color-earth-brown)]/85">Lower footprint journeys and investments in nature-based solutions.</p>
                 </div>
-                <div class="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-6 text-center">
-                    <div class="w-12 h-12 rounded-full bg-white/15 border border-white/25 flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
+                <div class="rounded-2xl border border-[var(--color-sand-beige)]/80 bg-white p-6 text-center shadow-sm">
+                    <div class="w-12 h-12 rounded-full bg-[var(--color-off-white)] border border-[var(--color-sand-beige)] flex items-center justify-center mx-auto mb-3 text-[var(--color-accent-gold)]" aria-hidden="true">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                     </div>
-                    <h3 class="font-serif text-xl font-semibold mb-2">Respectful exchange</h3>
-                    <p class="text-sm text-white/80">Culture shared by invitation, with dignity and fair value.</p>
+                    <h3 class="font-serif text-xl font-semibold text-[var(--color-forest-green)] mb-2">Respectful exchange</h3>
+                    <p class="text-sm text-[var(--color-earth-brown)]/85">Culture shared by invitation, with dignity and fair value.</p>
                 </div>
             </div>
         </div>
@@ -350,24 +350,4 @@
         </div>
     </section>
 
-    <section class="relative section-padding-lg overflow-hidden bg-gradient-to-b from-[var(--color-forest-green)] via-[#174030] to-[#0f241c] text-white">
-        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_0%,rgba(212,175,55,0.12),transparent_60%)]" aria-hidden="true"></div>
-        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="rounded-3xl border border-white/15 bg-white/[0.06] backdrop-blur-sm p-8 md:p-12 lg:p-14 text-center shadow-[0_28px_90px_rgba(0,0,0,0.35)]">
-                <p class="impact-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-4 js-scroll">Start planning</p>
-                <h2 class="text-3xl sm:text-4xl md:text-[2.75rem] font-serif font-bold mb-6 js-scroll text-balance leading-tight">Ready to travel with impact?</h2>
-                <p class="text-base md:text-lg text-white/85 max-w-2xl mx-auto mb-10 js-scroll leading-relaxed">
-                    Build a journey that supports women, conserves biodiversity, and contributes to climate-positive action—without sacrificing depth or comfort.
-                </p>
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-4 js-scroll">
-                    <x-button-primary href="{{ route('journeys.index') }}" title="Explore curated journeys across Africa" class="!bg-white !text-[var(--color-forest-green)] hover:!bg-gray-100 !border-[var(--color-forest-green)]/25 px-10 py-4 text-base shadow-lg">
-                        Explore journeys
-                    </x-button-primary>
-                    <x-button-secondary href="{{ route('contact.index') }}" class="border-white/90 text-white hover:bg-white hover:text-[var(--color-forest-green)] px-10 py-4 text-base">
-                        Plan with our team
-                    </x-button-secondary>
-                </div>
-            </div>
-        </div>
-    </section>
 @endsection

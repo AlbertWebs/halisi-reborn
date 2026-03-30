@@ -81,11 +81,15 @@
                         @foreach($journey->galleryImages as $img)
                             <div class="gallery-item relative group rounded-lg overflow-hidden border border-gray-200 bg-gray-50 aspect-square">
                                 <img src="{{ asset('storage/' . $img->image) }}" alt="Gallery" class="w-full h-full object-cover">
-                                <form method="POST" action="{{ route('admin.journeys.gallery.destroy', $img) }}" class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity" onsubmit="return confirm('Remove this image from the gallery?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="px-3 py-1.5 bg-red-600 text-white text-sm rounded hover:bg-red-700">Remove</button>
-                                </form>
+                                <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button
+                                        type="button"
+                                        class="gallery-remove-btn px-3 py-1.5 bg-red-600 text-white text-sm rounded hover:bg-red-700"
+                                        data-url="{{ route('admin.journeys.gallery.destroy', $img) }}"
+                                    >
+                                        Remove
+                                    </button>
+                                </div>
                             </div>
                         @endforeach
                     </div>
@@ -135,11 +139,13 @@
                                         <td class="px-4 py-3 text-sm text-gray-500">{{ Str::limit(strip_tags($item->content), 60) }}</td>
                                         <td class="px-4 py-3 text-right text-sm">
                                             <a href="{{ route('admin.journeys.itinerary.edit', [$journey, $item]) }}" class="text-[var(--color-forest-green)] hover:underline mr-3">Edit</a>
-                                            <form method="POST" action="{{ route('admin.journeys.itinerary.destroy', [$journey, $item]) }}" class="inline" onsubmit="return confirm('Remove this itinerary day?');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:underline">Delete</button>
-                                            </form>
+                                            <button
+                                                type="button"
+                                                class="itinerary-delete-btn text-red-600 hover:underline"
+                                                data-url="{{ route('admin.journeys.itinerary.destroy', [$journey, $item]) }}"
+                                            >
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -148,29 +154,28 @@
                     </div>
                 @endif
 
-                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-4" id="itinerary-add-form" data-store-url="{{ route('admin.journeys.itinerary.store', $journey) }}">
                     <p class="text-sm font-medium text-gray-700 mb-3">Add itinerary day</p>
-                    <form method="POST" action="{{ route('admin.journeys.itinerary.store', $journey) }}" class="space-y-3">
-                        @csrf
+                    <div class="space-y-3">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
                                 <label for="itinerary_day" class="block text-xs font-medium text-gray-600 mb-1">Day number</label>
-                                <input type="number" id="itinerary_day" name="day" min="1" value="{{ old('day', $journey->itineraryItems->count() + 1) }}" required
+                                <input type="number" id="itinerary_day" min="1" value="{{ old('day', $journey->itineraryItems->count() + 1) }}"
                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] text-sm">
                             </div>
                             <div class="md:col-span-2">
                                 <label for="itinerary_title" class="block text-xs font-medium text-gray-600 mb-1">Title</label>
-                                <input type="text" id="itinerary_title" name="title" value="{{ old('title') }}" required placeholder="e.g. Arr Nairobi – Fly to Masai Mara"
+                                <input type="text" id="itinerary_title" value="{{ old('title') }}" placeholder="e.g. Arr Nairobi – Fly to Masai Mara"
                                        class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] text-sm">
                             </div>
                         </div>
                         <div>
                             <label for="itinerary_content" class="block text-xs font-medium text-gray-600 mb-1">Content</label>
-                            <textarea id="itinerary_content" name="content" rows="3" placeholder="Describe the day's activities..."
+                            <textarea id="itinerary_content" rows="3" placeholder="Describe the day's activities..."
                                       class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)] text-sm">{{ old('content') }}</textarea>
                         </div>
-                        <button type="submit" class="px-4 py-2 bg-[var(--color-forest-green)] text-white text-sm font-medium rounded-lg hover:opacity-90">Add day</button>
-                    </form>
+                        <button type="button" id="itinerary-add-btn" class="px-4 py-2 bg-[var(--color-forest-green)] text-white text-sm font-medium rounded-lg hover:opacity-90">Add day</button>
+                    </div>
                 </div>
             </div>
 
@@ -268,6 +273,27 @@
         var destroyUrlTemplate = dropzone.getAttribute('data-destroy-url-template') || '';
         var csrfToken = document.querySelector('meta[name="csrf-token"]') && document.querySelector('meta[name="csrf-token"]').content;
         var formToken = document.querySelector('input[name="_token"]') && document.querySelector('input[name="_token"]').value;
+        var token = csrfToken || formToken;
+
+        function ajaxDelete(url, confirmMessage) {
+            if (!url) return;
+            if (confirmMessage && !window.confirm(confirmMessage)) return;
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': token,
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                },
+                body: '_method=DELETE&_token=' + encodeURIComponent(token)
+            }).then(function(res) {
+                if (!res.ok) throw new Error('Request failed');
+                window.location.reload();
+            }).catch(function() {
+                alert('Action failed. Please refresh and try again.');
+            });
+        }
 
         function showProgress(show) {
             if (progressWrap) progressWrap.classList.toggle('hidden', !show);
@@ -287,11 +313,9 @@
                 var div = document.createElement('div');
                 div.className = 'gallery-item relative group rounded-lg overflow-hidden border border-gray-200 bg-gray-50 aspect-square';
                 div.innerHTML = '<img src="' + (img.url || '') + '" alt="Gallery" class="w-full h-full object-cover">' +
-                    '<form method="POST" action="' + actionUrl + '" class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity" onsubmit="return confirm(\'Remove this image from the gallery?\');">' +
-                    '<input type="hidden" name="_token" value="' + token + '">' +
-                    '<input type="hidden" name="_method" value="DELETE">' +
-                    '<button type="submit" class="px-3 py-1.5 bg-red-600 text-white text-sm rounded hover:bg-red-700">Remove</button>' +
-                    '</form>';
+                    '<div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity">' +
+                    '<button type="button" class="gallery-remove-btn px-3 py-1.5 bg-red-600 text-white text-sm rounded hover:bg-red-700" data-url="' + actionUrl + '">Remove</button>' +
+                    '</div>';
                 list.appendChild(div);
             });
         }
@@ -380,6 +404,58 @@
             uploadFiles(this.files || []);
             this.value = '';
         });
+
+        document.addEventListener('click', function(e) {
+            var removeGalleryBtn = e.target.closest('.gallery-remove-btn');
+            if (removeGalleryBtn) {
+                ajaxDelete(removeGalleryBtn.getAttribute('data-url'), 'Remove this image from the gallery?');
+                return;
+            }
+
+            var itineraryDeleteBtn = e.target.closest('.itinerary-delete-btn');
+            if (itineraryDeleteBtn) {
+                ajaxDelete(itineraryDeleteBtn.getAttribute('data-url'), 'Remove this itinerary day?');
+                return;
+            }
+        });
+
+        var itineraryAddBtn = document.getElementById('itinerary-add-btn');
+        var itineraryAddBox = document.getElementById('itinerary-add-form');
+        if (itineraryAddBtn && itineraryAddBox) {
+            itineraryAddBtn.addEventListener('click', function() {
+                var storeUrl = itineraryAddBox.getAttribute('data-store-url');
+                var day = document.getElementById('itinerary_day');
+                var title = document.getElementById('itinerary_title');
+                var content = document.getElementById('itinerary_content');
+                if (!day || !title) return;
+                if (!day.value || !title.value.trim()) {
+                    alert('Day and title are required.');
+                    return;
+                }
+
+                var payload = new URLSearchParams();
+                payload.append('_token', token);
+                payload.append('day', day.value);
+                payload.append('title', title.value);
+                payload.append('content', content ? content.value : '');
+
+                fetch(storeUrl, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': token,
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    },
+                    body: payload.toString()
+                }).then(function(res) {
+                    if (!res.ok) throw new Error('Request failed');
+                    window.location.reload();
+                }).catch(function() {
+                    alert('Could not add itinerary day. Please check inputs and try again.');
+                });
+            });
+        }
     });
     </script>
 @endsection

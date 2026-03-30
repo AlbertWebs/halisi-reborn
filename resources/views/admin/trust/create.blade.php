@@ -42,6 +42,20 @@
             </div>
 
             <div>
+                <input type="hidden" name="is_published" value="0">
+                <label class="inline-flex items-center gap-2">
+                    <input
+                        type="checkbox"
+                        name="is_published"
+                        value="1"
+                        {{ old('is_published') ? 'checked' : '' }}
+                        class="rounded border-gray-300 text-[var(--color-forest-green)] focus:ring-[var(--color-forest-green)]"
+                    >
+                    <span class="text-sm text-gray-700">Publish this article</span>
+                </label>
+            </div>
+
+            <div>
                 <label for="featured_image" class="block text-sm font-medium text-gray-700 mb-2">Featured Image</label>
                 <input type="file" id="featured_image" name="featured_image" accept="image/jpeg,image/png,image/gif,image/webp,image/*"
                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-forest-green)] focus:border-[var(--color-forest-green)]">

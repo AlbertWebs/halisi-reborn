@@ -140,12 +140,6 @@
                     @endforeach
                 </div>
                 
-                <!-- Pagination -->
-                @if($posts->hasPages())
-                    <div class="flex justify-center">
-                        {{ $posts->links() }}
-                    </div>
-                @endif
             @else
                 <div class="text-center py-16">
                     <p class="text-lg text-[var(--color-earth-brown)] mb-6">

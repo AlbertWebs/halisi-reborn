@@ -35,13 +35,6 @@
                 $resolveImageUrl($country->highlight_2_image),
                 $resolveImageUrl($country->highlight_3_image),
                 $resolveImageUrl($country->highlight_4_image),
-                $resolveImageUrl($country->signature_card_1_image),
-                $resolveImageUrl($country->signature_card_2_image),
-                $resolveImageUrl($country->signature_card_3_image),
-                $resolveImageUrl($country->signature_card_4_image),
-                $resolveImageUrl($country->narrative_image),
-                $resolveImageUrl($country->conservation_image),
-                $resolveImageUrl($country->hero_image),
             ]));
 
             $existingHighlightsById = $country->highlights->keyBy('id');

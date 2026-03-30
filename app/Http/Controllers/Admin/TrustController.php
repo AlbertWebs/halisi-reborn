@@ -34,6 +34,7 @@ class TrustController extends Controller
             'featured_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'category' => 'required|string|max:255',
             'published_at' => 'nullable|date',
+            'is_published' => 'nullable|boolean',
         ]);
 
         if (!$request->filled('slug')) {
@@ -47,6 +48,7 @@ class TrustController extends Controller
         if ($request->filled('published_at')) {
             $validated['published_at'] = Carbon::parse($request->published_at);
         }
+        $validated['is_published'] = $request->boolean('is_published');
 
         TrustPost::create($validated);
 
@@ -69,6 +71,7 @@ class TrustController extends Controller
             'featured_image' => 'nullable|image|mimes:jpeg,jpg,png,gif,webp|max:2048',
             'category' => 'required|string|max:255',
             'published_at' => 'nullable|date',
+            'is_published' => 'nullable|boolean',
         ]);
 
         if ($request->hasFile('featured_image')) {
@@ -83,6 +86,7 @@ class TrustController extends Controller
         } elseif ($request->has('published_at') && !$request->filled('published_at')) {
             $validated['published_at'] = null;
         }
+        $validated['is_published'] = $request->boolean('is_published');
 
         $trust->update($validated);
 
@@ -108,7 +112,7 @@ class TrustController extends Controller
         $path = $request->file('file')->store('trust/content', 'public');
 
         return response()->json([
-            'location' => asset('storage/' . $path),
+            'location' => Storage::disk('public')->url($path),
         ]);
     }
 }

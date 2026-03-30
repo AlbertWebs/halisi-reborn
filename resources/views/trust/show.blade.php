@@ -51,7 +51,7 @@
             >
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/45 to-black/25" aria-hidden="true"></div>
             <div class="relative z-10 flex min-h-[42vh] md:min-h-[52vh] max-h-[min(72vh,680px)] flex-col justify-end">
-                <div class="max-w-3xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-10 md:pb-14">
+                <div class="max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 pb-10 md:pb-14">
                     <nav class="mb-5 text-sm text-white/85 js-scroll" aria-label="Breadcrumb">
                         <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 list-none p-0 m-0">
                             <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a></li>
@@ -70,7 +70,7 @@
         </section>
     @else
         <section class="bg-gradient-to-br from-[var(--color-forest-green)] to-[#133629] text-white section-padding">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <nav class="mb-6 text-sm text-white/80 js-scroll" aria-label="Breadcrumb">
                     <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 list-none p-0 m-0">
                         <li><a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a></li>
@@ -93,7 +93,7 @@
     @endif
 
     <article class="bg-[var(--color-off-white)]">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14 pb-12 md:pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 md:pt-14 pb-12 md:pb-16">
             @if($featuredUrl)
                 <a href="{{ route('trust.index') }}" class="inline-flex items-center gap-2 text-sm text-[var(--color-forest-green)] hover:text-[var(--color-accent-gold)] mb-8 js-scroll transition-colors font-medium">
                     <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

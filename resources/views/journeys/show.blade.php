@@ -49,6 +49,8 @@
     .journey-hero-title { text-shadow: 0 2px 24px rgba(0,0,0,0.35); }
     .journey-section-label { letter-spacing: 0.2em; }
     .journey-prose p:first-child { margin-top: 0; }
+    .journey-prose p { margin-top: 0; margin-bottom: 0; }
+    .journey-prose p + p { margin-top: 1rem; }
     .journey-card { box-shadow: 0 4px 24px rgba(26, 77, 58, 0.08); }
     .journey-book-modal-backdrop { background: rgba(26, 77, 58, 0.6); backdrop-filter: blur(6px); }
     .journey-book-modal { animation: journeyModalIn 0.3s ease-out; }
@@ -123,7 +125,7 @@
 
     <!-- Narrative -->
     <section id="journey-content-start" class="py-16 md:py-24 bg-white scroll-mt-4">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <nav class="mb-8" aria-label="Breadcrumb">
                 <a href="{{ route('journeys.index') }}" class="inline-flex items-center gap-2 text-sm text-[var(--color-earth-brown)] hover:text-[var(--color-forest-green)] transition-colors">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
@@ -211,16 +213,16 @@
     @if($journey->experience_highlights || $journey->regenerative_impact)
     <section class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="js-scroll grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
+            <div class="js-scroll grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 md:items-stretch">
                 @if($journey->experience_highlights)
-                <div class="flex flex-col">
+                <div class="flex flex-col h-full min-h-0">
                     <p class="journey-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Experience</p>
                     <div class="w-16 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                     <h2 class="text-2xl md:text-3xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                         Experience Highlights
                     </h2>
-                    <div class="bg-[var(--color-off-white)] p-6 md:p-8 rounded-xl border border-[var(--color-sand-beige)]/50 shadow-sm">
-                        <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] prose-ul:my-4 prose-li:my-1 prose-li:marker:text-[var(--color-accent-gold)]">
+                    <div class="bg-[var(--color-off-white)] p-6 md:p-8 rounded-xl border border-[var(--color-sand-beige)]/50 shadow-sm flex-1 flex flex-col min-h-0">
+                        <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] prose-ul:my-4 prose-li:my-1 prose-li:marker:text-[var(--color-accent-gold)] flex-1">
                             {!! $journey->experience_highlights !!}
                         </div>
                     </div>
@@ -228,35 +230,39 @@
                 @endif
 
                 @if($journey->regenerative_impact)
-                <div class="flex flex-col">
+                <div class="flex flex-col h-full min-h-0">
                     <p class="journey-section-label text-xs uppercase tracking-widest text-[var(--color-accent-gold)] font-semibold mb-3">Impact</p>
                     <div class="w-16 h-0.5 bg-[var(--color-accent-gold)] mb-6"></div>
                     <h2 class="text-2xl md:text-3xl font-serif font-bold text-[var(--color-forest-green)] mb-6">
                         Regenerative Impact
                     </h2>
-                    <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] mb-8">
-                        {!! $journey->regenerative_impact !!}
-                    </div>
-                    @if($journey->countries->count() > 0)
-                        <div class="space-y-6">
-                        @foreach($journey->countries as $country)
-                            @if($country->conservation_focus)
-                                <div class="bg-[var(--color-off-white)] p-6 md:p-8 rounded-xl border border-[var(--color-sand-beige)]/50 shadow-sm">
-                                    <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-3">
-                                        Conservation Focus in {{ $country->name }}
-                                    </h3>
-                                    <p class="text-[var(--color-earth-brown)] leading-relaxed text-sm md:text-base">
-                                        {{ Str::limit(strip_tags($country->conservation_focus), 300) }}
-                                    </p>
-                                    <a href="{{ route('countries.show', $country) }}" class="inline-flex items-center gap-1 mt-4 text-[var(--color-forest-green)] font-medium hover:text-[var(--color-accent-gold)] transition-colors text-sm">
-                                        Learn more about {{ $country->name }}
-                                        <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                                    </a>
-                                </div>
-                            @endif
-                        @endforeach
+                    <div class="flex-1 flex flex-col gap-6 min-h-0">
+                        <div class="bg-[var(--color-off-white)] p-6 md:p-8 rounded-xl border border-[var(--color-sand-beige)]/50 shadow-sm flex-1 flex flex-col min-h-0">
+                            <div class="prose prose-lg max-w-none text-[var(--color-earth-brown)] flex-1">
+                                {!! $journey->regenerative_impact !!}
+                            </div>
                         </div>
-                    @endif
+                        @if($journey->countries->count() > 0)
+                            <div class="space-y-6 shrink-0">
+                            @foreach($journey->countries as $country)
+                                @if($country->conservation_focus)
+                                    <div class="bg-[var(--color-off-white)] p-6 md:p-8 rounded-xl border border-[var(--color-sand-beige)]/50 shadow-sm">
+                                        <h3 class="text-lg font-serif font-semibold text-[var(--color-forest-green)] mb-3">
+                                            Conservation Focus in {{ $country->name }}
+                                        </h3>
+                                        <p class="text-[var(--color-earth-brown)] leading-relaxed text-sm md:text-base">
+                                            {{ Str::limit(strip_tags($country->conservation_focus), 300) }}
+                                        </p>
+                                        <a href="{{ route('countries.show', $country) }}" class="inline-flex items-center gap-1 mt-4 text-[var(--color-forest-green)] font-medium hover:text-[var(--color-accent-gold)] transition-colors text-sm">
+                                            Learn more about {{ $country->name }}
+                                            <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                        </a>
+                                    </div>
+                                @endif
+                            @endforeach
+                            </div>
+                        @endif
+                    </div>
                 </div>
                 @endif
             </div>

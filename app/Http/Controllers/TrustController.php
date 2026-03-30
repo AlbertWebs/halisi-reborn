@@ -14,28 +14,35 @@ class TrustController extends Controller
             ->where('is_published', true)
             ->first();
 
-        $featuredPost = TrustPost::where('is_published', true)
+        $featuredPost = TrustPost::query()
+            ->orderByRaw('CASE WHEN published_at IS NULL THEN 1 ELSE 0 END')
             ->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->first();
             
-        $posts = TrustPost::where('is_published', true)
+        $posts = TrustPost::query()
             ->when($featuredPost, function($query) use ($featuredPost) {
                 $query->where('id', '!=', $featuredPost->id);
             })
+            ->orderByRaw('CASE WHEN published_at IS NULL THEN 1 ELSE 0 END')
             ->orderBy('published_at', 'desc')
-            ->paginate(9);
+            ->orderBy('created_at', 'desc')
+            ->get();
             
         return view('trust.index', compact('posts', 'featuredPost', 'page'));
     }
 
     public function show(TrustPost $post)
     {
-        $relatedPosts = TrustPost::where('is_published', true)
+        $relatedPosts = TrustPost::query()
             ->where('id', '!=', $post->id)
             ->where(function($query) use ($post) {
                 $query->where('category', $post->category)
                     ->orWhere('category', 'like', '%' . $post->category . '%');
             })
+            ->orderByRaw('CASE WHEN published_at IS NULL THEN 1 ELSE 0 END')
+            ->orderBy('published_at', 'desc')
+            ->orderBy('created_at', 'desc')
             ->limit(3)
             ->get();
             

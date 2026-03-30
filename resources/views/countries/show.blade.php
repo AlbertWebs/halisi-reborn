@@ -394,15 +394,17 @@
             }
             return $decoded;
         };
-        $highlightImages = array_values(array_filter([
+        $legacyHighlightImages = [
             $resolveCountryImage($country->highlight_1_image),
             $resolveCountryImage($country->highlight_2_image),
             $resolveCountryImage($country->highlight_3_image),
             $resolveCountryImage($country->highlight_4_image),
-            $resolveCountryImage($country->signature_card_1_image),
-            $resolveCountryImage($country->signature_card_2_image),
-            $resolveCountryImage($country->signature_card_3_image),
-            $resolveCountryImage($country->signature_card_4_image),
+        ];
+        $highlightFallbackImages = array_values(array_filter([
+            $resolveCountryImage($country->highlight_1_image),
+            $resolveCountryImage($country->highlight_2_image),
+            $resolveCountryImage($country->highlight_3_image),
+            $resolveCountryImage($country->highlight_4_image),
             $resolveCountryImage($country->narrative_image),
             $resolveCountryImage($country->conservation_image),
             $resolveCountryImage($country->hero_image),
@@ -466,7 +468,9 @@
                     @foreach($guideHighlights as $idx => $item)
                         @php
                             $itemImage = $resolveCountryImage($item['image'] ?? null);
-                            $image = $itemImage ?: ($highlightImages[$idx] ?? $highlightImages[0] ?? null);
+                            $image = $itemImage
+                                ?? $legacyHighlightImages[$idx]
+                                ?? ($highlightFallbackImages[0] ?? null);
                             $isEven = $idx % 2 === 1;
                             $highlightTextRaw = $decodeEntitiesRepeatedly($item['text'] ?? '');
                             $highlightTextHtml = preg_match('/<[a-z][\s\S]*>/i', trim($highlightTextRaw))
@@ -591,6 +595,37 @@
     @endif
 
     <script>
+        (function initCountryWowEffects() {
+            var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            var animatedNodes = document.querySelectorAll('.country-wow.js-scroll, .country-wow-group.js-scroll-stagger');
+
+            if (!animatedNodes.length) {
+                return;
+            }
+
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                animatedNodes.forEach(function (node) {
+                    node.classList.add('is-visible');
+                });
+                return;
+            }
+
+            var observer = new IntersectionObserver(function (entries, obs) {
+                entries.forEach(function (entry) {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('is-visible');
+                    obs.unobserve(entry.target);
+                });
+            }, {
+                threshold: 0.16,
+                rootMargin: '0px 0px -8% 0px'
+            });
+
+            animatedNodes.forEach(function (node) {
+                observer.observe(node);
+            });
+        })();
+
         document.querySelectorAll('.signature-card').forEach(function (card) {
             var iframe = card.querySelector('.signature-card-iframe');
             var preloader = card.querySelector('.signature-card-preloader');

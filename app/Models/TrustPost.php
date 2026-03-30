@@ -59,7 +59,7 @@ class TrustPost extends Model
             return '';
         }
         if (preg_match('/<[a-z][\s\S]*>/i', $trimmed)) {
-            return $decoded;
+            return self::normalizeStorageImageUrls($decoded);
         }
 
         return nl2br(e($decoded));
@@ -109,5 +109,15 @@ class TrustPost extends Model
         }
 
         return $decoded;
+    }
+
+    private static function normalizeStorageImageUrls(string $html): string
+    {
+        // Keep image URLs host-agnostic so content works across localhost/domains.
+        return (string) preg_replace(
+            '#https?://[^"\']+/storage/#i',
+            '/storage/',
+            $html
+        );
     }
 }

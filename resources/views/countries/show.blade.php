@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title', $country->name . ' - Halisi Africa Discoveries')
-@section('description', Str::limit($country->country_narrative, 160))
+@section('description', Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags(html_entity_decode((string) $country->country_narrative, ENT_QUOTES | ENT_HTML5, 'UTF-8')))), 160))
 @push('structured_data')
 <x-structured-data 
     type="breadcrumb" 
@@ -71,6 +71,18 @@
 
 @section('content')
     @php
+        $decodeEntitiesRepeatedly = function (?string $value): string {
+            $decoded = (string) ($value ?? '');
+            for ($i = 0; $i < 4; $i++) {
+                $next = html_entity_decode($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                if ($next === $decoded) {
+                    break;
+                }
+                $decoded = $next;
+            }
+            return $decoded;
+        };
+
         // Extract Vimeo video ID from URL (support vimeo.com/123, vimeo.com/video/123, player.vimeo.com/video/123, or plain ID)
         $heroVideoId = null;
         if (filled($country->hero_video)) {
@@ -121,7 +133,7 @@
                 </h1>
                 <div class="country-wow country-wow-delay-1 js-scroll prose prose-lg max-w-none text-gray-100">
                     <p class="text-xl leading-relaxed">
-                        {{ $country->hero_subtitle ?: Str::limit(strip_tags($country->country_narrative), 200) }}
+                        {{ $decodeEntitiesRepeatedly($country->hero_subtitle ?: Str::limit(strip_tags($decodeEntitiesRepeatedly((string) $country->country_narrative)), 200)) }}
                     </p>
                 </div>
             </div>
@@ -300,7 +312,7 @@
 
         $slug = $country->slug;
         $guide = $countryGuide[$slug] ?? null;
-        $defaultLead = Str::limit(strip_tags((string) ($country->country_narrative ?? '')), 280);
+        $defaultLead = Str::limit(strip_tags($decodeEntitiesRepeatedly((string) ($country->country_narrative ?? ''))), 280);
         $guideLead = filled($country->destination_brief_lead)
             ? $country->destination_brief_lead
             : ($guide['lead'] ?? ($defaultLead ?: ('A layered destination where wildlife, culture, and landscape meet in one remarkable journey through ' . $country->name . '.')));
@@ -382,17 +394,6 @@
                 return asset($image);
             }
             return asset('storage/' . ltrim($image, '/'));
-        };
-        $decodeEntitiesRepeatedly = function (?string $value): string {
-            $decoded = (string) $value;
-            for ($i = 0; $i < 3; $i++) {
-                $next = html_entity_decode($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-                if ($next === $decoded) {
-                    break;
-                }
-                $decoded = $next;
-            }
-            return $decoded;
         };
         $legacyHighlightImages = [
             $resolveCountryImage($country->highlight_1_image),

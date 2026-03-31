@@ -189,6 +189,50 @@
                         >
                     </a>
                 </li>
+                <!-- tra -->
+                 <li class="shrink-0">
+                    <a href="https://www.tra.org/" title="Travel & Tourism Association" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/tra.jpg') }}"
+                            alt="Travel & Tourism Association"
+                            width="240"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+                <!-- Kenya_Tourist_Board_logo.jpeg -->
+                <li class="shrink-0">
+                    <a href="https://www.kentouristboard.com/" title="Kenya Tourist Board" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/Kenya_Tourist_Board_logo.jpeg') }}"
+                            alt="Kenya Tourist Board"
+                            width="240"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+                <!-- magical.jpeg -->   
+                <li class="shrink-0">
+                    <a href="https://www.magicalkenya.com/" title="Magical Kenya" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/magical.jpg') }}"
+                            alt="Magical Kenya"
+                            width="240"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
+                <!-- Uganda_Tourist_Board_logo.jpeg -->
+              
             </ul>
         </div>
 

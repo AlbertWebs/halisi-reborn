@@ -188,6 +188,59 @@ body {
     margin: 1.5rem 0;
     box-shadow: 0 12px 40px rgba(26, 77, 58, 0.08);
 }
+.trust-article-body table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 1.75rem 0;
+    border: 1px solid color-mix(in srgb, var(--color-sand-beige) 82%, #ffffff);
+    border-radius: 0.9rem;
+    overflow: hidden;
+    display: block;
+    overflow-x: auto;
+    background: #fff;
+    box-shadow: 0 10px 32px rgba(26, 77, 58, 0.08);
+}
+.trust-article-body table thead th {
+    background: linear-gradient(
+        180deg,
+        color-mix(in srgb, var(--color-forest-green) 90%, #ffffff),
+        color-mix(in srgb, var(--color-forest-green) 82%, #ffffff)
+    );
+    color: #fff;
+    font-size: 0.84rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 0.85rem 0.95rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-forest-green) 40%, #ffffff);
+    white-space: nowrap;
+}
+.trust-article-body table tbody td {
+    padding: 0.8rem 0.95rem;
+    vertical-align: top;
+    border-bottom: 1px solid color-mix(in srgb, var(--color-sand-beige) 58%, #ffffff);
+    color: var(--color-earth-brown);
+    background: #fff;
+}
+.trust-article-body table tbody tr:nth-child(even) td {
+    background: color-mix(in srgb, var(--color-off-white) 86%, #ffffff);
+}
+.trust-article-body table tbody tr:last-child td {
+    border-bottom: 0;
+}
+.trust-article-body table th:first-child,
+.trust-article-body table td:first-child {
+    border-left: 0;
+}
+.trust-article-body table th,
+.trust-article-body table td {
+    border-right: 1px solid color-mix(in srgb, var(--color-sand-beige) 42%, #ffffff);
+}
+.trust-article-body table th:last-child,
+.trust-article-body table td:last-child {
+    border-right: 0;
+}
 .trust-article-body strong,
 .trust-article-body b {
     font-weight: 600;

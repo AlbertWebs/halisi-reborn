@@ -1,5 +1,21 @@
 @props(['journey'])
 
+@php
+    $decodeEntitiesRepeatedly = function (?string $value): string {
+        $decoded = (string) ($value ?? '');
+        for ($i = 0; $i < 4; $i++) {
+            $next = html_entity_decode($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            if ($next === $decoded) {
+                break;
+            }
+            $decoded = $next;
+        }
+        return $decoded;
+    };
+
+    $journeySnippet = trim(preg_replace('/\s+/', ' ', strip_tags($decodeEntitiesRepeatedly($journey->narrative_intro))));
+@endphp
+
 <a href="{{ route('journeys.show', $journey) }}" class="block bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 group h-full flex flex-col">
     @if($journey->hero_image)
         <div class="aspect-video bg-[var(--color-sand-beige)] overflow-hidden relative">
@@ -32,7 +48,7 @@
             {{ $journey->title }}
         </h3>
         <p class="text-sm md:text-base text-[var(--color-earth-brown)] leading-relaxed mb-4 line-clamp-3 flex-grow">
-            {{ Str::limit(strip_tags($journey->narrative_intro), 150) }}
+            {{ Str::limit($journeySnippet, 150) }}
         </p>
         <div class="mt-auto pt-4 border-t border-[var(--color-sand-beige)]">
             <span class="text-[var(--color-forest-green)] font-semibold text-sm md:text-base inline-flex items-center group-hover:text-[var(--color-accent-gold)] transition-colors">

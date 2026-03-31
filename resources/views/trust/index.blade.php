@@ -5,6 +5,23 @@
 
 @section('content')
     @php
+        $decodeEntitiesRepeatedly = function (?string $value): string {
+            $decoded = (string) ($value ?? '');
+            for ($i = 0; $i < 4; $i++) {
+                $next = html_entity_decode($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                if ($next === $decoded) {
+                    break;
+                }
+                $decoded = $next;
+            }
+            return $decoded;
+        };
+
+        $cleanSnippet = function (?string $value, int $limit = 180) use ($decodeEntitiesRepeatedly): string {
+            $text = trim(preg_replace('/\s+/', ' ', strip_tags($decodeEntitiesRepeatedly($value))));
+            return \Illuminate\Support\Str::limit($text, $limit);
+        };
+
         $resolveImage = function (?string $image): ?string {
             if (!filled($image)) {
                 return null;
@@ -65,7 +82,7 @@
                         </h2>
                         @if($featuredPost->excerpt)
                             <p class="text-lg text-[var(--color-earth-brown)] leading-relaxed mb-6">
-                                {{ $featuredPost->excerpt }}
+                                {{ $cleanSnippet($featuredPost->excerpt, 260) }}
                             </p>
                         @endif
                         @if($featuredPost->published_at)
@@ -120,7 +137,7 @@
                                     </h3>
                                     @if($post->excerpt)
                                         <p class="text-sm text-[var(--color-earth-brown)] leading-relaxed mb-4 line-clamp-2">
-                                            {{ $post->excerpt }}
+                                            {{ $cleanSnippet($post->excerpt, 180) }}
                                         </p>
                                     @endif
                                     @if($post->published_at)

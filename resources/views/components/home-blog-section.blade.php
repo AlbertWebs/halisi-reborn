@@ -4,6 +4,23 @@
 
 @php
     /** @var \Illuminate\Support\Collection<int, \App\Models\TrustPost> $posts */
+    $decodeEntitiesRepeatedly = function (?string $value): string {
+        $decoded = (string) ($value ?? '');
+        for ($i = 0; $i < 4; $i++) {
+            $next = html_entity_decode($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            if ($next === $decoded) {
+                break;
+            }
+            $decoded = $next;
+        }
+        return $decoded;
+    };
+
+    $cleanSnippet = function (?string $value, int $limit = 200) use ($decodeEntitiesRepeatedly): string {
+        $text = trim(preg_replace('/\s+/', ' ', strip_tags($decodeEntitiesRepeatedly($value))));
+        return \Illuminate\Support\Str::limit($text, $limit);
+    };
+
     $resolveImage = function (?string $image): ?string {
         if (!filled($image)) {
             return null;
@@ -69,7 +86,7 @@
                                 </h3>
                                 @if(filled($post->excerpt))
                                     <p class="text-sm text-[var(--color-earth-brown)] leading-relaxed line-clamp-3 mb-4 flex-1">
-                                        {{ $post->excerpt }}
+                                        {{ $cleanSnippet($post->excerpt, 180) }}
                                     </p>
                                 @endif
                                 <div class="mt-auto flex items-center justify-between gap-3 pt-2">

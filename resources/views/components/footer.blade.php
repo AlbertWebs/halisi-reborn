@@ -176,6 +176,19 @@
                         >
                     </a>
                 </li>
+                <li class="shrink-0">
+                    <a href="https://www.regen-tourism-alliance.org/" title="Regen Tourism Alliance" target="_blank" rel="noopener noreferrer" class="w-44 h-20 bg-white rounded-xl border border-white/30 p-3 flex items-center justify-center shadow-sm transition-transform hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent-gold)]">
+                        <img
+                            src="{{ asset('uploads/regen-tourism-alliance.jpeg') }}"
+                            alt="Regen Tourism Alliance"
+                            width="240"
+                            height="44"
+                            loading="lazy"
+                            decoding="async"
+                            class="h-10 w-auto max-w-full object-contain"
+                        >
+                    </a>
+                </li>
             </ul>
         </div>
 

@@ -384,14 +384,24 @@
         </div>
     </div>
 
-    <!-- TinyMCE - API key loaded from Site Settings -->
     @php
-        $tinyMceApiKey = \App\Models\SiteSetting::get('tinymce_api_key', 'no-api-key');
+        $tinyMceApiKey = (string) \App\Models\SiteSetting::get('tinymce_api_key', '');
+        $hasTinyMceKey = filled($tinyMceApiKey) && $tinyMceApiKey !== 'no-api-key';
     @endphp
-    <script src="https://cdn.tiny.cloud/1/{{ $tinyMceApiKey }}/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <!-- Trix editor (free, no API key) -->
+    <link rel="stylesheet" href="https://unpkg.com/trix@2.1.8/dist/trix.css">
+    <script src="https://unpkg.com/trix@2.1.8/dist/trix.umd.min.js" defer></script
+    >
+
+    <!-- TinyMCE (only when key exists) -->
+    @if($hasTinyMceKey)
+        <script src="https://cdn.tiny.cloud/1/{{ $tinyMceApiKey }}/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+    @endif
     
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     
+    @if($hasTinyMceKey)
     <script>
         // Initialize TinyMCE on all textareas
         function initTinyMCE() {
@@ -531,5 +541,6 @@
             }
         });
     </script>
+    @endif
 </body>
 </html>

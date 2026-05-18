@@ -31,5 +31,11 @@
         <env name="PULSE_ENABLED" value="false"/>
         <env name="TELESCOPE_ENABLED" value="false"/>
         <env name="NIGHTWATCH_ENABLED" value="false"/>
+        <env name="PESAPAL_ENVIRONMENT" value="live"/>
+        <env name="PESAPAL_CONSUMER_KEY" value="test-consumer-key"/>
+        <env name="PESAPAL_CONSUMER_SECRET" value="test-consumer-secret"/>
+        <env name="PESAPAL_CALLBACK_URL" value="http://localhost/billing/callback"/>
+        <env name="PESAPAL_IPN_URL" value="http://localhost/billing/ipn"/>
+        <env name="PESAPAL_IPN_ID" value="test-ipn-id"/>
     </php>
 </phpunit>

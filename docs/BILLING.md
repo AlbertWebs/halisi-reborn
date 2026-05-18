@@ -67,4 +67,12 @@ PESAPAL_IPN_URL="${APP_URL}/billing/ipn"
 PESAPAL_IPN_ID=
 ```
 
-Register the IPN URL with Pesapal once and set `PESAPAL_IPN_ID` if required by their flow.
+`PESAPAL_IPN_ID` is **required** by Pesapal for every payment. If it is empty, the app will try to find or register the IPN URL automatically on the first pay attempt. To set it explicitly on the server:
+
+```bash
+php artisan pesapal:register-ipn
+```
+
+Copy the printed GUID into `.env` as `PESAPAL_IPN_ID`, then run `php artisan config:clear` (or rebuild config cache on deploy).
+
+Ensure `PESAPAL_IPN_URL` is the public URL Pesapal can reach, e.g. `https://halisiafricadiscoveries.com/billing/ipn`.

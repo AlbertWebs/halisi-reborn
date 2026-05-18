@@ -25,6 +25,7 @@
                     <div>
                         <h2 class="text-2xl font-serif font-semibold text-[var(--color-forest-green)] mb-3">Photography</h2>
                         <p>Photography used across the website is credited to Halisi Africa contributors and partner creators.</p>
+                        <p class="mt-3">Selected fallback imagery is drawn from our curated stock library (<code class="text-sm">public/stock-images</code>) where CMS uploads are not yet assigned.</p>
                     </div>
                     <div>
                         <h2 class="text-2xl font-serif font-semibold text-[var(--color-forest-green)] mb-3">Video</h2>

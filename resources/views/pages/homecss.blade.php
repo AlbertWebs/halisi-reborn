@@ -916,30 +916,39 @@ section.hero-section-wrapper .video-wrapper iframe {
     transition: transform 0.35s cubic-bezier(0.25, 0.1, 0.25, 1), box-shadow 0.35s ease, border-color 0.35s ease;
 }
 
-.experiences-section .experience-grid .experience-card--text-only {
-    min-height: clamp(13rem, 36vw, 17rem);
-    display: flex;
-    flex-direction: column;
-    background: rgba(8, 16, 13, 0.45);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+.experiences-section .experience-grid .experience-card .experience-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    transition: transform 0.55s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
-.experiences-section .experience-grid .experience-card--text-only .experience-content {
-    position: relative;
-    inset: auto;
+.experiences-section .experience-grid .experience-card .experience-card-overlay {
+    position: absolute;
+    inset: 0;
     z-index: 1;
-    flex: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.35) 45%, rgba(0, 0, 0, 0.15) 100%);
+    pointer-events: none;
+}
+
+.experiences-section .experience-grid .experience-card .experience-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     text-align: center;
-    padding: clamp(1.75rem, 4vw, 2.5rem) 1.5rem;
-    gap: 1.25rem;
+    padding: clamp(1.5rem, 4vw, 2.25rem) 1.25rem;
+    gap: 1rem;
 }
 
-.experiences-section .experience-grid .experience-card--text-only .experience-title {
+.experiences-section .experience-grid .experience-card .experience-title {
     margin-bottom: 0;
 }
 

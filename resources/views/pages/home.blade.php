@@ -86,51 +86,7 @@
                 </div>
             </header>
 
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8 lg:gap-10 experience-grid items-stretch js-scroll-stagger">
-                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
-                    <div class="experience-content">
-                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Bespoke Safaris</h3>
-                        <div>
-                            <x-button-secondary href="{{ route('journeys.signature-safaris') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
-                                View Safaris
-                            </x-button-secondary>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
-                    <div class="experience-content">
-                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Luxury Escapes</h3>
-                        <div>
-                            <x-button-secondary href="{{ route('journeys.luxury-retreats') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
-                                View Escapes
-                            </x-button-secondary>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
-                    <div class="experience-content">
-                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Conservation &amp; Community</h3>
-                        <div>
-                            <x-button-secondary href="{{ route('journeys.conservation-community') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
-                                View Impact Journeys
-                            </x-button-secondary>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="experience-card experience-card--luxury experience-card--text-only overflow-hidden rounded-2xl">
-                    <div class="experience-content">
-                        <h3 class="experience-title text-base sm:text-xl lg:text-2xl font-serif font-semibold">Bespoke Private Travel</h3>
-                        <div>
-                            <x-button-secondary href="{{ route('journeys.bespoke-private') }}" class="experience-card-btn border-white text-white hover:bg-white hover:text-[var(--color-forest-green)] focus:ring-white focus:ring-offset-transparent text-sm px-4 py-2">
-                                View Private Travel
-                            </x-button-secondary>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <x-home-experience-cards />
         </div>
     </section>
 
@@ -452,6 +408,16 @@
                             src="{{ asset('storage/' . $responsibleTravelSection->image) }}"
                             alt="{{ $responsibleTravelSection?->title ?: 'Responsible travel teaser image' }}"
                             class="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
+                        >
+                    @elseif($stockImg = \App\Support\StockImage::url('homepage.teasers.responsible'))
+                        <img
+                            src="{{ $stockImg }}"
+                            alt="Responsible travel and wildlife conservation in Africa"
+                            class="w-full h-full object-cover"
+                            loading="lazy"
+                            decoding="async"
                         >
                     @endif
                     </div>
@@ -476,6 +442,16 @@
                                 src="{{ asset('storage/' . $womenRestorationSection->image) }}"
                                 alt="{{ $womenRestorationSection?->title ?: 'Women and restoration teaser image' }}"
                                 class="w-full h-full object-cover"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        @elseif($stockImg = \App\Support\StockImage::url('homepage.teasers.women'))
+                            <img
+                                src="{{ $stockImg }}"
+                                alt="Women-led community and restoration projects in Africa"
+                                class="w-full h-full object-cover"
+                                loading="lazy"
+                                decoding="async"
                             >
                         @endif
                     </div>

@@ -12,6 +12,7 @@
         [
             'welcome_key' => 'welcome_grid_culture',
             'pillar_key' => 'pillar_culture',
+            'stock_key' => 'culture',
             'defaultTitle' => 'Culture',
             'altSuffix' => '— heritage and respectful travel',
             'cta' => route('impact.responsible-travel'),
@@ -19,6 +20,7 @@
         [
             'welcome_key' => 'welcome_grid_community',
             'pillar_key' => 'pillar_community',
+            'stock_key' => 'community',
             'defaultTitle' => 'Community',
             'altSuffix' => '— women-led hosts and local partnerships',
             'cta' => route('impact.climate-community'),
@@ -26,6 +28,7 @@
         [
             'welcome_key' => 'welcome_grid_conservation',
             'pillar_key' => 'pillar_conservation',
+            'stock_key' => 'conservation',
             'defaultTitle' => 'Conservation',
             'altSuffix' => '— wildlife and habitat',
             'cta' => route('impact.responsible-travel'),
@@ -33,6 +36,7 @@
         [
             'welcome_key' => 'welcome_grid_climate',
             'pillar_key' => 'pillar_climate_action',
+            'stock_key' => 'climate',
             'defaultTitle' => 'Climate',
             'altSuffix' => '— lighter footprint and nature-based action',
             'cta' => route('impact.climate-community'),
@@ -96,7 +100,8 @@
                         } elseif ($pillar && $pillar->image) {
                             $img = $welcomeGridImageSrc($pillar->image);
                         } else {
-                            $img = asset('og-image.jpg');
+                            $img = \App\Support\StockImage::url('homepage.welcome.' . $def['stock_key'])
+                                ?? asset('og-image.jpg');
                         }
                         $href = filled($welcomeTile?->cta_link ?? null)
                             ? $welcomeTile->cta_link

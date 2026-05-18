@@ -40,7 +40,8 @@
 
 - Config: `config/pesapal.php` and `.env` (`PESAPAL_*`).
 - Service: `App\Services\Billing\PesapalService` – register IPN, submit order request, get transaction status.
-- Flow: Client clicks “Pay” → redirect to Pesapal → client pays → callback and/or IPN → we set payment completed and invoice to paid when total is covered.
+- Flow: Client clicks “Pay” → Pesapal checkout loads in an on-site iframe (default) → client pays → callback breaks out to invoice page and/or IPN → we set payment completed and invoice to paid when total is covered.
+- Set `PESAPAL_EMBED_IFRAME=false` to send customers to Pesapal in a full-page redirect instead.
 
 ## PDF generation
 

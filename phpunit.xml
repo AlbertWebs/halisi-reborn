@@ -37,5 +37,6 @@
         <env name="PESAPAL_CALLBACK_URL" value="http://localhost/billing/callback"/>
         <env name="PESAPAL_IPN_URL" value="http://localhost/billing/ipn"/>
         <env name="PESAPAL_IPN_ID" value="test-ipn-id"/>
+        <env name="PESAPAL_CURRENCY" value="KES"/>
     </php>
 </phpunit>

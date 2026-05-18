@@ -69,7 +69,19 @@ class PublicInvoiceController extends Controller
             'gateway_response' => json_encode(['redirect_url' => $result['redirect_url'], 'order_tracking_id' => $result['order_tracking_id'] ?? null]),
         ]);
 
-        session(['pesapal_order_tracking_id' => $result['order_tracking_id'], 'pesapal_invoice_token' => $token]);
+        session([
+            'pesapal_order_tracking_id' => $result['order_tracking_id'],
+            'pesapal_invoice_token' => $token,
+        ]);
+
+        if (config('pesapal.embed_in_iframe', true)) {
+            return view('billing.public.pay', [
+                'invoice' => $invoice,
+                'invoiceToken' => $invoiceToken,
+                'pesapalUrl' => $result['redirect_url'],
+                'amountDue' => $amountDue,
+            ]);
+        }
 
         return redirect()->away($result['redirect_url']);
     }
@@ -82,7 +94,12 @@ class PublicInvoiceController extends Controller
         $orderTrackingId = $request->query('OrderTrackingId') ?? session('pesapal_order_tracking_id');
 
         if (!$orderTrackingId) {
-            return redirect()->route('billing.invoice.show', $token)->with('error', 'Invalid callback.');
+            return $this->redirectAfterPayment(
+                $token,
+                route('billing.invoice.show', $token),
+                'Invalid callback.',
+                'error'
+            );
         }
 
         $pesapal = new PesapalService();
@@ -113,10 +130,37 @@ class PublicInvoiceController extends Controller
             if ($invoice->isFullyPaid()) {
                 $invoice->update(['status' => Invoice::STATUS_PAID]);
             }
-            return redirect()->route('billing.invoice.show', $token)->with('success', 'Payment received. Thank you!');
+
+            return $this->redirectAfterPayment(
+                $token,
+                route('billing.invoice.show', $token),
+                'Payment received. Thank you!',
+                'success'
+            );
         }
 
-        return redirect()->route('billing.invoice.show', $token)->with('info', 'Payment is being processed. You will be notified when it is confirmed.');
+        return $this->redirectAfterPayment(
+            $token,
+            route('billing.invoice.show', $token),
+            'Payment is being processed. You will be notified when it is confirmed.',
+            'info'
+        );
+    }
+
+    /**
+     * After Pesapal callback: break out of iframe when embedded, otherwise normal redirect.
+     */
+    protected function redirectAfterPayment(string $token, string $url, string $message, string $flashKey = 'success')
+    {
+        session()->flash($flashKey, $message);
+
+        if (config('pesapal.embed_in_iframe', true)) {
+            return view('billing.public.callback-redirect', [
+                'redirectUrl' => $url,
+            ]);
+        }
+
+        return redirect()->to($url);
     }
 
     public function ipn(Request $request)

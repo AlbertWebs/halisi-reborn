@@ -62,7 +62,7 @@ class InvoiceController extends Controller
         $invoice->tax_rate = $validated['tax_rate'] ?? 0;
         $invoice->discount_type = $validated['discount_type'] ?? 0;
         $invoice->discount_value = $validated['discount_value'] ?? 0;
-        $invoice->currency = $validated['currency'] ?? 'USD';
+        $invoice->currency = $validated['currency'] ?? config('pesapal.currency', 'KES');
         $invoice->notes = $validated['notes'] ?? null;
         $invoice->payment_instructions = $validated['payment_instructions'] ?? null;
         $invoice->status = Invoice::STATUS_DRAFT;
@@ -149,7 +149,7 @@ class InvoiceController extends Controller
         $invoice->tax_rate = $validated['tax_rate'] ?? 0;
         $invoice->discount_type = $validated['discount_type'] ?? 0;
         $invoice->discount_value = $validated['discount_value'] ?? 0;
-        $invoice->currency = $validated['currency'] ?? 'USD';
+        $invoice->currency = $validated['currency'] ?? config('pesapal.currency', 'KES');
         $invoice->notes = $validated['notes'] ?? null;
         $invoice->payment_instructions = $validated['payment_instructions'] ?? null;
         $invoice->save();

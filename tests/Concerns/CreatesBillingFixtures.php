@@ -34,7 +34,7 @@ trait CreatesBillingFixtures
             'discount_value' => 0,
             'discount_amount' => 0,
             'total' => 100,
-            'currency' => 'USD',
+            'currency' => 'KES',
             'status' => Invoice::STATUS_SENT,
         ], $overrides));
     }

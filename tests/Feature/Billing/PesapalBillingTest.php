@@ -23,6 +23,7 @@ class PesapalBillingTest extends TestCase
             'pesapal.consumer_key' => 'test-consumer-key',
             'pesapal.consumer_secret' => 'test-consumer-secret',
             'pesapal.ipn_id' => 'test-ipn-id',
+            'pesapal.embed_in_iframe' => true,
             'app.url' => 'http://localhost',
         ]);
     }
@@ -38,7 +39,7 @@ class PesapalBillingTest extends TestCase
         $response->assertSee($invoice->invoice_number);
     }
 
-    public function test_pay_redirects_to_pesapal_when_order_submission_succeeds(): void
+    public function test_pay_embeds_pesapal_checkout_in_iframe_when_order_submission_succeeds(): void
     {
         Http::fake([
             'https://pay.pesapal.com/v3/api/Auth/RequestToken' => Http::response(['token' => 'token-abc'], 200),
@@ -53,7 +54,10 @@ class PesapalBillingTest extends TestCase
 
         $response = $this->get(route('billing.invoice.pay', $token->token));
 
-        $response->assertRedirect('https://pay.pesapal.com/checkout/xyz');
+        $response->assertOk();
+        $response->assertViewIs('billing.public.pay');
+        $response->assertSee('https://pay.pesapal.com/checkout/xyz', false);
+        $response->assertSee('pesapal-checkout-frame', false);
 
         $this->assertDatabaseHas('billing_payments', [
             'invoice_id' => $invoice->id,
@@ -98,8 +102,9 @@ class PesapalBillingTest extends TestCase
             'OrderTrackingId' => 'pesapal-track-callback',
         ]));
 
-        $response->assertRedirect(route('billing.invoice.show', $token->token));
-        $response->assertSessionHas('success');
+        $response->assertOk();
+        $response->assertViewIs('billing.public.callback-redirect');
+        $this->assertStringContainsString($token->token, $response->getContent());
 
         $invoice->refresh();
         $this->assertSame(Invoice::STATUS_PAID, $invoice->status);

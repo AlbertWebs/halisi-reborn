@@ -79,8 +79,8 @@
                 <div>
                     <label for="currency" class="block text-sm font-medium text-gray-700 mb-1">Currency</label>
                     <select id="currency" name="currency" class="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-[var(--color-forest-green)]">
-                        <option value="USD" {{ (string) (old('currency', 'USD')) === 'USD' ? 'selected' : '' }}>USD</option>
-                        <option value="KES" {{ (string) (old('currency', 'USD')) === 'KES' ? 'selected' : '' }}>KES</option>
+                        <option value="KES" {{ (string) (old('currency', config('pesapal.currency', 'KES'))) === 'KES' ? 'selected' : '' }}>KES</option>
+                        <option value="USD" {{ (string) (old('currency', config('pesapal.currency', 'KES'))) === 'USD' ? 'selected' : '' }}>USD</option>
                     </select>
                 </div>
             </div>

@@ -24,6 +24,8 @@ class PesapalServiceTest extends TestCase
             'pesapal.consumer_key' => 'test-consumer-key',
             'pesapal.consumer_secret' => 'test-consumer-secret',
             'pesapal.ipn_id' => 'test-ipn-id',
+            'pesapal.embed_in_iframe' => true,
+            'pesapal.redirect_mode' => 'PARENT_WINDOW',
         ]);
 
         Cache::flush();
@@ -98,7 +100,8 @@ class PesapalServiceTest extends TestCase
             return $request->url() === 'https://pay.pesapal.com/v3/api/Transactions/SubmitOrderRequest'
                 && $request['notification_id'] === 'test-ipn-id'
                 && $request['amount'] === 100.0
-                && $request['currency'] === 'USD';
+                && $request['currency'] === 'KES'
+                && $request['redirect_mode'] === 'PARENT_WINDOW';
         });
     }
 

@@ -216,8 +216,20 @@ class PesapalService
         }
 
         $amount = (float) $invoice->total;
-        $currency = $invoice->currency ?: 'USD';
+        $currency = config('pesapal.currency', 'KES');
+
+        if (filled($invoice->currency) && strtoupper($invoice->currency) !== strtoupper($currency)) {
+            Log::warning('Pesapal payment uses configured currency, not invoice currency', [
+                'invoice_id' => $invoice->id,
+                'invoice_currency' => $invoice->currency,
+                'pesapal_currency' => $currency,
+            ]);
+        }
         $description = 'Invoice ' . $invoice->invoice_number;
+
+        $redirectMode = config('pesapal.embed_in_iframe', true)
+            ? config('pesapal.redirect_mode', 'PARENT_WINDOW')
+            : 'TOP_WINDOW';
 
         $payload = [
             'id' => $this->sanitizeMerchantReference($id),
@@ -225,6 +237,7 @@ class PesapalService
             'amount' => $amount,
             'description' => mb_substr($description, 0, 100),
             'callback_url' => $callbackUrl,
+            'redirect_mode' => $redirectMode,
             'notification_id' => $notificationId,
             'billing_address' => [
                 'email_address' => $invoice->client->email,

@@ -118,8 +118,28 @@ body {
 .trust-article-body > *:first-child {
     margin-top: 0;
 }
+/* Clear space between paragraphs (Trix uses div blocks; pasted HTML may use p) */
 .trust-article-body p {
-    margin-bottom: 1.25em;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.trust-article-body p + p {
+    margin-top: 1.25rem;
+}
+.trust-article-body > div {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.trust-article-body > div + div {
+    margin-top: 1.25rem;
+}
+.trust-article-body div + p,
+.trust-article-body p + div {
+    margin-top: 1.25rem;
+}
+.trust-article-body p:empty,
+.trust-article-body > div:empty {
+    display: none;
 }
 .trust-article-body h2 {
     font-family: var(--font-serif);
